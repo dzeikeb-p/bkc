@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Google Charts Example</title>
+<title>BKC Charts</title>
 <!-- Load Google Charts library -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -16,7 +16,7 @@
   // Callback function to draw the chart.
   function drawChart() {
     // Load the data from Google Sheets
-    var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/12-O9FAq8oyOKADkyw7V0AD28HGKdE7Xv3CxuObo4uH0/edit?usp=sharing');
+    var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/12-O9FAq8oyOKADkyw7V0AD28HGKdE7Xv3CxuObo4uH0');
     
     // Send the query with a callback function
     query.send(handleQueryResponse);
