@@ -3,47 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BKC Charts</title>
-<!-- Load Google Charts library -->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  // Load the Visualization API and the corechart package.
-  google.charts.load('current', {'packages':['corechart']});
-
-  // Set a callback to run when the Google Visualization API is loaded.
-  google.charts.setOnLoadCallback(drawChart);
-
-  // Callback function to draw the chart.
-  function drawChart() {
-    // Load the data from Google Sheets
-    var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/12-O9FAq8oyOKADkyw7V0AD28HGKdE7Xv3CxuObo4uH0');
+<title>BKC Data</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    // URL of the proxy server (replace with your own)
+    var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     
-    // Send the query with a callback function
-    query.send(handleQueryResponse);
-  }
-
-  // Callback function to handle the response from the query
-  function handleQueryResponse(response) {
-    if (response.isError()) {
-      console.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-      return;
-    }
-
-    // Get all charts from the response
-    var charts = response.getChartWrapper();
-
-    // Loop through each chart and draw it
-    for (var i = 0; i < charts.length; i++) {
-      var chartWrapper = charts[i];
-      var chartDiv = document.createElement('div');
-      chartDiv.id = 'chart_div_' + i;
-      document.body.appendChild(chartDiv);
-      chartWrapper.setContainerId('chart_div_' + i);
-      chartWrapper.draw();
-    }
-  }
+    // Google Sheets API URL
+    var googleSheetUrl = 'https://docs.google.com/spreadsheets/d/12-O9FAq8oyOKADkyw7V0AD28HGKdE7Xv3CxuObo4uH0/edit?usp=sharing';
+    
+    // Fetch the data from Google Sheets using a proxy
+    $.ajax({
+        url: proxyUrl + googleSheetUrl,
+        success: function(data) {
+            // Parse the response data
+            var charts = $(data).find('iframe');
+            
+            // Display each chart on the webpage
+            charts.each(function(index, chart) {
+                $('#charts').append(chart);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching data from Google Sheets:', error);
+        }
+    });
+});
 </script>
 </head>
 <body>
+<!-- Container for charts -->
+<div id="charts"></div>
 </body>
 </html>
