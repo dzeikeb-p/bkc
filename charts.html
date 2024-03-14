@@ -3,47 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BKC</title>
-<!-- Load Google Charts library -->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  // Load the Visualization API and the corechart package.
-  google.charts.load('current', {'packages':['corechart']});
+<title>BKC Charts</title>
+<style>
+/* CSS for responsiveness */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
-  // Set a callback to run when the Google Visualization API is loaded.
-  google.charts.setOnLoadCallback(drawChart);
+.container {
+    max-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
-  // Callback function to draw the chart.
-  function drawChart() {
-    // Load the data from Google Sheets
-    var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/12-O9FAq8oyOKADkyw7V0AD28HGKdE7Xv3CxuObo4uH0');
-    
-    // Send the query with a callback function
-    query.send(handleQueryResponse);
-  }
-
-  // Callback function to handle the response from the query
-  function handleQueryResponse(response) {
-    if (response.isError()) {
-      console.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-      return;
-    }
-
-    // Get all charts from the response
-    var charts = response.getChartWrapper();
-
-    // Loop through each chart and draw it
-    for (var i = 0; i < charts.length; i++) {
-      var chartWrapper = charts[i];
-      var chartDiv = document.createElement('div');
-      chartDiv.id = 'chart_div_' + i;
-      document.body.appendChild(chartDiv);
-      chartWrapper.setContainerId('chart_div_' + i);
-      chartWrapper.draw();
-    }
-  }
-</script>
+.chart-container {
+    margin-bottom: 20px;
+}
+</style>
 </head>
 <body>
+<div class="container">
+    <!-- Chart containers will be dynamically added here -->
+</div>
+
+<script>
+// Google Sheets charts embed codes
+var chartEmbedCodes = [
+  '<iframe width="418" height="259" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=436012406&amp;format=interactive"></iframe>'
+    // Add more embed codes for additional charts as needed
+];
+
+// Function to render charts
+function renderCharts() {
+    var container = document.querySelector('.container');
+    chartEmbedCodes.forEach(function(embedCode) {
+        var chartContainer = document.createElement('div');
+        chartContainer.classList.add('chart-container');
+        chartContainer.innerHTML = embedCode;
+        container.appendChild(chartContainer);
+    });
+}
+
+// Call renderCharts function when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    renderCharts();
+});
+</script>
 </body>
 </html>
