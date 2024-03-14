@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Charts Example</title>
+<!-- Load Google Charts library -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  // Load the Visualization API and the corechart package.
+  google.charts.load('current', {'packages':['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Callback function to draw the chart.
+  function drawChart() {
+    // Load the data from Google Sheets
+    var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/12-O9FAq8oyOKADkyw7V0AD28HGKdE7Xv3CxuObo4uH0/edit?usp=sharing');
+    
+    // Send the query with a callback function
+    query.send(handleQueryResponse);
+  }
+
+  // Callback function to handle the response from the query
+  function handleQueryResponse(response) {
+    if (response.isError()) {
+      console.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+      return;
+    }
+
+    // Get all charts from the response
+    var charts = response.getChartWrapper();
+
+    // Loop through each chart and draw it
+    for (var i = 0; i < charts.length; i++) {
+      var chartWrapper = charts[i];
+      var chartDiv = document.createElement('div');
+      chartDiv.id = 'chart_div_' + i;
+      document.body.appendChild(chartDiv);
+      chartWrapper.setContainerId('chart_div_' + i);
+      chartWrapper.draw();
+    }
+  }
+</script>
+</head>
+<body>
+</body>
+</html>
