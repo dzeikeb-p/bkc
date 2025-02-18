@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brightline Kill Count</title>
     <link rel="icon" type="image/x-icon" href="/images/favi.ico">
-    <!-- Google tag (gtag.js) -->
+    
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQMK6ZV0Y"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -13,62 +14,58 @@
         gtag('js', new Date());
         gtag('config', 'G-JPQMK6ZV0Y');
     </script>
+    
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            text-align: center; /* Center align content */
+            text-align: center;
+            background-color: #f8f8f8;
         }
 
         .container {
-            max-width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 16px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .responsive {
             max-width: 100%;
             height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            padding: 16px;
-        }
-
-        /* New styles for the footer */
         .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background-color: #ffffff;
+            margin-top: 20px;
             padding: 16px;
+            background-color: #ffffff;
             text-align: center;
             font-size: 14px;
-        }
-
-        .counter-container {
-            display: inline-block;
-            background-color: #ffffff;
-            padding: 8px;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <img src="images/Untitled(1).png" alt="the train hath slain" class="responsive"><br>
-    <a href="https://brightlinekillcount.com/charts">
-        <img src="images/124.png" alt="124" class="responsive">
-    </a>
-</div><br><br><br>
- <div class="container">
-     <a href ="https://www.cbsnews.com/miami/news/bicyclist-dies-after-struck-by-brightline-train-and-thrown-under-car-in-pompano-beach/"
-        target="_blank">
-         <img src="images/latest-11-2-24.png" alt="Latest death 11/2/24" class="responsive"><br>
-     </a>
-</div>
+    <div class="container">
+        <img src="images/Untitled(1).png" alt="The train hath slain" class="responsive">
+        <a href="https://brightlinekillcount.com/charts">
+            <img src="images/124.png" alt="124" class="responsive">
+        </a>
+    </div>
+    
+    <div class="container">
+        <a href="https://www.cbsnews.com/miami/news/bicyclist-dies-after-struck-by-brightline-train-and-thrown-under-car-in-pompano-beach/" target="_blank">
+            <img src="images/latest-11-2-24.png" alt="Latest death 11/2/24" class="responsive">
+        </a>
+    </div>
+    
+    <div class="footer">
+        &copy; 2025 BKC. All rights reserved.
+    </div>
 </body>
 </html>
