@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BKC Charts</title>
-<style>
-/* CSS for responsiveness */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BKC Charts</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
 
-.container {
-    max-width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted */
-    gap: 20px;
-}
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 16px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
 
-.chart-container {
-    width: 100%;
-}
+        .chart-container {
+            width: 100%;
+            padding: 10px;
+        }
 
-/* Media queries for responsiveness */
-@media screen and (max-width: 768px) {
-    .container {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted */
-    }
-}
-</style>
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding: 16px;
+            background-color: #ffffff;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <!-- Chart containers will be dynamically added here -->
-</div>
+    <div class="container" id="charts"></div>
+    
+    <div class="footer">
+        &copy; 2025 Brightline Kill Count. All rights reserved.
+    </div>
+    
+    <script>
+        const chartEmbedCodes = [
+            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=436012406&format=interactive',
+            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=445477135&format=interactive',
+            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=6158882&format=interactive',
+            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=2119251524&format=interactive'
+        ];
 
-<script>
-// Google Sheets charts embed codes
-var chartEmbedCodes = [
-  '<iframe width="418" height="259" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=436012406&amp;format=interactive"></iframe>',
-  '<iframe width="418" height="259" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=445477135&amp;format=interactive"></iframe>',
-  '<iframe width="418" height="259" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=6158882&amp;format=interactive"></iframe>',
-  '<iframe width="418" height="259" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=2119251524&amp;format=interactive"></iframe>',  
-    // Add more embed codes for additional charts as needed
-];
+        function renderCharts() {
+            const container = document.getElementById('charts');
+            chartEmbedCodes.forEach(src => {
+                const chartContainer = document.createElement('div');
+                chartContainer.classList.add('chart-container');
+                const iframe = document.createElement('iframe');
+                iframe.src = src;
+                chartContainer.appendChild(iframe);
+                container.appendChild(chartContainer);
+            });
+        }
 
-// Function to render charts
-function renderCharts() {
-    var container = document.querySelector('.container');
-    chartEmbedCodes.forEach(function(embedCode) {
-        var chartContainer = document.createElement('div');
-        chartContainer.classList.add('chart-container');
-        chartContainer.innerHTML = embedCode;
-        container.appendChild(chartContainer);
-    });
-}
-
-// Call renderCharts function when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    renderCharts();
-});
-</script>
+        document.addEventListener('DOMContentLoaded', renderCharts);
+    </script>
 </body>
 </html>
