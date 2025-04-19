@@ -1,82 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BKC Charts</title>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BKC Charts</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #000000;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 16px;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
 
-        .chart-container {
-            width: 100%;
-            padding: 10px;
-        }
+    .theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 24px;
+      z-index: 1000;
+    }
 
-        iframe {
-            width: 100%;
-            height: 300px;
-            border: none;
-        }
+    .container {
+      max-width: 900px;
+      margin: 60px auto 20px;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      transition: background-color 0.3s;
+    }
 
-        .footer {
-            margin-top: 20px;
-            padding: 16px;
-            background-color: #ffffff;
-            text-align: center;
-            font-size: 14px;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    .dark-mode .container {
+      background: #1e1e1e;
+    }
+
+    .chart-container {
+      width: 100%;
+      padding: 10px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+
+    .footer {
+      margin-top: 20px;
+      padding: 16px;
+      background-color: #ffffff;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+
+    .dark-mode .footer {
+      background-color: #1e1e1e;
+    }
+  </style>
 </head>
 <body>
-    <div class="container" id="charts"></div>
-    
-    <div class="footer">
-        &copy; 2025 BKC. All rights reserved.
-    </div>
-    
-    <script>
-        const chartEmbedCodes = [
+  <div class="theme-toggle" onclick="toggleTheme()" id="theme-icon">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <div class="container" id="charts"></div>
+
+  <div class="footer">
+    &copy; 2025 BKC. All rights reserved.
+  </div>
+
+  <script>
+    const chartEmbedCodes = {
+      light: [
             'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=96860062&format=interactive',
             'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=920265073&format=interactive',
             'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1914041223&format=interactive',
             'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1240403970&format=interactive',
             'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=631697332&format=interactive',
             'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1890203864&format=interactive'
-        ];
+      ],
+      dark: [
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=929679461&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=433919609&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1927526790&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=99710291&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=99710291&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=99710291&format=interactive'
+      ]
+    };
 
-        function renderCharts() {
-            const container = document.getElementById('charts');
-            chartEmbedCodes.forEach(src => {
-                const chartContainer = document.createElement('div');
-                chartContainer.classList.add('chart-container');
-                const iframe = document.createElement('iframe');
-                iframe.src = src;
-                chartContainer.appendChild(iframe);
-                container.appendChild(chartContainer);
-            });
-        }
+    function renderCharts(theme = 'light') {
+      const container = document.getElementById('charts');
+      container.innerHTML = '';
+      chartEmbedCodes[theme].forEach(src => {
+        const chartContainer = document.createElement('div');
+        chartContainer.classList.add('chart-container');
+        const iframe = document.createElement('iframe');
+        iframe.src = src;
+        chartContainer.appendChild(iframe);
+        container.appendChild(chartContainer);
+      });
+    }
 
-        document.addEventListener('DOMContentLoaded', renderCharts);
-    </script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      document.getElementById('theme-icon').innerHTML = `<i class="fas fa-${isDark ? 'sun' : 'moon'}"></i>`;
+      renderCharts(isDark ? 'dark' : 'light');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('theme-icon').innerHTML = `<i class="fas fa-sun"></i>`;
+      }
+      renderCharts(savedTheme);
+    });
+  </script>
 </body>
 </html>
