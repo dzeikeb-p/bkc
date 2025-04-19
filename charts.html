@@ -133,6 +133,22 @@
       }
       renderCharts(savedTheme);
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('theme-icon').innerHTML = `<i class="fas fa-sun"></i>`;
+  }
+});
+
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  document.getElementById('theme-icon').innerHTML = `<i class="fas fa-${isDark ? 'sun' : 'moon'}"></i>`;
+}
   </script>
+  
 </body>
 </html>
