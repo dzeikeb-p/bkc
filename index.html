@@ -1,71 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Brightline Kill Count</title>
-    <link rel="icon" type="image/x-icon" href="/images/favi.ico">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQMK6ZV0Y"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-JPQMK6ZV0Y');
-    </script>
-    
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brightline Kill Count</title>
+  <link rel="icon" type="image/x-icon" href="/images/favi.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 16px;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQMK6ZV0Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JPQMK6ZV0Y');
+  </script>
 
-        .responsive {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #ffffff;
+      color: #000000;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-        .footer {
-            margin-top: 20px;
-            padding: 16px;
-            background-color: #ffffff;
-            text-align: center;
-            font-size: 14px;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+
+    body.dark-mode .container {
+      background: #1e1e1e;
+    }
+
+    .responsive {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .footer {
+      margin-top: 20px;
+      padding: 16px;
+      background-color: #ffffff;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+
+    body.dark-mode .footer {
+      background-color: #1e1e1e;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="images/Untitled(1).png" alt="The train hath slain" class="responsive">
-        <a href="https://brightlinekillcount.com/charts">
-            <img src="images/135.png" alt="135" class="responsive">
-        </a>
-    </div>
-    
-    <div class="container">
-        <a href="https://www.palmbeachpost.com/story/news/local/2025/03/28/1-dead-after-brightline-train-crash-in-downtown-fort-pierce/82706376007/" target="_blank">
-            <img src="images/latest_3-27-25.png" alt="Latest death 3/27/25" class="responsive">
-        </a>
-    </div>
-    
-    <div class="footer">
-        &copy; 2025 BKC. All rights reserved.
-    </div>
+  <div class="theme-toggle" onclick="toggleTheme()" id="theme-icon">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <div class="container">
+    <img src="images/Untitled(1).png" alt="The train hath slain" class="responsive" />
+    <a href="https://brightlinekillcount.com/charts">
+      <img src="images/135.png" alt="135" class="responsive" />
+    </a>
+  </div>
+
+  <div class="container">
+    <a href="https://www.palmbeachpost.com/story/news/local/2025/03/28/1-dead-after-brightline-train-crash-in-downtown-fort-pierce/82706376007/" target="_blank">
+      <img src="images/latest_3-27-25.png" alt="Latest death 3/27/25" class="responsive" />
+    </a>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 BKC. All rights reserved.
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      document.getElementById('theme-icon').innerHTML = `<i class="fas fa-${isDark ? 'sun' : 'moon'}"></i>`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('theme-icon').innerHTML = `<i class="fas fa-sun"></i>`;
+      }
+    });
+  </script>
 </body>
 </html>
