@@ -2,37 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BKC Charts</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       background-color: #ffffff;
-      color: #000000;
+      color: #000;
       text-align: center;
       transition: background-color 0.3s, color 0.3s;
     }
 
-    body.dark-mode {
-      background-color: #121212;
-      color: #ffffff;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 24px;
-      z-index: 1000;
+    body.dark {
+      background-color: #111;
+      color: #fff;
     }
 
     .container {
       max-width: 900px;
-      margin: 60px auto 20px;
+      margin: 20px auto;
       padding: 16px;
       background: #ffffff;
       border-radius: 8px;
@@ -40,11 +32,11 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
-      transition: background-color 0.3s;
+      transition: background 0.3s;
     }
 
-    .dark-mode .container {
-      background: #1e1e1e;
+    body.dark .container {
+      background: #222;
     }
 
     .chart-container {
@@ -68,14 +60,53 @@
       transition: background-color 0.3s;
     }
 
-    .dark-mode .footer {
-      background-color: #1e1e1e;
+    body.dark .footer {
+      background-color: #222;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      cursor: pointer;
+      z-index: 1001;
+      font-size: 20px;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-in forwards;
+    }
+
+    .back-home {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      font-size: 22px;
+      color: inherit;
+      text-decoration: none;
+      z-index: 1001;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-in forwards;
+    }
+
+    .back-home:hover {
+      color: #fbc02d;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="theme-toggle" onclick="toggleTheme()" id="theme-icon">
-    <i class="fas fa-moon"></i>
+  <!-- Back to homepage icon -->
+  <a href="/" class="back-home" title="Back to home">
+    <i class="fa-solid fa-left-long"></i>
+  </a>
+
+  <!-- Theme toggle icon -->
+  <div class="theme-toggle" id="themeToggle" title="Toggle theme">
+    <i class="fa-solid fa-moon" id="themeIcon"></i>
   </div>
 
   <div class="container" id="charts"></div>
@@ -87,12 +118,11 @@
   <script>
     const chartEmbedCodes = {
       light: [
-            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=96860062&format=interactive',
-            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=920265073&format=interactive',
-            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1914041223&format=interactive',
-            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1240403970&format=interactive',
-            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=631697332&format=interactive',
-            'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1890203864&format=interactive'
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=436012406&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=445477135&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=6158882&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=2119251524&format=interactive',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=593448306&format=interactive'
       ],
       dark: [
         'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=929679461&format=interactive',
@@ -104,7 +134,7 @@
       ]
     };
 
-    function renderCharts(theme = 'light') {
+    function renderCharts(theme) {
       const container = document.getElementById('charts');
       container.innerHTML = '';
       chartEmbedCodes[theme].forEach(src => {
@@ -117,38 +147,25 @@
       });
     }
 
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      document.getElementById('theme-icon').innerHTML = `<i class="fas fa-${isDark ? 'sun' : 'moon'}"></i>`;
-      renderCharts(isDark ? 'dark' : 'light');
+    function setTheme(theme) {
+      document.body.classList.toggle('dark', theme === 'dark');
+      localStorage.setItem('theme', theme);
+      document.getElementById('themeIcon').className =
+        theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      renderCharts(theme);
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('theme-icon').innerHTML = `<i class="fas fa-sun"></i>`;
-      }
-      renderCharts(savedTheme);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
     });
 
+    // Init on load
     document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-    document.getElementById('theme-icon').innerHTML = `<i class="fas fa-sun"></i>`;
-  }
-});
-
-function toggleTheme() {
-  document.body.classList.toggle('dark-mode');
-  const isDark = document.body.classList.contains('dark-mode');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  document.getElementById('theme-icon').innerHTML = `<i class="fas fa-${isDark ? 'sun' : 'moon'}"></i>`;
-}
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      setTheme(savedTheme);
+    });
   </script>
-  
 </body>
 </html>
