@@ -17,6 +17,20 @@
   </script>
 
   <style>
+    @font-face {
+      font-family: 'LCDMono2';
+      src: url('fonts/LCDM2U__.TTF') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'CiutadellaMediumItalic';
+      src: url('fonts/Ciutadella Medium Italic.ttf') format('truetype');
+      font-weight: 500;
+      font-style: italic;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -62,6 +76,41 @@
       margin: 0 auto;
     }
 
+    .death-count {
+      font-family: 'LCDMono2', monospace;
+      font-size: 200px;
+      color: #ec1111;
+      line-height: 1;
+      margin: 20px 0;
+      text-decoration: none;
+      display: block;
+    }
+
+    .death-count:hover {
+      opacity: 0.8;
+    }
+
+    .latest-death {
+      font-family: 'LCDMono2', monospace;
+      font-size: 48px;
+      color: #ec1111;
+      text-decoration: none;
+      display: block;
+      margin: 20px 0;
+    }
+
+    .latest-death:hover {
+      opacity: 0.8;
+    }
+
+    .latest-label {
+      font-family: 'CiutadellaMediumItalic', sans-serif;
+      font-size: 32px;
+      font-style: italic;
+      color: inherit;
+      margin-bottom: 10px;
+    }
+
     .footer {
       margin-top: 20px;
       padding: 16px;
@@ -84,15 +133,12 @@
 
   <div class="container">
     <img src="images/Untitled(1).png" alt="The train hath slain" class="responsive" />
-    <a href="https://brightlinekillcount.com/charts">
-      <img src="images/196.png" alt="196" class="responsive" />
-    </a>
+    <a href="https://brightlinekillcount.com/charts" class="death-count" id="death-count">--</a>
   </div>
 
   <div class="container">
-    <a href="https://www.miamiherald.com/news/local/article312902998.html" target="_blank">
-      <img src="images/latest_12-21-25.png" alt="Latest death 12/21/25" class="responsive" />
-    </a>
+    <img src="images/latest_death.png" alt="Latest death" class="responsive" />
+    <a href="#" target="_blank" class="latest-death" id="latest-death">Loading...</a>
   </div>
 
   <div class="footer">
@@ -100,11 +146,93 @@
   </div>
 
   <script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pub?gid=0&single=true&output=csv';
+
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
       document.getElementById('theme-icon').innerHTML = `<i class="fas fa-${isDark ? 'sun' : 'moon'}"></i>`;
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let field = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && nextChar === '"') {
+            field += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          row.push(field.trim());
+          field = '';
+        } else if ((char === '\n' || (char === '\r' && nextChar === '\n')) && !inQuotes) {
+          if (char === '\r') i++;
+          row.push(field.trim());
+          if (row.length > 1 || row[0] !== '') {
+            rows.push(row);
+          }
+          row = [];
+          field = '';
+        } else if (char !== '\r') {
+          field += char;
+        }
+      }
+      if (field || row.length > 0) {
+        row.push(field.trim());
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    function isValidDate(str) {
+      return /^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(str);
+    }
+
+    function formatDate(dateStr) {
+      const parts = dateStr.split('/');
+      if (parts.length === 3) {
+        const month = parts[0];
+        const day = parts[1];
+        const year = parts[2].slice(-2);
+        return `${month}/${day}/${year}`;
+      }
+      return dateStr;
+    }
+
+    async function fetchData() {
+      try {
+        const response = await fetch(CSV_URL);
+        const text = await response.text();
+        const rows = parseCSV(text);
+
+        // Count data rows (excluding header, only rows with valid dates)
+        const dataRows = rows.slice(1).filter(row => row[0] && isValidDate(row[0]));
+        const count = dataRows.length;
+
+        // Get first data row (most recent, since sorted newest-first)
+        const latestRow = dataRows[0];
+        const latestDate = latestRow[0]; // Date is column 0
+        const latestSource = latestRow[14]; // Source is column 14
+
+        // Update the page
+        document.getElementById('death-count').textContent = count;
+        document.getElementById('latest-death').textContent = formatDate(latestDate);
+        document.getElementById('latest-death').href = latestSource;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('death-count').textContent = '?';
+        document.getElementById('latest-death').textContent = 'Error loading';
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -113,6 +241,8 @@
         document.body.classList.add('dark-mode');
         document.getElementById('theme-icon').innerHTML = `<i class="fas fa-sun"></i>`;
       }
+
+      fetchData();
     });
   </script>
 </body>
