@@ -1,0 +1,14 @@
+name: Claude Code Integration
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  claude:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: anthropic/claude-code-action@v1
+        with:
+          api_key: ${{ secrets.CLAUDE_API_KEY }}
+          comment_id: ${{ github.event.comment.id }}
+          repo: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
