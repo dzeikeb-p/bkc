@@ -1,0 +1,20 @@
+# Google Sheets API
+gspread>=6.1.2
+google-auth>=2.29.0
+
+# News scraping and parsing
+newspaper4k>=0.9.3
+trafilatura>=1.12.0
+feedparser>=6.0.11
+requests>=2.31.0
+
+# Date parsing
+python-dateutil>=2.9.0
+dateparser>=1.2.0
+
+# LLM for structured extraction
+anthropic>=0.34.0
+
+# Fuzzy string matching
+fuzzywuzzy>=0.18.0
+python-Levenshtein>=0.25.0

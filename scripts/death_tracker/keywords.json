@@ -1,0 +1,38 @@
+{
+  "required_keywords": ["brightline"],
+  "incident_keywords": [
+    "death",
+    "died",
+    "killed",
+    "fatal",
+    "fatality",
+    "struck",
+    "hit",
+    "collision",
+    "crash",
+    "accident",
+    "pedestrian",
+    "vehicle",
+    "car",
+    "driver",
+    "victim",
+    "deceased",
+    "body",
+    "coroner",
+    "medical examiner"
+  ],
+  "exclusion_keywords": [
+    "stock",
+    "shares",
+    "investor",
+    "quarterly",
+    "earnings",
+    "expansion",
+    "schedule",
+    "tickets",
+    "discount",
+    "promotion",
+    "grand opening",
+    "ribbon cutting"
+  ]
+}

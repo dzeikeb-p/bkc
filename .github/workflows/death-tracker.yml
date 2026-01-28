@@ -1,0 +1,48 @@
+name: Brightline Death Tracker
+
+on:
+  schedule:
+    # Run every 4 hours at minute 15
+    - cron: '15 */4 * * *'
+  workflow_dispatch:
+    inputs:
+      force_fra_check:
+        description: 'Force FRA database check (normally runs weekly on Mondays)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  track-deaths:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run death tracker
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          FORCE_FRA_CHECK: ${{ github.event.inputs.force_fra_check || 'false' }}
+        run: |
+          cd scripts/death_tracker
+          python main.py
