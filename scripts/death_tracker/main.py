@@ -288,12 +288,6 @@ def main():
     print("\nInitializing components...")
     sheets_manager = SheetsManager(google_creds, spreadsheet_id)
 
-    # Ensure Status column exists
-    if sheets_manager.ensure_status_column():
-        print("Added Status column to sheet")
-        sheets_manager.mark_existing_approved()
-        print("Marked existing records as Approved")
-
     news_searcher = NewsSearcher()
     keyword_filter = KeywordFilter()
     article_parser = ArticleParser()

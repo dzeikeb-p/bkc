@@ -34,26 +34,27 @@ FL_LOCAL_RSS_FEEDS = [
 ]
 
 # Column mapping for Google Sheet (0-indexed)
+# Status is column B (index 1), all other columns shifted accordingly
 COLUMNS = {
     "Date": 0,
-    "DOT Incident #": 1,
-    "Full Location": 2,
-    "Location": 3,  # City
-    "Name": 4,
-    "Year": 5,
-    "Time": 6,
-    "Age": 7,
-    "Gender": 8,
-    "Mode": 9,
-    "Details": 10,
-    "Suicide?": 11,
-    "DOT Match?": 12,
-    "News Source?": 13,
-    "Source": 14,
-    "Lat": 15,
-    "Lon": 16,
-    "Google Map": 17,
-    "Status": 18,
+    "Status": 1,
+    "DOT Incident #": 2,
+    "Full Location": 3,
+    "Location": 4,  # City
+    "Name": 5,
+    "Year": 6,
+    "Time": 7,
+    "Age": 8,
+    "Gender": 9,
+    "Mode": 10,
+    "Details": 11,
+    "Suicide?": 12,
+    "DOT Match?": 13,
+    "News Source?": 14,
+    "Source": 15,
+    "Lat": 16,
+    "Lon": 17,
+    "Google Map": 18,
 }
 
 # Valid values for enumerated fields
