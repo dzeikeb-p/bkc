@@ -78,6 +78,8 @@ class SheetsManager:
         """
         Update the Source column with additional URLs.
 
+        Uses batch update to avoid rate limiting.
+
         Args:
             row_number: The row number to update (1-indexed)
             new_sources: List of source URLs to add
@@ -88,11 +90,13 @@ class SheetsManager:
 
         # Merge and deduplicate sources
         all_sources = list(dict.fromkeys(current_sources + new_sources))
-        self.worksheet.update_cell(row_number, source_col, ", ".join(all_sources))
 
-        # Also mark News Source? as Yes
-        news_source_col = COLUMNS["News Source?"] + 1
-        self.worksheet.update_cell(row_number, news_source_col, "Yes")
+        # Batch update both cells
+        cells_to_update = [
+            gspread.Cell(row=row_number, col=source_col, value=", ".join(all_sources)),
+            gspread.Cell(row=row_number, col=COLUMNS["News Source?"] + 1, value="Yes"),
+        ]
+        self.worksheet.update_cells(cells_to_update)
 
     def update_dot_info(
         self, row_number: int, dot_incident_num: str, lat: float, lon: float
@@ -100,47 +104,56 @@ class SheetsManager:
         """
         Update DOT information for an existing record.
 
+        Uses batch update to avoid rate limiting.
+
         Args:
             row_number: The row number to update (1-indexed)
             dot_incident_num: DOT incident number
             lat: Latitude coordinate
             lon: Longitude coordinate
         """
-        updates = [
-            (row_number, COLUMNS["DOT Incident #"] + 1, dot_incident_num),
-            (row_number, COLUMNS["DOT Match?"] + 1, "Yes"),
-            (row_number, COLUMNS["Lat"] + 1, str(lat) if lat else ""),
-            (row_number, COLUMNS["Lon"] + 1, str(lon) if lon else ""),
+        cells_to_update = [
+            gspread.Cell(row=row_number, col=COLUMNS["DOT Incident #"] + 1, value=dot_incident_num),
+            gspread.Cell(row=row_number, col=COLUMNS["DOT Match?"] + 1, value="Yes"),
+            gspread.Cell(row=row_number, col=COLUMNS["Lat"] + 1, value=str(lat) if lat else ""),
+            gspread.Cell(row=row_number, col=COLUMNS["Lon"] + 1, value=str(lon) if lon else ""),
         ]
 
-        for row, col, value in updates:
-            self.worksheet.update_cell(row, col, value)
-
-        # Update Google Map link if we have coordinates
+        # Add Google Map link if we have coordinates
         if lat and lon:
             maps_url = f"https://www.google.com/maps?q={lat},{lon}"
-            self.worksheet.update_cell(
-                row_number, COLUMNS["Google Map"] + 1, maps_url
+            cells_to_update.append(
+                gspread.Cell(row=row_number, col=COLUMNS["Google Map"] + 1, value=maps_url)
             )
+
+        self.worksheet.update_cells(cells_to_update)
 
     def mark_existing_approved(self) -> int:
         """
         Mark all existing records without a Status as 'Approved'.
+
+        Uses batch update to avoid rate limiting.
 
         Returns:
             Number of records updated
         """
         status_col = COLUMNS["Status"] + 1
         all_values = self.worksheet.get_all_values()
-        updated_count = 0
 
+        # Collect all cells that need updating
+        cells_to_update = []
         for i, row in enumerate(all_values[1:], start=2):  # Skip header
             # Check if Status column exists and is empty
             if len(row) <= COLUMNS["Status"] or not row[COLUMNS["Status"]]:
-                self.worksheet.update_cell(i, status_col, "Approved")
-                updated_count += 1
+                cells_to_update.append(
+                    gspread.Cell(row=i, col=status_col, value="Approved")
+                )
 
-        return updated_count
+        # Batch update all cells at once
+        if cells_to_update:
+            self.worksheet.update_cells(cells_to_update)
+
+        return len(cells_to_update)
 
     def ensure_status_column(self) -> bool:
         """
