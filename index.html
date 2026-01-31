@@ -31,6 +31,10 @@
       font-style: italic;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -46,14 +50,27 @@
       color: #ffffff;
     }
 
+    .header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+
+    body.dark-mode .header {
+      background: #1e1e1e;
+    }
+
     .nav-links {
-      position: fixed;
-      top: 10px;
-      left: 10px;
       display: flex;
       gap: 20px;
       align-items: center;
-      z-index: 1000;
     }
 
     .nav-links a {
@@ -67,12 +84,8 @@
     }
 
     .theme-toggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      font-size: 24px;
+      font-size: 20px;
       cursor: pointer;
-      z-index: 1000;
     }
 
     .container {
@@ -147,15 +160,16 @@
   </style>
 </head>
 <body>
-  <div class="nav-links">
-    <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
-    <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
-    <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
-    <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
-  </div>
-
-  <div class="theme-toggle" onclick="toggleTheme()" id="theme-icon">
-    <i class="fas fa-moon"></i>
+  <div class="header">
+    <div class="nav-links">
+      <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
+      <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
+      <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
+      <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
+    </div>
+    <div class="theme-toggle" onclick="toggleTheme()" id="theme-icon">
+      <i class="fas fa-moon"></i>
+    </div>
   </div>
 
   <div class="container">
