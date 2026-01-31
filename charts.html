@@ -84,20 +84,26 @@
       animation: fadeIn 0.6s ease-in forwards;
     }
 
-    .back-home {
+    .nav-links {
       position: fixed;
       top: 16px;
       left: 16px;
-      font-size: 22px;
-      color: inherit;
-      text-decoration: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
       z-index: 1001;
       opacity: 0;
       animation: fadeIn 0.6s ease-in forwards;
     }
 
-    .back-home:hover {
-      color: #fbc02d;
+    .nav-links a {
+      color: inherit;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .nav-links a:hover {
+      color: #ec1111;
     }
 
     @keyframes fadeIn {
@@ -108,10 +114,12 @@
   </style>
 </head>
 <body>
-  <!-- Back to homepage icon -->
-  <a href="/" class="back-home" title="Back to home">
-    <i class="fa-solid fa-left-long"></i>
-  </a>
+  <div class="nav-links">
+    <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
+    <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
+    <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
+    <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
+  </div>
 
   <!-- Theme toggle icon -->
   <div class="theme-toggle" id="themeToggle" title="Toggle theme">
@@ -121,7 +129,7 @@
   <div class="container" id="charts"></div>
 
   <div class="footer">
-    &copy; 2025 BKC. All rights reserved.
+    &copy; 2026 BKC. All rights reserved.
   </div>
 
   <script>

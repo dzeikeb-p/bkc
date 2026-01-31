@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BKC Map</title>
+  <link rel="icon" type="image/x-icon" href="/images/favi.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQMK6ZV0Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JPQMK6ZV0Y');
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'LCDMono2';
+      src: url('/fonts/LCDM2U__.TTF') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'CiutadellaMediumItalic';
+      src: url('/fonts/Ciutadella Medium Italic.ttf') format('truetype');
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #000;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: #121212;
+      color: #fff;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s;
+    }
+
+    body.dark .header {
+      background: #1e1e1e;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: inherit;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .nav-links a:hover {
+      color: #ec1111;
+    }
+
+    .header-title {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 24px;
+      color: #ec1111;
+      font-weight: bold;
+    }
+
+    .theme-toggle {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .filters-container {
+      padding: 15px 20px;
+      background: #f5f5f5;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+      transition: background 0.3s;
+    }
+
+    body.dark .filters-container {
+      background: #1e1e1e;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .filter-group label {
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .filter-group select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      min-width: 140px;
+      background: #fff;
+      color: #000;
+    }
+
+    body.dark .filter-group select {
+      background: #333;
+      color: #fff;
+      border-color: #555;
+    }
+
+    .filter-stats {
+      margin-left: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 18px;
+      color: #ec1111;
+      font-weight: bold;
+    }
+
+    .clear-filters {
+      padding: 8px 16px;
+      background: #ec1111;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .clear-filters:hover {
+      background: #c00;
+    }
+
+    #map {
+      height: calc(100vh - 160px);
+      width: 100%;
+    }
+
+    .filter-toggle {
+      display: none;
+      padding: 8px 16px;
+      background: #ec1111;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 10px 20px;
+    }
+
+    .filter-toggle i {
+      margin-right: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .filter-toggle {
+        display: block;
+      }
+
+      .filters-container {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 20px;
+      }
+
+      .filters-container.expanded {
+        display: flex;
+      }
+
+      .filter-group {
+        width: 100%;
+      }
+
+      .filter-group select {
+        width: 100%;
+      }
+
+      .filter-stats {
+        margin-left: 0;
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      .clear-filters {
+        width: 100%;
+        margin-top: 5px;
+      }
+
+      #map {
+        height: calc(100vh - 110px);
+      }
+
+      .filters-container.expanded + #map {
+        height: calc(100vh - 360px);
+      }
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 8px;
+    }
+
+    .popup-content {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .popup-content h3 {
+      margin: 0 0 8px 0;
+      color: #ec1111;
+      font-size: 16px;
+    }
+
+    .popup-content p {
+      margin: 4px 0;
+      font-size: 13px;
+    }
+
+    .popup-content .label {
+      font-weight: bold;
+    }
+
+    .popup-content a {
+      color: #ec1111;
+    }
+
+    .footer {
+      padding: 12px;
+      background-color: #ffffff;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+
+    body.dark .footer {
+      background-color: #1e1e1e;
+    }
+
+    @media (max-width: 768px) {
+      .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-stats {
+        margin-left: 0;
+        text-align: center;
+      }
+
+      #map {
+        height: calc(100vh - 280px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="nav-links">
+      <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
+      <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
+      <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
+    </div>
+    <div class="header-title">INCIDENT MAP</div>
+    <div class="theme-toggle" id="themeToggle" title="Toggle theme">
+      <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </div>
+  </div>
+
+  <button class="filter-toggle" id="filterToggle" onclick="toggleFilters()">
+    <i class="fa-solid fa-filter"></i> <span id="filterToggleText">Show Filters</span>
+  </button>
+
+  <div class="filters-container" id="filtersContainer">
+    <div class="filter-group">
+      <label>Year</label>
+      <select id="filter-year">
+        <option value="">All Years</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>City</label>
+      <select id="filter-city">
+        <option value="">All Cities</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Mode</label>
+      <select id="filter-mode">
+        <option value="">All Modes</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Gender</label>
+      <select id="filter-gender">
+        <option value="">All</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Suicide?</label>
+      <select id="filter-suicide">
+        <option value="">All</option>
+      </select>
+    </div>
+    <button class="clear-filters" onclick="clearFilters()">Clear Filters</button>
+    <div class="filter-stats">
+      Showing: <span id="visible-count">0</span> / <span id="total-count">0</span>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <div class="footer">
+    &copy; 2026 BKC. All rights reserved.
+  </div>
+
+  <script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pub?gid=0&single=true&output=csv';
+
+    // Column indices (0-indexed) based on your sheet structure
+    const COLUMNS = {
+      Date: 0,
+      Status: 1,
+      DOT: 2,
+      FullLocation: 3,
+      Location: 4,
+      Name: 5,
+      Year: 6,
+      Time: 7,
+      Age: 8,
+      Gender: 9,
+      Mode: 10,
+      Details: 11,
+      Suicide: 12,
+      DOTMatch: 13,
+      NewsSource: 14,
+      Source: 15,
+      Lat: 16,
+      Lon: 17,
+      GoogleMap: 18
+    };
+
+    let map;
+    let markers = [];
+    let allRecords = [];
+    let markerCluster;
+
+    // Initialize map
+    function initMap() {
+      map = L.map('map').setView([26.7, -80.1], 9);
+
+      // Light/dark tile layers
+      const lightTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      });
+
+      const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap contributors © CARTO'
+      });
+
+      window.tileLayers = { light: lightTiles, dark: darkTiles };
+
+      const isDark = document.body.classList.contains('dark');
+      (isDark ? darkTiles : lightTiles).addTo(map);
+    }
+
+    // Parse CSV
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let field = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && nextChar === '"') {
+            field += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          row.push(field.trim());
+          field = '';
+        } else if ((char === '\n' || (char === '\r' && nextChar === '\n')) && !inQuotes) {
+          if (char === '\r') i++;
+          row.push(field.trim());
+          if (row.length > 1 || row[0] !== '') {
+            rows.push(row);
+          }
+          row = [];
+          field = '';
+        } else if (char !== '\r') {
+          field += char;
+        }
+      }
+      if (field || row.length > 0) {
+        row.push(field.trim());
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    // Fetch and process data
+    async function fetchData() {
+      try {
+        const response = await fetch(CSV_URL);
+        const text = await response.text();
+        const rows = parseCSV(text);
+
+        // Skip header, process data rows
+        allRecords = rows.slice(1).map(row => {
+          // Pad row if needed
+          while (row.length <= COLUMNS.GoogleMap) row.push('');
+
+          return {
+            date: row[COLUMNS.Date] || '',
+            fullLocation: row[COLUMNS.FullLocation] || '',
+            location: row[COLUMNS.Location] || '',
+            name: row[COLUMNS.Name] || 'Unknown',
+            year: row[COLUMNS.Year] || '',
+            age: row[COLUMNS.Age] || '',
+            gender: row[COLUMNS.Gender] || '',
+            mode: row[COLUMNS.Mode] || '',
+            details: row[COLUMNS.Details] || '',
+            suicide: row[COLUMNS.Suicide] || '',
+            source: row[COLUMNS.Source] || '',
+            lat: parseFloat(row[COLUMNS.Lat]) || null,
+            lon: parseFloat(row[COLUMNS.Lon]) || null,
+          };
+        }).filter(r => r.lat && r.lon);
+
+        // Populate filter dropdowns
+        populateFilters();
+
+        // Apply URL params if present
+        applyUrlParams();
+
+        // Render markers
+        renderMarkers();
+
+        document.getElementById('total-count').textContent = allRecords.length;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    // Populate filter dropdowns
+    function populateFilters() {
+      const years = [...new Set(allRecords.map(r => r.year).filter(Boolean))].sort().reverse();
+      const cities = [...new Set(allRecords.map(r => r.location).filter(Boolean))].sort();
+      const modes = [...new Set(allRecords.map(r => r.mode).filter(Boolean))].sort();
+      const genders = [...new Set(allRecords.map(r => r.gender).filter(Boolean))].sort();
+      const suicides = [...new Set(allRecords.map(r => r.suicide).filter(Boolean))].sort();
+
+      populateSelect('filter-year', years);
+      populateSelect('filter-city', cities);
+      populateSelect('filter-mode', modes);
+      populateSelect('filter-gender', genders);
+      populateSelect('filter-suicide', suicides);
+    }
+
+    function populateSelect(id, values) {
+      const select = document.getElementById(id);
+      const currentValue = select.value;
+      const firstOption = select.options[0].outerHTML;
+      select.innerHTML = firstOption;
+      values.forEach(val => {
+        const option = document.createElement('option');
+        option.value = val;
+        option.textContent = val;
+        select.appendChild(option);
+      });
+      select.value = currentValue;
+    }
+
+    // Get current filters
+    function getFilters() {
+      return {
+        year: document.getElementById('filter-year').value,
+        city: document.getElementById('filter-city').value,
+        mode: document.getElementById('filter-mode').value,
+        gender: document.getElementById('filter-gender').value,
+        suicide: document.getElementById('filter-suicide').value,
+      };
+    }
+
+    // Filter records
+    function filterRecords() {
+      const filters = getFilters();
+      return allRecords.filter(r => {
+        if (filters.year && r.year !== filters.year) return false;
+        if (filters.city && r.location !== filters.city) return false;
+        if (filters.mode && r.mode !== filters.mode) return false;
+        if (filters.gender && r.gender !== filters.gender) return false;
+        if (filters.suicide && r.suicide !== filters.suicide) return false;
+        return true;
+      });
+    }
+
+    // Render markers
+    function renderMarkers() {
+      // Clear existing markers
+      markers.forEach(m => map.removeLayer(m));
+      markers = [];
+
+      const filtered = filterRecords();
+
+      filtered.forEach(record => {
+        const marker = L.circleMarker([record.lat, record.lon], {
+          radius: 8,
+          fillColor: '#ec1111',
+          color: '#fff',
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.8
+        });
+
+        // Build popup content
+        let popupHtml = `<div class="popup-content">`;
+        popupHtml += `<h3>${escapeHtml(record.name)}</h3>`;
+        popupHtml += `<p><span class="label">Date:</span> ${escapeHtml(record.date)}</p>`;
+        if (record.age) popupHtml += `<p><span class="label">Age:</span> ${escapeHtml(record.age)}</p>`;
+        if (record.gender) popupHtml += `<p><span class="label">Gender:</span> ${escapeHtml(record.gender)}</p>`;
+        if (record.mode) popupHtml += `<p><span class="label">Mode:</span> ${escapeHtml(record.mode)}</p>`;
+        if (record.location) popupHtml += `<p><span class="label">City:</span> ${escapeHtml(record.location)}</p>`;
+        if (record.fullLocation) popupHtml += `<p><span class="label">Location:</span> ${escapeHtml(record.fullLocation)}</p>`;
+        if (record.details) popupHtml += `<p><span class="label">Details:</span> ${escapeHtml(record.details)}</p>`;
+        if (record.suicide) popupHtml += `<p><span class="label">Suicide:</span> ${escapeHtml(record.suicide)}</p>`;
+        if (record.source) {
+          const sources = record.source.split(',').map(s => s.trim()).filter(Boolean);
+          if (sources.length > 0) {
+            popupHtml += `<p><span class="label">Source:</span> <a href="${escapeHtml(sources[0])}" target="_blank">View Article</a></p>`;
+          }
+        }
+        popupHtml += `</div>`;
+
+        marker.bindPopup(popupHtml);
+        marker.addTo(map);
+        markers.push(marker);
+      });
+
+      document.getElementById('visible-count').textContent = filtered.length;
+
+      // Fit bounds if we have markers
+      if (markers.length > 0) {
+        const group = L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.1));
+      }
+
+      // Update URL
+      updateUrl();
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // URL parameter handling
+    function applyUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+
+      if (params.has('year')) document.getElementById('filter-year').value = params.get('year');
+      if (params.has('city')) document.getElementById('filter-city').value = params.get('city');
+      if (params.has('mode')) document.getElementById('filter-mode').value = params.get('mode');
+      if (params.has('gender')) document.getElementById('filter-gender').value = params.get('gender');
+      if (params.has('suicide')) document.getElementById('filter-suicide').value = params.get('suicide');
+    }
+
+    function updateUrl() {
+      const filters = getFilters();
+      const params = new URLSearchParams();
+
+      if (filters.year) params.set('year', filters.year);
+      if (filters.city) params.set('city', filters.city);
+      if (filters.mode) params.set('mode', filters.mode);
+      if (filters.gender) params.set('gender', filters.gender);
+      if (filters.suicide) params.set('suicide', filters.suicide);
+
+      const newUrl = params.toString() ? `${window.location.pathname}?${params}` : window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    function clearFilters() {
+      document.getElementById('filter-year').value = '';
+      document.getElementById('filter-city').value = '';
+      document.getElementById('filter-mode').value = '';
+      document.getElementById('filter-gender').value = '';
+      document.getElementById('filter-suicide').value = '';
+      renderMarkers();
+    }
+
+    // Theme handling
+    function setTheme(theme) {
+      document.body.classList.toggle('dark', theme === 'dark');
+      localStorage.setItem('theme', theme);
+      document.getElementById('themeIcon').className =
+        theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+
+      // Switch map tiles
+      if (window.tileLayers) {
+        if (theme === 'dark') {
+          map.removeLayer(window.tileLayers.light);
+          window.tileLayers.dark.addTo(map);
+        } else {
+          map.removeLayer(window.tileLayers.dark);
+          window.tileLayers.light.addTo(map);
+        }
+      }
+    }
+
+    // Event listeners
+    function toggleFilters() {
+      const container = document.getElementById('filtersContainer');
+      const toggleText = document.getElementById('filterToggleText');
+      container.classList.toggle('expanded');
+      toggleText.textContent = container.classList.contains('expanded') ? 'Hide Filters' : 'Show Filters';
+    }
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    document.querySelectorAll('.filter-group select').forEach(select => {
+      select.addEventListener('change', renderMarkers);
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+      }
+
+      initMap();
+      setTheme(savedTheme);
+      fetchData();
+    });
+  </script>
+</body>
+</html>

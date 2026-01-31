@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BKC Data</title>
+  <link rel="icon" type="image/x-icon" href="/images/favi.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQMK6ZV0Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JPQMK6ZV0Y');
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'LCDMono2';
+      src: url('/fonts/LCDM2U__.TTF') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000;
+      transition: background-color 0.3s, color 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.dark {
+      background-color: #121212;
+      color: #fff;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+
+    body.dark .header {
+      background: #1e1e1e;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: inherit;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .nav-links a:hover {
+      color: #ec1111;
+    }
+
+    .header-title {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 24px;
+      color: #ec1111;
+      font-weight: bold;
+    }
+
+    .theme-toggle {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .controls-container {
+      padding: 15px 20px;
+      background: #f5f5f5;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+
+    body.dark .controls-container {
+      background: #1e1e1e;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      background: #fff;
+      color: #000;
+    }
+
+    body.dark .search-box input {
+      background: #333;
+      color: #fff;
+      border-color: #555;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .filter-group label {
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .filter-group select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      min-width: 120px;
+      background: #fff;
+      color: #000;
+    }
+
+    body.dark .filter-group select {
+      background: #333;
+      color: #fff;
+      border-color: #555;
+    }
+
+    .stats {
+      margin-left: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      color: #ec1111;
+      font-weight: bold;
+    }
+
+    .clear-btn {
+      padding: 8px 16px;
+      background: #ec1111;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .clear-btn:hover {
+      background: #c00;
+    }
+
+    .filter-toggle {
+      display: none;
+      padding: 8px 16px;
+      background: #ec1111;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 10px 20px;
+      flex-shrink: 0;
+    }
+
+    .filter-toggle i {
+      margin-right: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .filter-toggle {
+        display: block;
+      }
+
+      .controls-container {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 20px;
+      }
+
+      .controls-container.expanded {
+        display: flex;
+      }
+
+      .search-box {
+        max-width: none;
+        width: 100%;
+      }
+
+      .filter-group {
+        width: 100%;
+      }
+
+      .filter-group select {
+        width: 100%;
+      }
+
+      .stats {
+        margin-left: 0;
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      .clear-btn {
+        width: 100%;
+        margin-top: 5px;
+      }
+    }
+
+    .table-wrapper {
+      flex: 1;
+      overflow: auto;
+      padding: 0 20px 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    body.dark th,
+    body.dark td {
+      border-bottom-color: #444;
+    }
+
+    thead th {
+      background: #f0f0f0;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    body.dark thead th {
+      background: #2a2a2a;
+    }
+
+    thead th:hover {
+      background: #e0e0e0;
+    }
+
+    body.dark thead th:hover {
+      background: #3a3a3a;
+    }
+
+    th .sort-icon {
+      margin-left: 5px;
+      opacity: 0.5;
+    }
+
+    th.sorted .sort-icon {
+      opacity: 1;
+      color: #ec1111;
+    }
+
+    tbody tr:hover {
+      background: #f9f9f9;
+    }
+
+    body.dark tbody tr:hover {
+      background: #2a2a2a;
+    }
+
+    td a {
+      color: #ec1111;
+      text-decoration: none;
+    }
+
+    td a:hover {
+      text-decoration: underline;
+    }
+
+    .name-cell {
+      font-weight: 500;
+    }
+
+    .details-cell {
+      max-width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .details-cell:hover {
+      white-space: normal;
+      overflow: visible;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      font-size: 18px;
+      opacity: 0.7;
+    }
+
+    .footer {
+      padding: 12px;
+      background-color: #ffffff;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+      flex-shrink: 0;
+    }
+
+    body.dark .footer {
+      background-color: #1e1e1e;
+    }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Source dropdown styles */
+    .source-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .source-dropdown-btn {
+      background: none;
+      border: none;
+      color: #ec1111;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .source-dropdown-btn:hover {
+      opacity: 0.8;
+    }
+
+    .source-dropdown-content {
+      display: none;
+      position: absolute;
+      background: #fff;
+      min-width: 200px;
+      max-width: 350px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      border-radius: 4px;
+      z-index: 1000;
+      right: 0;
+      bottom: 100%;
+      margin-bottom: 4px;
+    }
+
+    body.dark .source-dropdown-content {
+      background: #333;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .source-dropdown-content.show {
+      display: block;
+    }
+
+    .source-dropdown-content a {
+      display: block;
+      padding: 10px 12px;
+      text-decoration: none;
+      color: #333;
+      font-size: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    body.dark .source-dropdown-content a {
+      color: #fff;
+      border-bottom-color: #444;
+    }
+
+    .source-dropdown-content a:last-child {
+      border-bottom: none;
+    }
+
+    .source-dropdown-content a:hover {
+      background: #f5f5f5;
+      color: #ec1111;
+    }
+
+    body.dark .source-dropdown-content a:hover {
+      background: #444;
+      color: #ec1111;
+    }
+
+    .source-single {
+      color: #ec1111;
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .controls-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-box {
+        max-width: none;
+      }
+
+      .stats {
+        margin-left: 0;
+        text-align: center;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="nav-links">
+      <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
+      <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
+      <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
+    </div>
+    <div class="header-title">INCIDENT DATA</div>
+    <div class="theme-toggle" id="themeToggle" title="Toggle theme">
+      <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </div>
+  </div>
+
+  <button class="filter-toggle" id="filterToggle" onclick="toggleFilters()">
+    <i class="fa-solid fa-filter"></i> <span id="filterToggleText">Show Filters</span>
+  </button>
+
+  <div class="controls-container" id="filtersContainer">
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search by name, location, details...">
+    </div>
+    <div class="filter-group">
+      <label>Year</label>
+      <select id="filter-year">
+        <option value="">All</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>City</label>
+      <select id="filter-city">
+        <option value="">All</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Mode</label>
+      <select id="filter-mode">
+        <option value="">All</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Gender</label>
+      <select id="filter-gender">
+        <option value="">All</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Suicide?</label>
+      <select id="filter-suicide">
+        <option value="">All</option>
+      </select>
+    </div>
+    <button class="clear-btn" onclick="clearAll()">Clear</button>
+    <div class="stats">
+      <span id="visible-count">0</span> / <span id="total-count">0</span>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th data-sort="date">Date <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="name">Name <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="age">Age <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="gender">Gender <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="location">City <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="fullLocation">Location <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="mode">Mode <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="suicide">Suicide? <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="details">Details <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th>Source</th>
+          <th>Map</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+      </tbody>
+    </table>
+    <div class="no-results" id="no-results" style="display: none;">
+      No records match your filters.
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2026 BKC. All rights reserved.
+  </div>
+
+  <script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pub?gid=0&single=true&output=csv';
+
+    const COLUMNS = {
+      Date: 0,
+      Status: 1,
+      DOT: 2,
+      FullLocation: 3,
+      Location: 4,
+      Name: 5,
+      Year: 6,
+      Time: 7,
+      Age: 8,
+      Gender: 9,
+      Mode: 10,
+      Details: 11,
+      Suicide: 12,
+      DOTMatch: 13,
+      NewsSource: 14,
+      Source: 15,
+      Lat: 16,
+      Lon: 17,
+      GoogleMap: 18
+    };
+
+    let allRecords = [];
+    let sortColumn = 'date';
+    let sortDirection = 'desc';
+
+    // Parse CSV
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let field = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && nextChar === '"') {
+            field += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          row.push(field.trim());
+          field = '';
+        } else if ((char === '\n' || (char === '\r' && nextChar === '\n')) && !inQuotes) {
+          if (char === '\r') i++;
+          row.push(field.trim());
+          if (row.length > 1 || row[0] !== '') {
+            rows.push(row);
+          }
+          row = [];
+          field = '';
+        } else if (char !== '\r') {
+          field += char;
+        }
+      }
+      if (field || row.length > 0) {
+        row.push(field.trim());
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    // Parse date for sorting
+    function parseDate(dateStr) {
+      if (!dateStr) return new Date(0);
+      const parts = dateStr.split('/');
+      if (parts.length === 3) {
+        const month = parseInt(parts[0], 10) - 1;
+        const day = parseInt(parts[1], 10);
+        let year = parseInt(parts[2], 10);
+        if (year < 100) year += 2000;
+        return new Date(year, month, day);
+      }
+      return new Date(0);
+    }
+
+    // Fetch data
+    async function fetchData() {
+      try {
+        const response = await fetch(CSV_URL);
+        const text = await response.text();
+        const rows = parseCSV(text);
+
+        allRecords = rows.slice(1).map(row => {
+          while (row.length <= COLUMNS.GoogleMap) row.push('');
+
+          return {
+            date: row[COLUMNS.Date] || '',
+            dateObj: parseDate(row[COLUMNS.Date]),
+            fullLocation: row[COLUMNS.FullLocation] || '',
+            location: row[COLUMNS.Location] || '',
+            name: row[COLUMNS.Name] || '',
+            year: row[COLUMNS.Year] || '',
+            age: row[COLUMNS.Age] || '',
+            ageNum: parseInt(row[COLUMNS.Age]) || 0,
+            gender: row[COLUMNS.Gender] || '',
+            mode: row[COLUMNS.Mode] || '',
+            details: row[COLUMNS.Details] || '',
+            suicide: row[COLUMNS.Suicide] || '',
+            source: row[COLUMNS.Source] || '',
+            lat: row[COLUMNS.Lat] || '',
+            lon: row[COLUMNS.Lon] || '',
+            googleMap: row[COLUMNS.GoogleMap] || '',
+          };
+        });
+
+        populateFilters();
+        renderTable();
+        document.getElementById('total-count').textContent = allRecords.length;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    // Populate filters
+    function populateFilters() {
+      const years = [...new Set(allRecords.map(r => r.year).filter(Boolean))].sort().reverse();
+      const cities = [...new Set(allRecords.map(r => r.location).filter(Boolean))].sort();
+      const modes = [...new Set(allRecords.map(r => r.mode).filter(Boolean))].sort();
+      const genders = [...new Set(allRecords.map(r => r.gender).filter(Boolean))].sort();
+      const suicides = [...new Set(allRecords.map(r => r.suicide).filter(Boolean))].sort();
+
+      populateSelect('filter-year', years);
+      populateSelect('filter-city', cities);
+      populateSelect('filter-mode', modes);
+      populateSelect('filter-gender', genders);
+      populateSelect('filter-suicide', suicides);
+    }
+
+    function populateSelect(id, values) {
+      const select = document.getElementById(id);
+      const firstOption = select.options[0].outerHTML;
+      select.innerHTML = firstOption;
+      values.forEach(val => {
+        const option = document.createElement('option');
+        option.value = val;
+        option.textContent = val;
+        select.appendChild(option);
+      });
+    }
+
+    // Get filters
+    function getFilters() {
+      return {
+        search: document.getElementById('search').value.toLowerCase(),
+        year: document.getElementById('filter-year').value,
+        city: document.getElementById('filter-city').value,
+        mode: document.getElementById('filter-mode').value,
+        gender: document.getElementById('filter-gender').value,
+        suicide: document.getElementById('filter-suicide').value,
+      };
+    }
+
+    // Filter and sort records
+    function getFilteredRecords() {
+      const filters = getFilters();
+
+      let filtered = allRecords.filter(r => {
+        if (filters.year && r.year !== filters.year) return false;
+        if (filters.city && r.location !== filters.city) return false;
+        if (filters.mode && r.mode !== filters.mode) return false;
+        if (filters.gender && r.gender !== filters.gender) return false;
+        if (filters.suicide && r.suicide !== filters.suicide) return false;
+
+        if (filters.search) {
+          const searchFields = [r.name, r.location, r.fullLocation, r.details, r.date].join(' ').toLowerCase();
+          if (!searchFields.includes(filters.search)) return false;
+        }
+
+        return true;
+      });
+
+      // Sort
+      filtered.sort((a, b) => {
+        let valA, valB;
+
+        switch (sortColumn) {
+          case 'date':
+            valA = a.dateObj;
+            valB = b.dateObj;
+            break;
+          case 'age':
+            valA = a.ageNum;
+            valB = b.ageNum;
+            break;
+          default:
+            valA = (a[sortColumn] || '').toLowerCase();
+            valB = (b[sortColumn] || '').toLowerCase();
+        }
+
+        if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+        if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      return filtered;
+    }
+
+    // Render table
+    function renderTable() {
+      const filtered = getFilteredRecords();
+      const tbody = document.getElementById('table-body');
+      const noResults = document.getElementById('no-results');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+        tbody.innerHTML = filtered.map((r, index) => `
+          <tr>
+            <td>${escapeHtml(r.date)}</td>
+            <td class="name-cell">${escapeHtml(r.name) || '<em>Unknown</em>'}</td>
+            <td>${escapeHtml(r.age)}</td>
+            <td>${escapeHtml(r.gender)}</td>
+            <td>${escapeHtml(r.location)}</td>
+            <td>${escapeHtml(r.fullLocation)}</td>
+            <td>${escapeHtml(r.mode)}</td>
+            <td>${escapeHtml(r.suicide)}</td>
+            <td class="details-cell" title="${escapeHtml(r.details)}">${escapeHtml(r.details)}</td>
+            <td>${r.source ? formatSources(r.source, index) : ''}</td>
+            <td>${r.lat && r.lon ? `<a href="/map?lat=${r.lat}&lon=${r.lon}" class="map-link" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}</td>
+          </tr>
+        `).join('');
+      }
+
+      document.getElementById('visible-count').textContent = filtered.length;
+      updateSortIcons();
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function getSourceName(url) {
+      try {
+        const hostname = new URL(url).hostname.replace('www.', '');
+        const parts = hostname.split('.');
+        if (parts.length >= 2) {
+          let name = parts[parts.length - 2];
+          const nameMap = {
+            'sun-sentinel': 'Sun Sentinel',
+            'miamiherald': 'Miami Herald',
+            'palmbeachpost': 'Palm Beach Post',
+            'orlandosentinel': 'Orlando Sentinel',
+            'local10': 'Local 10',
+            'wptv': 'WPTV',
+            'tcpalm': 'TC Palm',
+            'wsvn': 'WSVN',
+            'nbcmiami': 'NBC Miami',
+            'cbsnews': 'CBS News',
+            'nytimes': 'NY Times',
+            'washingtonpost': 'Washington Post',
+            'cnn': 'CNN',
+            'foxnews': 'Fox News',
+            'abcnews': 'ABC News',
+            'wesh': 'WESH',
+            'clickorlando': 'Click Orlando',
+            'news-journalonline': 'News Journal',
+            'floridatoday': 'Florida Today',
+          };
+          return nameMap[name.toLowerCase()] || name.charAt(0).toUpperCase() + name.slice(1);
+        }
+        return hostname;
+      } catch {
+        return 'Source';
+      }
+    }
+
+    function formatSources(sourceStr, rowIndex) {
+      const sources = sourceStr.split(',').map(s => s.trim()).filter(Boolean);
+      if (sources.length === 0) return '';
+
+      if (sources.length === 1) {
+        return `<a href="${escapeHtml(sources[0])}" target="_blank" class="source-single" title="${getSourceName(sources[0])}"><i class="fa-solid fa-newspaper"></i></a>`;
+      }
+
+      // Multiple sources - create dropdown with click toggle
+      const dropdownId = `dropdown-${rowIndex}`;
+      const dropdownItems = sources.map(url => {
+        const name = getSourceName(url);
+        return `<a href="${escapeHtml(url)}" target="_blank">${escapeHtml(name)}</a>`;
+      }).join('');
+
+      return `
+        <div class="source-dropdown">
+          <button class="source-dropdown-btn" onclick="toggleDropdown('${dropdownId}', event)" title="${sources.length} sources">
+            <i class="fa-solid fa-newspaper"></i>
+            <span>${sources.length}</span>
+            <i class="fa-solid fa-caret-down" style="font-size: 10px;"></i>
+          </button>
+          <div class="source-dropdown-content" id="${dropdownId}">
+            ${dropdownItems}
+          </div>
+        </div>
+      `;
+    }
+
+    // Toggle dropdown
+    function toggleDropdown(dropdownId, event) {
+      event.stopPropagation();
+
+      // Close all other dropdowns
+      document.querySelectorAll('.source-dropdown-content.show').forEach(el => {
+        if (el.id !== dropdownId) {
+          el.classList.remove('show');
+        }
+      });
+
+      // Toggle this dropdown
+      const dropdown = document.getElementById(dropdownId);
+      dropdown.classList.toggle('show');
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.source-dropdown')) {
+        document.querySelectorAll('.source-dropdown-content.show').forEach(el => {
+          el.classList.remove('show');
+        });
+      }
+    });
+
+    // Sorting
+    function updateSortIcons() {
+      document.querySelectorAll('th[data-sort]').forEach(th => {
+        const icon = th.querySelector('.sort-icon i');
+        if (th.dataset.sort === sortColumn) {
+          th.classList.add('sorted');
+          icon.className = sortDirection === 'asc' ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down';
+        } else {
+          th.classList.remove('sorted');
+          icon.className = 'fa-solid fa-sort';
+        }
+      });
+    }
+
+    document.querySelectorAll('th[data-sort]').forEach(th => {
+      th.addEventListener('click', () => {
+        const column = th.dataset.sort;
+        if (sortColumn === column) {
+          sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortColumn = column;
+          sortDirection = column === 'date' ? 'desc' : 'asc';
+        }
+        renderTable();
+      });
+    });
+
+    // Clear all
+    function clearAll() {
+      document.getElementById('search').value = '';
+      document.getElementById('filter-year').value = '';
+      document.getElementById('filter-city').value = '';
+      document.getElementById('filter-mode').value = '';
+      document.getElementById('filter-gender').value = '';
+      document.getElementById('filter-suicide').value = '';
+      renderTable();
+    }
+
+    // Event listeners
+    document.getElementById('search').addEventListener('input', debounce(renderTable, 300));
+    document.querySelectorAll('.filter-group select').forEach(select => {
+      select.addEventListener('change', renderTable);
+    });
+
+    function debounce(func, wait) {
+      let timeout;
+      return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+    }
+
+    // Filter toggle for mobile
+    function toggleFilters() {
+      const container = document.getElementById('filtersContainer');
+      const toggleText = document.getElementById('filterToggleText');
+      container.classList.toggle('expanded');
+      toggleText.textContent = container.classList.contains('expanded') ? 'Hide Filters' : 'Show Filters';
+    }
+
+    // Theme
+    function setTheme(theme) {
+      document.body.classList.toggle('dark', theme === 'dark');
+      localStorage.setItem('theme', theme);
+      document.getElementById('themeIcon').className =
+        theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    }
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+      }
+      fetchData();
+    });
+  </script>
+</body>
+</html>

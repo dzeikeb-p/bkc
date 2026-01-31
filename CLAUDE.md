@@ -27,15 +27,33 @@ Data is compiled from:
 
 - **Pure static site**: HTML, CSS, and vanilla JavaScript only - no build process or dependencies
 - **Dynamic data**: Count and latest death fetched from published Google Sheet CSV on page load
-- **Two pages**: `index.html` (main counter display) and `charts.html` (statistics via embedded Google Sheets)
+- **Four pages**: Homepage, Charts, Map, and Data Table
 - **Deployment**: Automatic via GitHub Actions on push to `main` branch
+
+## Pages
+
+| Page | URL | Description |
+|------|-----|-------------|
+| Homepage | `/` | Main counter display with death count and latest death date |
+| Charts | `/charts.html` | Embedded Google Sheets charts with light/dark theme variants |
+| Map | `/map` | Interactive Leaflet.js map with filterable incident markers |
+| Data | `/data` | Sortable, filterable, searchable data table |
+
+All pages share:
+- Consistent navigation icons (top-left)
+- Dark/light theme toggle (top-right)
+- Mobile-responsive design with collapsible filters
 
 ## Key Files
 
 - `index.html` - Main page with dynamic count and latest death (fetched from CSV)
 - `charts.html` - Embedded Google Sheets charts with light/dark theme variants
-- `fonts/` - Custom web fonts (LCDM2U__.TTF, FuturaCyrillicMedium.ttf)
+- `map/index.html` - Interactive Leaflet.js map with filters
+- `data/index.html` - Data table with sorting, filtering, and search
+- `fonts/` - Custom web fonts (LCDM2U__.TTF, Ciutadella Medium Italic.ttf)
 - `images/` - Title banner and favicon
+- `bkc_map.kml` - KML export for Google My Maps
+- `bkc_map.csv` - CSV export for mapping tools
 
 ## Fonts
 
@@ -81,18 +99,20 @@ An automated system searches for new Brightline incidents and adds them to the G
 
 ```
 scripts/death_tracker/
-├── main.py              # Entry point - run this locally or via GitHub Actions
-├── config.py            # Configuration constants
-├── keywords.json        # Editable keyword filter configuration
-├── news_searcher.py     # Google News + FL local RSS feeds
-├── keyword_filter.py    # Pre-filter to reduce LLM API calls
-├── article_parser.py    # Article content extraction
+├── main.py               # Entry point - run this locally or via GitHub Actions
+├── config.py             # Configuration constants
+├── keywords.json         # Editable keyword filter configuration
+├── news_searcher.py      # Google News + FL local RSS feeds
+├── keyword_filter.py     # Pre-filter to reduce LLM API calls
+├── article_parser.py     # Article content extraction
 ├── incident_extractor.py # Claude API structured extraction
-├── deduplicator.py      # Fuzzy matching for duplicates
-├── fra_checker.py       # FRA SODA API integration
-├── sheets_manager.py    # Google Sheets read/write
-├── email_notifier.py    # Gmail notifications
-└── utils.py             # Helper functions
+├── deduplicator.py       # Fuzzy matching for duplicates
+├── fra_checker.py        # FRA SODA API integration
+├── sheets_manager.py     # Google Sheets read/write
+├── email_notifier.py     # Gmail notifications
+├── utils.py              # Helper functions
+├── update_coordinates.py # Pull Lat/Lon from FRA for DOT-matched records
+└── apply_approved_matches.py # Apply approved DOT matches from review sheet
 ```
 
 ### Tuning the Keyword Filter
@@ -162,3 +182,16 @@ python main.py
 | Lon | Longitude |
 | Google Map | Google Maps link |
 | Status | Draft/Approved/Rejected |
+
+### FRA SODA API
+
+The Federal Railroad Administration database is accessed via SODA API:
+- **Endpoint**: `https://data.transportation.gov/resource/rash-pd2d.json`
+- **Railroad name**: `Brightline Train` (exact match)
+- **State**: `FLORIDA` (uppercase)
+- **Field names use camelCase**: `railroadname`, `statename`, `incidentnumber`, `countyname`, `ageofperson`, `typeofperson`, `latitude`, `longitude`
+
+Example query:
+```
+$where=railroadname='Brightline Train' AND statename='FLORIDA' AND date IS NOT NULL AND date >= '2018-01-01'
+```

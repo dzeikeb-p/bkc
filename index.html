@@ -46,6 +46,26 @@
       color: #ffffff;
     }
 
+    .nav-links {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .nav-links a {
+      color: inherit;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .nav-links a:hover {
+      color: #ec1111;
+    }
+
     .theme-toggle {
       position: fixed;
       top: 10px;
@@ -127,13 +147,20 @@
   </style>
 </head>
 <body>
+  <div class="nav-links">
+    <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
+    <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
+    <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
+    <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
+  </div>
+
   <div class="theme-toggle" onclick="toggleTheme()" id="theme-icon">
     <i class="fas fa-moon"></i>
   </div>
 
   <div class="container">
     <img src="images/Untitled(1).png" alt="The train hath slain" class="responsive" />
-    <a href="https://brightlinekillcount.com/charts" class="death-count" id="death-count">--</a>
+    <a href="/charts.html" class="death-count" id="death-count">--</a>
   </div>
 
   <div class="container">

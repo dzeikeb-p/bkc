@@ -1,0 +1,1479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+    <name>Brightline Fatalities</name>
+    <description>Map of Brightline train fatalities in Florida</description>
+    
+    <!-- Red pin style -->
+    <Style id="deathMarker">
+        <IconStyle>
+            <color>ff0000ff</color>
+            <scale>1.0</scale>
+            <Icon>
+                <href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+            </Icon>
+        </IconStyle>
+        <LabelStyle>
+            <scale>0.8</scale>
+        </LabelStyle>
+    </Style>
+
+    <Placemark>
+        <name>Andre Darnell Burgess (11/10/2025)</name>
+        <description><![CDATA[<b>Date:</b> 11/10/2025<br/><b>Age:</b> 40<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Oakland Park<br/><b>Location:</b> 1200 block of Northeast 38 Street]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.131488,26.174612,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>David Cajigas (11/6/2025)</name>
+        <description><![CDATA[<b>Date:</b> 11/6/2025<br/><b>Age:</b> 54<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Hollywood]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.148788,26.0028,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Steve Daniel Collier (11/3/2025)</name>
+        <description><![CDATA[<b>Date:</b> 11/3/2025<br/><b>Age:</b> 62<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> 300 block of South Dixie High Highway]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.127615,26.225509,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jacob Patrick Weaver (11/2/2025)</name>
+        <description><![CDATA[<b>Date:</b> 11/2/2025<br/><b>Age:</b> 26<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boynton Beach<br/><b>Location:</b> 700 block of North FEC near Northeast 6th Avenue and Federal Highway]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.058883,26.532957,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Oleksandr Nimashchuk (10/26/2025)</name>
+        <description><![CDATA[<b>Date:</b> 10/26/2025<br/><b>Age:</b> 23<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Delray Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.073948,26.439166,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Brian David Baker (10/22/2025)</name>
+        <description><![CDATA[<b>Date:</b> 10/22/2025<br/><b>Age:</b> 63<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> Northeast 48th Street and North Dixie Highway]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.10918,26.290217,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Eleanora Mitchell (9/12/2025)</name>
+        <description><![CDATA[<b>Date:</b> 9/12/2025<br/><b>Age:</b> 83<br/><b>Gender:</b> Female<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Rockledge<br/><b>Location:</b> Eyster Boulevard and U.S. 1]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.717685,28.324368,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Holly Lorraine Eckert (9/2/2025)</name>
+        <description><![CDATA[<b>Date:</b> 9/2/2025<br/><b>Age:</b> 57<br/><b>Gender:</b> Female<br/><b>Mode:</b> Unknown<br/><b>City:</b> North Miami Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.16051,25.903161,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Kuen J. McGlauflin (8/10/2025)</name>
+        <description><![CDATA[<b>Date:</b> 8/10/2025<br/><b>Age:</b> 21<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Lake Worth Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.059476,26.615973,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Alejandro Daniel Itkin (7/24/2025)</name>
+        <description><![CDATA[<b>Date:</b> 7/24/2025<br/><b>Age:</b> 58<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Aventura<br/><b>Location:</b> 195 Street and Biscayne Boulevard]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.14717,25.956871,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Mark Joseph Jurewicz (7/14/2025)</name>
+        <description><![CDATA[<b>Date:</b> 7/14/2025<br/><b>Age:</b> 62<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Palm Beach Gardens]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.096268,26.86494,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Joshua Lawrence Tanner (7/6/2025)</name>
+        <description><![CDATA[<b>Date:</b> 7/6/2025<br/><b>Age:</b> 26<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Melbourne<br/><b>Location:</b> U.S. Highway 1 and Masterson Street]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.634561,28.139381,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Charles Lasala (7/3/2025)</name>
+        <description><![CDATA[<b>Date:</b> 7/3/2025<br/><b>Age:</b> 70<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Latanan<br/><b>Location:</b> intersection of South Dixie Highway and East Pine Street<br/><b>Details:</b> Silver]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.052265,26.582903,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Dawinyn Salomon Lopez Jarquin (6/8/2025)</name>
+        <description><![CDATA[<b>Date:</b> 6/8/2025<br/><b>Age:</b> 36<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Hollywood]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149058,26.009862,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Dennis James Pollard (6/4/2025)</name>
+        <description><![CDATA[<b>Date:</b> 6/4/2025<br/><b>Age:</b> 69<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Sebastian<br/><b>Location:</b> a quarter mile north of the Main Street crossing]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.470612,27.816416,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Eric Christopher Daniels (5/29/2025)</name>
+        <description><![CDATA[<b>Date:</b> 5/29/2025<br/><b>Age:</b> 55<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Riviera Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.066615,26.782407,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Atilon Andy Thomas (5/14/2025)</name>
+        <description><![CDATA[<b>Date:</b> 5/14/2025<br/><b>Age:</b> 23<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Riviera Beach<br/><b>Location:</b> Blue Heron Boulevard and President Barack Obama Highway]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.066743,26.782642,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Kevin Douglas Johnson (3/27/2025)</name>
+        <description><![CDATA[<b>Date:</b> 3/27/2025<br/><b>Age:</b> 33<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Fort Pierce<br/><b>Location:</b> East of U.S. 1, just north of Orange Avenue, Fort Pierce]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.32642,27.451545,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Timothy Matthew Elliott (3/25/2025)</name>
+        <description><![CDATA[<b>Date:</b> 3/25/2025<br/><b>Age:</b> 42<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Vero Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.396607,27.635806,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Alex Gomez Lenis (3/22/2025)</name>
+        <description><![CDATA[<b>Date:</b> 3/22/2025<br/><b>Age:</b> 30<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Lake Worth Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.054975,26.596652,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Christy Mateluna (3/18/2025)</name>
+        <description><![CDATA[<b>Date:</b> 3/18/2025<br/><b>Age:</b> 41<br/><b>Gender:</b> Female<br/><b>Mode:</b> Unknown<br/><b>City:</b> Lake Worth Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.059356,26.632524,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Eric Miguel Wolf (3/13/2025)</name>
+        <description><![CDATA[<b>Date:</b> 3/13/2025<br/><b>Age:</b> 43<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> South Dixie Highway and East Cypress Creek Road, Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.132413,26.205081,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Lorenzo F. Ordonez Sanchez (2/8/2025)</name>
+        <description><![CDATA[<b>Date:</b> 2/8/2025<br/><b>Age:</b> 40<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Cocoa Beach<br/><b>Location:</b> 800 block of Cocoa boulevard, Cocoa Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.737303,28.371386,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jorge Miguel Rivera Cedillo (2/8/2025)</name>
+        <description><![CDATA[<b>Date:</b> 2/8/2025<br/><b>Age:</b> 23<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> West Palm Beach<br/><b>Location:</b> 30th and Pinewood, West Palm Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.059289,26.743022,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Rene Andres Mulero Russe (1/31/2025)</name>
+        <description><![CDATA[<b>Date:</b> 1/31/2025<br/><b>Age:</b> 27<br/><b>Gender:</b> Female<br/><b>Mode:</b> Unknown<br/><b>City:</b> Hypoluxo]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.054599,26.559962,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Joann DePina (1/16/2025)</name>
+        <description><![CDATA[<b>Date:</b> 1/16/2025<br/><b>Age:</b> 49<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> West Palm Beach<br/><b>Location:</b> West Palm Beach<br/><b>Details:</b> Mother of 2]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.058445,26.661137,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Nathan Joseph Adderly (1/15/2025)</name>
+        <description><![CDATA[<b>Date:</b> 1/15/2025<br/><b>Age:</b> 60<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Melbourne<br/><b>Location:</b> Melbourne]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.606339,28.081799,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jason Kelly Lloyd (1/13/2025)</name>
+        <description><![CDATA[<b>Date:</b> 1/13/2025<br/><b>Age:</b> 46<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Melbourne<br/><b>Location:</b> Seminole Avenue and Hibiscus Avenue, Melbourne<br/><b>Details:</b> Person laid down on the tracks]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.607125,28.083301,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Duke Allen Holeman (1/4/2025)</name>
+        <description><![CDATA[<b>Date:</b> 1/4/2025<br/><b>Age:</b> 67<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Hallandale Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.14822,25.985552,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Susan Chong (12/30/2024)</name>
+        <description><![CDATA[<b>Date:</b> 12/30/2024<br/><b>Age:</b> 69<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Miami<br/><b>Location:</b> 18600 Biscayne Blvd., Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147559,25.947475,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Albert Williams (12/27/2024)</name>
+        <description><![CDATA[<b>Date:</b> 12/27/2024<br/><b>Age:</b> 49<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Oakland Park]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.13203,26.192593,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Amelise Renoir Noel (12/26/2024)</name>
+        <description><![CDATA[<b>Date:</b> 12/26/2024<br/><b>Age:</b> 60<br/><b>Gender:</b> Female<br/><b>Mode:</b> Unknown<br/><b>City:</b> Lake Park]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.074291,26.800721,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Bryan De Paz Vazquez (12/10/2024)</name>
+        <description><![CDATA[<b>Date:</b> 12/10/2024<br/><b>Age:</b> 25<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Vero Beach<br/><b>Location:</b> 12th Street railroad, between US1 Hwy 1 and Old Dixie Hwy, Vero Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.391574,27.623367,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Robyn Peress (11/26/2024)</name>
+        <description><![CDATA[<b>Date:</b> 11/26/2024<br/><b>Age:</b> 59<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boca Raton<br/><b>Location:</b> Boca Raton]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.077344,26.417697,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Ramon Ernesto Hernandez (11/19/2024)</name>
+        <description><![CDATA[<b>Date:</b> 11/19/2024<br/><b>Age:</b> 36<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.195008,25.793468,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Kevin Sookoo (11/2/2024)</name>
+        <description><![CDATA[<b>Date:</b> 11/2/2024<br/><b>Age:</b> 26<br/><b>Gender:</b> Male<br/><b>Mode:</b> Bicyclist<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> 300 N. Dixie Hwy, Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.125087,26.234183,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jan Gershkoff (10/25/2024)</name>
+        <description><![CDATA[<b>Date:</b> 10/25/2024<br/><b>Age:</b> 74<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Miami<br/><b>Location:</b> Northeast 47th Street and Fourth Avenue, Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.188904,25.819867,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Luxio Remiro Chacon (10/4/2024)</name>
+        <description><![CDATA[<b>Date:</b> 10/4/2024<br/><b>Age:</b> 56<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boca Raton<br/><b>Location:</b> Camino Real and Dixie Highway, Boca Raton]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.089521,26.341224,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Ashton Cole Godwin (10/3/2024)</name>
+        <description><![CDATA[<b>Date:</b> 10/3/2024<br/><b>Age:</b> 20<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Unknown<br/><b>City:</b> Boynton Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.064547,26.496608,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Wilson Whitney Locke (9/27/2024)</name>
+        <description><![CDATA[<b>Date:</b> 9/27/2024<br/><b>Age:</b> 68<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Boynton Beach<br/><b>Location:</b> Southeast 23rd Avenue and the Florida East Coast tracks, Boynton Beach<br/><b>Details:</b> White BMW]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.063004,26.507304,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Brett Philip Tucker (9/9/2024)</name>
+        <description><![CDATA[<b>Date:</b> 9/9/2024<br/><b>Age:</b> 56<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Delray Beach<br/><b>Location:</b> Delray Beach<br/><b>Details:</b> DOT has wrong age]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.070341,26.461526,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Eric P. Geller (8/26/2024)</name>
+        <description><![CDATA[<b>Date:</b> 8/26/2024<br/><b>Age:</b> 77<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Palm Beach Gardens<br/><b>Location:</b> Burns Rd. and Alternate A1A, Palm Beach Gardens]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.091951,26.830627,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Edenilson Misael Gabriel Salvador (8/17/2024)</name>
+        <description><![CDATA[<b>Date:</b> 8/17/2024<br/><b>Age:</b> 26<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Stuart]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.222612,27.167152,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Unknown (8/11/2024)</name>
+        <description><![CDATA[<b>Date:</b> 8/11/2024<br/><b>Age:</b> 25<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Fort Lauderdale]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.132334,26.203945,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Duane Stuart Matheson (8/8/2024)</name>
+        <description><![CDATA[<b>Date:</b> 8/8/2024<br/><b>Age:</b> 68<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Lake Park<br/><b>Location:</b> 1200 block of Northlake Blvd, Town of Lake Park<br/><b>Details:</b> 2001 Mercury Sable]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.077337,26.808135,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Raul Ruiz (8/7/2024)</name>
+        <description><![CDATA[<b>Date:</b> 8/7/2024<br/><b>Age:</b> 65<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Deerfield Beach<br/><b>Location:</b> 1500 block of South Dixie Highway, Deerfield Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.107146,26.297439,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Abby Mae Reid (7/31/2024)</name>
+        <description><![CDATA[<b>Date:</b> 7/31/2024<br/><b>Age:</b> 27<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Oakland Park<br/><b>Location:</b> 2900 block of North Dixie Highway in Oakland Park]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.131216,26.162633,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>James Alan Bonin (7/18/2024)</name>
+        <description><![CDATA[<b>Date:</b> 7/18/2024<br/><b>Age:</b> 68<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Fort Lauderdale]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.131753,26.144556,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jordan Croom (7/13/2024)</name>
+        <description><![CDATA[<b>Date:</b> 7/13/2024<br/><b>Age:</b> 26<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.188475,25.8522,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Scott Sullivan Spurgeon (7/8/2024)</name>
+        <description><![CDATA[<b>Date:</b> 7/8/2024<br/><b>Age:</b> 45<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Cocoa<br/><b>Location:</b> US-1 and Rosa L Jones Road, Cocoa]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.731753,28.350437,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Connor Jack Mahoney (7/5/2024)</name>
+        <description><![CDATA[<b>Date:</b> 7/5/2024<br/><b>Age:</b> 19<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boca Raton<br/><b>Location:</b> 3999 North Dixie Highway, Boca Raton]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.083444,26.379237,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Camuler Taniclas (6/18/2024)</name>
+        <description><![CDATA[<b>Date:</b> 6/18/2024<br/><b>Age:</b> 71<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lake Worth Beach<br/><b>Location:</b> 1600 block of South Dixie Highway, Lake Worth Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.054756,26.596243,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Leroy Allen Perry (6/12/2024)</name>
+        <description><![CDATA[<b>Date:</b> 6/12/2024<br/><b>Age:</b> 67<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lantana]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.05245,26.582216,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Christopher Drew Cannon (6/2/2024)</name>
+        <description><![CDATA[<b>Date:</b> 6/2/2024<br/><b>Age:</b> 58<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Stuart<br/><b>Location:</b> Southeast Railroad Avenue and State Road A1A, Stuart]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.245531,27.190194,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Edilmiro Cordero (6/1/2024)</name>
+        <description><![CDATA[<b>Date:</b> 6/1/2024<br/><b>Age:</b> 66<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.160572,25.903081,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Ralph Peter Ierardi Jr. (5/31/2024)</name>
+        <description><![CDATA[<b>Date:</b> 5/31/2024<br/><b>Age:</b> 28<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Grant-Valkaria]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.517128,27.90783,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Zinatosadat Moinzadeh (5/18/2024)</name>
+        <description><![CDATA[<b>Date:</b> 5/18/2024<br/><b>Age:</b> 74<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Miami<br/><b>Location:</b> Northeast 141st Street, between Biscayne Boulevard and Lexus of North Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.159338,25.90522,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Judith Taina Rosa (5/14/2024)</name>
+        <description><![CDATA[<b>Date:</b> 5/14/2024<br/><b>Age:</b> 22<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Rockledge<br/><b>Location:</b> Rockledge]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.693086,28.273599,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Harold Lafferty (5/12/2024)</name>
+        <description><![CDATA[<b>Date:</b> 5/12/2024<br/><b>Age:</b> 55<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Cocoa<br/><b>Location:</b> 1800 block of Michigan Avenue, Cocoa]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.747001,28.389815,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Richard Schmidt (5/11/2024)</name>
+        <description><![CDATA[<b>Date:</b> 5/11/2024<br/><b>Age:</b> 36<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hollywood<br/><b>Details:</b> DOT record no longer exists]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149003,26.009489,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Drew Harrison Epstein (5/5/2024)</name>
+        <description><![CDATA[<b>Date:</b> 5/5/2024<br/><b>Age:</b> 31<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lake Worth Beach<br/><b>Location:</b> Off 210 N G St. and Lucerne Avenue in Lake Worth]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.059429,26.617828,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Cheryl Townsend (5/5/2024)</name>
+        <description><![CDATA[<b>Date:</b> 5/5/2024<br/><b>Age:</b> 56<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Rockledge]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.702809,28.299607,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Randy Lawrence Johanson (4/18/2024)</name>
+        <description><![CDATA[<b>Date:</b> 4/18/2024<br/><b>Age:</b> 62<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Micco<br/><b>Location:</b> Barefoot and Ron Beatty boulevard, Micco]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.505732,27.883617,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jeffrey Vasche (4/14/2024)</name>
+        <description><![CDATA[<b>Date:</b> 4/14/2024<br/><b>Age:</b> 69<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Dania Beach<br/><b>Location:</b> West Dania Beach Boulevard and Southwest 4th Avenue]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.146222,26.052233,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Mark Harrison (4/1/2024)</name>
+        <description><![CDATA[<b>Date:</b> 4/1/2024<br/><b>Age:</b> 60<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Stuart<br/><b>Location:</b> Indian Street and Southeast Dixie Highway Stuart]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.222945,27.16753,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Juan Castillo (3/8/2024)</name>
+        <description><![CDATA[<b>Date:</b> 3/8/2024<br/><b>Age:</b> 56<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> West Palm Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.05953,26.759439,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Elisa Elvira Paris Casanova (3/5/2024)</name>
+        <description><![CDATA[<b>Date:</b> 3/5/2024<br/><b>Age:</b> 53<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Delray Beach<br/><b>Location:</b> Delray Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.070318,26.461654,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Devante Lee Cylla (2/16/2024)</name>
+        <description><![CDATA[<b>Date:</b> 2/16/2024<br/><b>Age:</b> 28<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> North Miami Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.151855,25.933924,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Emily Alexandra Kayser (2/16/2024)</name>
+        <description><![CDATA[<b>Date:</b> 2/16/2024<br/><b>Age:</b> 35<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Vero Beach<br/><b>Location:</b> Vero Beach - Fourth Street Railroad Crossing]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.38457,27.609091,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Judesse Simeon (2/9/2024)</name>
+        <description><![CDATA[<b>Date:</b> 2/9/2024<br/><b>Age:</b> 53<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hollywood<br/><b>Location:</b> North Dixie Highway and Taft Street Hollywood]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149682,26.029757,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Kevin Lopez-Gabriel (2/3/2024)</name>
+        <description><![CDATA[<b>Date:</b> 2/3/2024<br/><b>Age:</b> 35<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lake Worth Beach<br/><b>Location:</b> Lake Worth Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.059496,26.617009,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Wesley Alan Ducheneaux Walsh (1/29/2024)</name>
+        <description><![CDATA[<b>Date:</b> 1/29/2024<br/><b>Age:</b> 29<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Vero Beach<br/><b>Location:</b> Vero Beach, Indian River County]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.372142,27.567762,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Lisa Ann Batchelder (1/12/2024)</name>
+        <description><![CDATA[<b>Date:</b> 1/12/2024<br/><b>Age:</b> 52<br/><b>Gender:</b> Female<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Melbourne<br/><b>Location:</b> U.S. 1 corridor in Melbourne<br/><b>Details:</b> SUV]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.601913,28.071437,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Michael Anthony Degasperi (1/12/2024)</name>
+        <description><![CDATA[<b>Date:</b> 1/12/2024<br/><b>Age:</b> 54<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Melbourne<br/><b>Location:</b> U.S. 1 corridor in Melbourne<br/><b>Details:</b> SUV]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.601913,28.071437,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Charles Julian Phillips (1/10/2024)</name>
+        <description><![CDATA[<b>Date:</b> 1/10/2024<br/><b>Age:</b> 62<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Melbourne<br/><b>Location:</b> U.S. 1 corridor in Melbourne]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.601913,28.071437,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Katherine Stimus (12/24/2023)</name>
+        <description><![CDATA[<b>Date:</b> 12/24/2023<br/><b>Age:</b> 36<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Melbourne<br/><b>Location:</b> 900 block of Aurora Road]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.634323,28.134372,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Gary Miller (12/19/2023)</name>
+        <description><![CDATA[<b>Date:</b> 12/19/2023<br/><b>Age:</b> 69<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> West Palm Beach<br/><b>Location:</b> Downtown West Palm Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.055243,26.716158,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Danny S. Black (11/11/2023)</name>
+        <description><![CDATA[<b>Date:</b> 11/11/2023<br/><b>Age:</b> 55<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> North Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.169556,25.893141,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Lisa Molnar (10/19/2023)</name>
+        <description><![CDATA[<b>Date:</b> 10/19/2023<br/><b>Age:</b> 60<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Melbourne<br/><b>Location:</b> Melbourne]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.634323,28.134372,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Demetrius Wilder (10/6/2023)</name>
+        <description><![CDATA[<b>Date:</b> 10/6/2023<br/><b>Age:</b> 44<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.117584,26.260738,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>James Bennet Hence III (09/03/2023)</name>
+        <description><![CDATA[<b>Date:</b> 09/03/2023<br/><b>Age:</b> 29<br/><b>Gender:</b> Male<br/><b>City:</b> Fort Lauderdale]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.136725,26.138902,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Dyanna Fernandez (06/02/2023)</name>
+        <description><![CDATA[<b>Date:</b> 06/02/2023<br/><b>Age:</b> 29<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.124311,26.236923,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Tracy Beth Lauren (05/21/2023)</name>
+        <description><![CDATA[<b>Date:</b> 05/21/2023<br/><b>Age:</b> 47<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Deerfield Beach<br/><b>Location:</b> Deerfield Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.100721,26.320045,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jonatan Alexand Cabrera-Grande (05/14/2023)</name>
+        <description><![CDATA[<b>Date:</b> 05/14/2023<br/><b>Age:</b> 37<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Miami<br/><b>Location:</b> Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.153256,25.92943,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Ryan Mafia Filsaime (05/12/2023)</name>
+        <description><![CDATA[<b>Date:</b> 05/12/2023<br/><b>Age:</b> 29<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lake Worth Beach<br/><b>Location:</b> Lake Worth Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.05942,26.605198,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Elias D Martinez (03/14/2023)</name>
+        <description><![CDATA[<b>Date:</b> 03/14/2023<br/><b>Age:</b> 30<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Aventura<br/><b>Location:</b> North Biscayne Boulevard, Aventura Station]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147293,25.957495,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Arthur Jacobson (02/08/2023)</name>
+        <description><![CDATA[<b>Date:</b> 02/08/2023<br/><b>Age:</b> 82<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Delray Beach<br/><b>Location:</b> Lindell Boulevard and Old Dixie Highway in Delray Beach<br/><b>Details:</b> SUV]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.076109,26.425325,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Bette Jacobson (02/08/2023)</name>
+        <description><![CDATA[<b>Date:</b> 02/08/2023<br/><b>Age:</b> 77<br/><b>Gender:</b> Female<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Delray Beach<br/><b>Location:</b> Lindell Boulevard and Old Dixie Highway in Delray Beach<br/><b>Details:</b> SUV]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.076109,26.425325,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Mary Ann Dubose (01/01/2023)</name>
+        <description><![CDATA[<b>Date:</b> 01/01/2023<br/><b>Gender:</b> Female<br/><b>Mode:</b> Unknown<br/><b>City:</b> Dania Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149697,26.038779,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Ethan Azuz (12/27/2022)</name>
+        <description><![CDATA[<b>Date:</b> 12/27/2022<br/><b>Age:</b> 36<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Fort Lauderdale<br/><b>Location:</b> Fort Lauderdale - Northeast Ninth Street and Fourth Avenue]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.191526,25.808456,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Gery Edmond (12/27/2022)</name>
+        <description><![CDATA[<b>Date:</b> 12/27/2022<br/><b>Age:</b> 52<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Miami<br/><b>Location:</b> Miami - Northeast Second Avenue and 34th Street]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.191526,25.808456,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Kristo David Leon (12/11/2022)</name>
+        <description><![CDATA[<b>Date:</b> 12/11/2022<br/><b>Age:</b> 36<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Hollywood]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149051,26.0104,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Layfun Moore Jr (12/09/2022)</name>
+        <description><![CDATA[<b>Date:</b> 12/09/2022<br/><b>Age:</b> 36<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Lake Worth Beach<br/><b>Location:</b> Lake Worth Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.054709,26.596151,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>James Mitchell, (11/21/2022)</name>
+        <description><![CDATA[<b>Date:</b> 11/21/2022<br/><b>Age:</b> 64<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Dania Beach<br/><b>Location:</b> Dania Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147707,26.046739,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Michael Sullivan (10/27/2022)</name>
+        <description><![CDATA[<b>Date:</b> 10/27/2022<br/><b>Age:</b> 43<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lantana<br/><b>Location:</b> Lantana]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.052411,26.590698,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>James Mark Ostrowski (10/25/2022)</name>
+        <description><![CDATA[<b>Date:</b> 10/25/2022<br/><b>Age:</b> 74<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boca Raton<br/><b>Location:</b> Dixie Highway in Boca Raton]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.092856,26.330137,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Hector Bonilla Ramos (10/19/2022)</name>
+        <description><![CDATA[<b>Date:</b> 10/19/2022<br/><b>Age:</b> 37<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> North Miami Beach<br/><b>Location:</b> North Miami Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.153937,25.9373,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Hanna Dudnik (10/07/2022)</name>
+        <description><![CDATA[<b>Date:</b> 10/07/2022<br/><b>Age:</b> 43<br/><b>Gender:</b> Female<br/><b>Mode:</b> Unknown<br/><b>City:</b> North Miami Beach<br/><b>Location:</b> North Miami Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.154249,25.926139,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jon Alexander (10/03/2022)</name>
+        <description><![CDATA[<b>Date:</b> 10/03/2022<br/><b>Age:</b> 64<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hollywood<br/><b>Location:</b> Near the intersection of Tyler Street and North 21st Avenue]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.14921,26.015094,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Addison Dajonjamal Jones (10/01/2022)</name>
+        <description><![CDATA[<b>Date:</b> 10/01/2022<br/><b>Age:</b> 35<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Fort Lauderdale<br/><b>Location:</b> Coral Ridge Isles neighborhood of Fort Lauderdale]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.13238,26.203809,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Stephen John Jankowiak (09/02/2022)</name>
+        <description><![CDATA[<b>Date:</b> 09/02/2022<br/><b>Age:</b> 45<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Oakland Park<br/><b>Location:</b> Commercial Boulevard in Oakland Park.]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.131943,26.188947,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Raymond Arnold (08/24/2022)</name>
+        <description><![CDATA[<b>Date:</b> 08/24/2022<br/><b>Age:</b> 61<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hollywood<br/><b>Location:</b> Hollywood]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149694,26.031177,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Rodney King Bondanella (08/07/2022)</name>
+        <description><![CDATA[<b>Date:</b> 08/07/2022<br/><b>Age:</b> 67<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boynton Beach<br/><b>Location:</b> Boynton Beach near Martin Luther King Jr. Boulevard and Federal Highway]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.05839,26.536068,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Gabriel Quiros (08/02/2022)</name>
+        <description><![CDATA[<b>Date:</b> 08/02/2022<br/><b>Age:</b> 47<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Delray Beach<br/><b>Location:</b> Delray Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.07175,26.45245,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jordan Elijah Abiera Sinsuat (06/22/2022)</name>
+        <description><![CDATA[<b>Date:</b> 06/22/2022<br/><b>Age:</b> 39<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lake Worth Beach<br/><b>Location:</b> Intersection of 10th Avenue North and North G Street]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.059197,26.627666,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Liesel Hulden (06/07/2022)</name>
+        <description><![CDATA[<b>Date:</b> 06/07/2022<br/><b>Age:</b> 84<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Oakland Park<br/><b>Location:</b> Oakland Park]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.13234,26.20364,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Deanna Joyce Burton-Lyons (05/07/2022)</name>
+        <description><![CDATA[<b>Date:</b> 05/07/2022<br/><b>Age:</b> 54<br/><b>Gender:</b> Female<br/><b>Mode:</b> Scooter<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> Intersection of Copans Road and North Dixie Highway<br/><b>Details:</b> driver of the scooter crossed over the railroad tracks, heading east in the westbound lanes, “traveling diagonally towards the eastbound lanes and struck the side of the train.”]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.117897,26.2603,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Maher Soua (05/03/2022)</name>
+        <description><![CDATA[<b>Date:</b> 05/03/2022<br/><b>Age:</b> 52<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Hollywood<br/><b>Location:</b> Hollywood -<br/><b>Details:</b> Jeep]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149428,26.021645,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jake Bresnehan (05/02/2022)</name>
+        <description><![CDATA[<b>Date:</b> 05/02/2022<br/><b>Age:</b> 27<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> Pompano Beach Northwest Sixth Street and North Dixie Highway]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.124311,26.236923,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Whitnie Laura Walker (04/13/2022)</name>
+        <description><![CDATA[<b>Date:</b> 04/13/2022<br/><b>Age:</b> 43<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Aventura<br/><b>Location:</b> Aventura]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147859,25.974341,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jean Sonel (03/26/2022)</name>
+        <description><![CDATA[<b>Date:</b> 03/26/2022<br/><b>Age:</b> 42<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lantana<br/><b>Location:</b> Lantana]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.053652,26.576456,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Demitre Ramos (02/15/2022)</name>
+        <description><![CDATA[<b>Date:</b> 02/15/2022<br/><b>Age:</b> 19<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hallandale Beach<br/><b>Location:</b> Hallandale Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147844,25.974438,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Hidegalde Perez (02/13/2022)</name>
+        <description><![CDATA[<b>Date:</b> 02/13/2022<br/><b>Age:</b> 48<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Lake Worth<br/><b>Location:</b> Lake Worth]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.059,26.635938,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jerry Santomaso (01/27/2022)</name>
+        <description><![CDATA[<b>Date:</b> 01/27/2022<br/><b>Age:</b> 66<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hollywood<br/><b>Location:</b> 21st Avenue and Harris Street in Hollywood<br/><b>Details:</b> Decapitated]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149051,26.0104,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Marc Charleus (12/30/2021)</name>
+        <description><![CDATA[<b>Date:</b> 12/30/2021<br/><b>Age:</b> 68<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Hallandale Beach<br/><b>Location:</b> NE 214th Street by the Miami-Dade and Broward border<br/><b>Details:</b> Brother &amp; Sister]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147844,25.974438,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Veronique Charleus (12/30/2021)</name>
+        <description><![CDATA[<b>Date:</b> 12/30/2021<br/><b>Age:</b> 58<br/><b>Gender:</b> Female<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Hallandale Beach<br/><b>Location:</b> NE 214th Street by the Miami-Dade and Broward border<br/><b>Details:</b> Brother &amp; Sister]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147844,25.974438,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Carolyn Carswell Robinson (12/13/2021)</name>
+        <description><![CDATA[<b>Date:</b> 12/13/2021<br/><b>Age:</b> 73<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Fort Lauderdale<br/><b>Location:</b> Fort Lauderdale Brightline station]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.145012,26.129713,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Luke Naumiuk (12/11/2021)</name>
+        <description><![CDATA[<b>Date:</b> 12/11/2021<br/><b>Age:</b> 33<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Hollywood<br/><b>Location:</b> Van Buren Street in Hollywood<br/><b>Details:</b> Suspected Suicide]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149051,26.0104,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Carmen Pellegrino (12/07/2021)</name>
+        <description><![CDATA[<b>Date:</b> 12/07/2021<br/><b>Age:</b> 64<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> North Miami Beach<br/><b>Location:</b> NE 163rd Street in North Miami Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.157726,25.915062,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Ricardo Printemps (07/21/2021)</name>
+        <description><![CDATA[<b>Date:</b> 07/21/2021<br/><b>Age:</b> 30<br/><b>Gender:</b> Male<br/><b>Mode:</b> Bicyclist<br/><b>City:</b> Miami Shores<br/><b>Location:</b> Northeast 6th Avenue and 92nd Street]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.185113,25.85953,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Henrisha Victoria France Donjoie (03/17/2020)</name>
+        <description><![CDATA[<b>Date:</b> 03/17/2020<br/><b>Age:</b> 21<br/><b>Gender:</b> Female<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> 600 block of NE Seventh Avenue in Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.124311,26.236923,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Alexis Marion (02/24/2020)</name>
+        <description><![CDATA[<b>Date:</b> 02/24/2020<br/><b>Age:</b> 17<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Deerfield Beach<br/><b>Location:</b> Deerfield Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.09993,26.32076,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Willie Mitchell (02/18/2020)</name>
+        <description><![CDATA[<b>Date:</b> 02/18/2020<br/><b>Age:</b> 38<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> Atlantic Boulevard in Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.125086,26.234183,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Mary Delancy (01/27/2020)</name>
+        <description><![CDATA[<b>Date:</b> 01/27/2020<br/><b>Age:</b> 58<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hallandale Beach<br/><b>Location:</b> Hallandale Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147852,25.974438,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>James Ratliff (01/21/2020)</name>
+        <description><![CDATA[<b>Date:</b> 01/21/2020<br/><b>Age:</b> 50<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lake Worth Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.065,26.595,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Derek Chandras (01/01/2020)</name>
+        <description><![CDATA[<b>Date:</b> 01/01/2020<br/><b>Age:</b> 30<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> 300 block of Dixie Highway in Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.1268,26.2283,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jose Roibal (12/20/2019)</name>
+        <description><![CDATA[<b>Date:</b> 12/20/2019<br/><b>Age:</b> 56<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> West Palm Beach<br/><b>Location:</b> West Palm Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.058068,26.674375,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Desmond L. Dwyer (12/04/2019)</name>
+        <description><![CDATA[<b>Date:</b> 12/04/2019<br/><b>Age:</b> 58<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> North Miami Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.157741,25.915075,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Veronica Martinez Vorano (11/15/2019)</name>
+        <description><![CDATA[<b>Date:</b> 11/15/2019<br/><b>Age:</b> 54<br/><b>Gender:</b> Female<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Aventura<br/><b>Location:</b> Aventura<br/><b>Details:</b> Mercedes SUV]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.147484,25.963721,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Rodney Keyon Cox Jr. (11/13/2019)</name>
+        <description><![CDATA[<b>Date:</b> 11/13/2019<br/><b>Age:</b> 19<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Deerfield Beach<br/><b>Location:</b> 48th Street in Deerfield Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.107146,26.297439,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Joseph Philippe (11/02/2019)</name>
+        <description><![CDATA[<b>Date:</b> 11/02/2019<br/><b>Age:</b> 47<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Miami<br/><b>Location:</b> Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.18763,25.825507,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Mollie Ann Herrera (10/13/2019)</name>
+        <description><![CDATA[<b>Date:</b> 10/13/2019<br/><b>Age:</b> 37<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> West Palm Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.05809,26.675605,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Unknown (09/24/2019)</name>
+        <description><![CDATA[<b>Date:</b> 09/24/2019<br/><b>Age:</b> 47<br/><b>Gender:</b> Unknown<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hollywood<br/><b>Location:</b> Taft Street in Hollywood]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149579,26.026137,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Joseph Lawrence Kartheiser (09/24/2019)</name>
+        <description><![CDATA[<b>Date:</b> 09/24/2019<br/><b>Age:</b> 57<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.194521,25.795633,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Clivet Alberto Romero (09/12/2019)</name>
+        <description><![CDATA[<b>Date:</b> 09/12/2019<br/><b>Age:</b> 46<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Oakland Park<br/><b>Location:</b> Oakland Park<br/><b>Details:</b> Maserati]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149713,26.031296,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Paul Smith (09/06/2019)</name>
+        <description><![CDATA[<b>Date:</b> 09/06/2019<br/><b>Age:</b> 47<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> West Palm Beach<br/><b>Location:</b> West Palm Beach<br/><b>Details:</b> 2008 Corvette]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.055812,26.692105,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Andria Dawn Montoya (09/05/2019)</name>
+        <description><![CDATA[<b>Date:</b> 09/05/2019<br/><b>Age:</b> 37<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Delray Beach<br/><b>Location:</b> NE Fourth Street in Delray Beach<br/><b>Details:</b> Suspected Suicide]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.069195,26.468805,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Gregory Eugene Williams (08/29/2019)</name>
+        <description><![CDATA[<b>Date:</b> 08/29/2019<br/><b>Age:</b> 60<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boca Raton]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.0975,26.324,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Wisly Isma (08/25/2019)</name>
+        <description><![CDATA[<b>Date:</b> 08/25/2019<br/><b>Age:</b> 46<br/><b>Gender:</b> Male<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> Pompano Beach<br/><b>Details:</b> SUV]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.114478,26.2716,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Robert Ballard (08/20/2019)</name>
+        <description><![CDATA[<b>Date:</b> 08/20/2019<br/><b>Age:</b> 57<br/><b>Gender:</b> Male<br/><b>Mode:</b> Bicyclist<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> 3300 Block of North Dixie Highway in Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.1137,26.2745,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Patricia Wassuta (08/10/2019)</name>
+        <description><![CDATA[<b>Date:</b> 08/10/2019<br/><b>Age:</b> 64<br/><b>Gender:</b> Female<br/><b>City:</b> Deerfield Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.109263,26.289979,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>David Lopez (07/29/2019)</name>
+        <description><![CDATA[<b>Date:</b> 07/29/2019<br/><b>Age:</b> 31<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hollywood<br/><b>Location:</b> South Dixie Highway and Harrison Street]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149051,26.0104,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Brandon Brown (07/25/2019)</name>
+        <description><![CDATA[<b>Date:</b> 07/25/2019<br/><b>Age:</b> 24<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Deerfield Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.10344,26.31044,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Kevin Puryear (06/10/2019)</name>
+        <description><![CDATA[<b>Date:</b> 06/10/2019<br/><b>Age:</b> 60<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.12081,26.2493,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Cody Ronald Camp (06/03/2019)</name>
+        <description><![CDATA[<b>Date:</b> 06/03/2019<br/><b>Age:</b> 17<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boynton Beach<br/><b>Location:</b> Gateway Boulevard in Boynton Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.05676,26.54678,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Princess Davis (05/18/2019)</name>
+        <description><![CDATA[<b>Date:</b> 05/18/2019<br/><b>Age:</b> 32<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lake Worth<br/><b>Location:</b> Lake Worth on 12th Avenue]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.05572,26.59694,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Donald William Krinkie (04/12/2019)</name>
+        <description><![CDATA[<b>Date:</b> 04/12/2019<br/><b>Age:</b> 74<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Oakland Park]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.132372,26.203612,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Therese Pierre Jules (03/20/2019)</name>
+        <description><![CDATA[<b>Date:</b> 03/20/2019<br/><b>Age:</b> 49<br/><b>Gender:</b> Female<br/><b>Mode:</b> Vehicle<br/><b>City:</b> Miami<br/><b>Location:</b> North Miami]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.170646,25.890759,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Marcos Vidal (03/07/2019)</name>
+        <description><![CDATA[<b>Date:</b> 03/07/2019<br/><b>Age:</b> 43<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Hollywood<br/><b>Location:</b> Garfield Street in Hollywood]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.170646,25.890759,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Lauren Chelsea Senechal (02/13/2019)</name>
+        <description><![CDATA[<b>Date:</b> 02/13/2019<br/><b>Age:</b> 23<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Lantana<br/><b>Location:</b> Lantana North of Hypoluxo Road<br/><b>Details:</b> Connected to shoplifting]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.149403,26.021644,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Carter Philip McDonald (01/23/2019)</name>
+        <description><![CDATA[<b>Date:</b> 01/23/2019<br/><b>Age:</b> 59<br/><b>Gender:</b> Male<br/><b>Mode:</b> Bicyclist<br/><b>City:</b> Oakland Park<br/><b>Location:</b> NE 38th Street in Oakland Park]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.053803,26.573088,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Andres Israel Rodriguez-Oliva (01/01/2019)</name>
+        <description><![CDATA[<b>Date:</b> 01/01/2019<br/><b>Age:</b> 37<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Fort Lauderdale<br/><b>Location:</b> Fort Lauderdale bridge<br/><b>Details:</b> Hit and then drowned]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.132392,26.206121,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>David Ulmer (12/13/2018)</name>
+        <description><![CDATA[<b>Date:</b> 12/13/2018<br/><b>Age:</b> 39<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Pompano Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.126,26.2311,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Dyanna Fernandez (12/13/2018)</name>
+        <description><![CDATA[<b>Date:</b> 12/13/2018<br/><b>Age:</b> 29<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Pompano Beach<br/><b>Location:</b> Northeast 6th Street]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.126,26.2311,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Chedeline Corrielant Fleurimond (11/03/2018)</name>
+        <description><![CDATA[<b>Date:</b> 11/03/2018<br/><b>Age:</b> 26<br/><b>Gender:</b> Male<br/><b>Mode:</b> Unknown<br/><b>City:</b> Miami<br/><b>Location:</b> Miami-Dade]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.159063,25.906103,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Calvin Owens Easterly (08/18/0208)</name>
+        <description><![CDATA[<b>Date:</b> 08/18/0208<br/><b>Age:</b> 34<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Fort Lauderdale]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.138566,26.136989,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Douglas Scott Updike Jr. (04/08/2018)</name>
+        <description><![CDATA[<b>Date:</b> 04/08/2018<br/><b>Age:</b> 34<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Delray Beach<br/><b>Location:</b> SE Fourth Street in Delray Beach<br/><b>Details:</b> Suspected Suicide]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.08152,26.45388,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>John Nitz (03/11/2018)</name>
+        <description><![CDATA[<b>Date:</b> 03/11/2018<br/><b>Age:</b> 56<br/><b>Gender:</b> Male<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> West Palm Beach<br/><b>Location:</b> Forest Hill Boulevard in West Palm Beach<br/><b>Details:</b> Suicide]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.058539,26.655128,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jeffrey King (01/17/2018)</name>
+        <description><![CDATA[<b>Date:</b> 01/17/2018<br/><b>Age:</b> 60<br/><b>Gender:</b> Male<br/><b>Mode:</b> Bicyclist<br/><b>City:</b> Boynton Beach<br/><b>Location:</b> Boynton Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.059827,26.527113,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Melissa Lavell (01/12/2018)</name>
+        <description><![CDATA[<b>Date:</b> 01/12/2018<br/><b>Age:</b> 32<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boynton Beach<br/><b>Location:</b> Boynton Beach - Northeast Sixth Avenue and Boynton Beach Boulevard]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.058962,26.532506,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Jennifer Reed (11/01/2017)</name>
+        <description><![CDATA[<b>Date:</b> 11/01/2017<br/><b>Age:</b> 36<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Deerfield Beach<br/><b>Location:</b> 4500 block of South Dixie Highway in Deerfield Beach]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.11084,26.2843,0</coordinates>
+        </Point>
+    </Placemark>
+
+    <Placemark>
+        <name>Madison Brunelle (07/24/2017)</name>
+        <description><![CDATA[<b>Date:</b> 07/24/2017<br/><b>Age:</b> 18<br/><b>Gender:</b> Female<br/><b>Mode:</b> Pedestrian<br/><b>City:</b> Boca Raton<br/><b>Location:</b> Boca Raton near Florida Atlantic University<br/><b>Details:</b> Suicide]]></description>
+        <styleUrl>#deathMarker</styleUrl>
+        <Point>
+            <coordinates>-80.08476,26.37094,0</coordinates>
+        </Point>
+    </Placemark>
+</Document>
+</kml>
