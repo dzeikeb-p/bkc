@@ -237,6 +237,82 @@
       }
     }
 
+    /* Mobile table adjustments */
+    @media (max-width: 768px) {
+      .table-wrapper {
+        padding: 0;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px 6px;
+      }
+
+      /* Hide less important columns on mobile */
+      .col-age, .col-gender, .col-fullLocation, .col-mode, .col-suicide, .col-details {
+        display: none;
+      }
+
+      /* Sticky Date column */
+      th.col-date, td.col-date {
+        position: sticky;
+        left: 0;
+        z-index: 5;
+        min-width: 75px;
+      }
+
+      /* Sticky Name column */
+      th.col-name, td.col-name {
+        position: sticky;
+        left: 75px;
+        z-index: 5;
+        max-width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* Header backgrounds for sticky columns */
+      thead th.col-date, thead th.col-name {
+        background: #f0f0f0;
+        z-index: 15;
+      }
+
+      body.dark thead th.col-date, body.dark thead th.col-name {
+        background: #2a2a2a;
+      }
+
+      /* Body backgrounds for sticky columns */
+      tbody td.col-date, tbody td.col-name {
+        background: #fff;
+      }
+
+      body.dark tbody td.col-date, body.dark tbody td.col-name {
+        background: #1e1e1e;
+      }
+
+      /* Row hover for sticky columns */
+      tbody tr:hover td.col-date, tbody tr:hover td.col-name {
+        background: #f9f9f9;
+      }
+
+      body.dark tbody tr:hover td.col-date, body.dark tbody tr:hover td.col-name {
+        background: #2a2a2a;
+      }
+
+      /* Add shadow to indicate more content */
+      th.col-name, td.col-name {
+        border-right: 3px solid rgba(0,0,0,0.1);
+      }
+
+      body.dark th.col-name, body.dark td.col-name {
+        border-right: 3px solid rgba(255,255,255,0.1);
+      }
+    }
+
     .table-wrapper {
       flex: 1;
       overflow: auto;
@@ -517,17 +593,17 @@
     <table id="data-table">
       <thead>
         <tr>
-          <th data-sort="date">Date <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="name">Name <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="age">Age <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="gender">Gender <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="location">City <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="fullLocation">Location <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="mode">Mode <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="suicide">Suicide? <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="details">Details <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th>Source</th>
-          <th>Map</th>
+          <th data-sort="date" class="col-date">Date <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="name" class="col-name">Name <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="age" class="col-age">Age <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="gender" class="col-gender">Gender <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="location" class="col-city">City <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="fullLocation" class="col-fullLocation">Location <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="mode" class="col-mode">Mode <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="suicide" class="col-suicide">Suicide? <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="details" class="col-details">Details <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th class="col-source">Source</th>
+          <th class="col-map">Map</th>
         </tr>
       </thead>
       <tbody id="table-body">
@@ -760,17 +836,17 @@
         noResults.style.display = 'none';
         tbody.innerHTML = filtered.map((r, index) => `
           <tr>
-            <td>${escapeHtml(r.date)}</td>
-            <td class="name-cell">${escapeHtml(r.name) || '<em>Unknown</em>'}</td>
-            <td>${escapeHtml(r.age)}</td>
-            <td>${escapeHtml(r.gender)}</td>
-            <td>${escapeHtml(r.location)}</td>
-            <td>${escapeHtml(r.fullLocation)}</td>
-            <td>${escapeHtml(r.mode)}</td>
-            <td>${escapeHtml(r.suicide)}</td>
-            <td class="details-cell" title="${escapeHtml(r.details)}">${escapeHtml(r.details)}</td>
-            <td>${r.source ? formatSources(r.source, index) : ''}</td>
-            <td>${r.lat && r.lon ? `<a href="/map?lat=${r.lat}&lon=${r.lon}&date=${encodeURIComponent(r.date)}" class="map-link" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}</td>
+            <td class="col-date">${escapeHtml(r.date)}</td>
+            <td class="col-name name-cell">${escapeHtml(r.name) || '<em>Unknown</em>'}</td>
+            <td class="col-age">${escapeHtml(r.age)}</td>
+            <td class="col-gender">${escapeHtml(r.gender)}</td>
+            <td class="col-city">${escapeHtml(r.location)}</td>
+            <td class="col-fullLocation">${escapeHtml(r.fullLocation)}</td>
+            <td class="col-mode">${escapeHtml(r.mode)}</td>
+            <td class="col-suicide">${escapeHtml(r.suicide)}</td>
+            <td class="col-details details-cell" title="${escapeHtml(r.details)}">${escapeHtml(r.details)}</td>
+            <td class="col-source">${r.source ? formatSources(r.source, index) : ''}</td>
+            <td class="col-map">${r.lat && r.lon ? `<a href="/map?lat=${r.lat}&lon=${r.lon}&date=${encodeURIComponent(r.date)}" class="map-link" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}</td>
           </tr>
         `).join('');
       }
