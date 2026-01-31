@@ -245,6 +245,8 @@
 
       table {
         font-size: 12px;
+        border-collapse: separate;
+        border-spacing: 0;
       }
 
       th, td {
@@ -258,40 +260,30 @@
         left: 0;
         z-index: 5;
         min-width: 70px;
+        background-color: #fff !important;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.1);
       }
 
       thead th.col-date {
-        background: #f0f0f0;
+        background-color: #f0f0f0 !important;
         z-index: 15;
       }
 
+      body.dark th.col-date, body.dark td.col-date {
+        background-color: #1e1e1e !important;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.3);
+      }
+
       body.dark thead th.col-date {
-        background: #2a2a2a;
-      }
-
-      tbody td.col-date {
-        background: #fff;
-      }
-
-      body.dark tbody td.col-date {
-        background: #1e1e1e;
+        background-color: #2a2a2a !important;
       }
 
       tbody tr:hover td.col-date {
-        background: #f9f9f9;
+        background-color: #f9f9f9 !important;
       }
 
       body.dark tbody tr:hover td.col-date {
-        background: #2a2a2a;
-      }
-
-      /* Shadow to indicate scrollable content */
-      th.col-date, td.col-date {
-        border-right: 2px solid rgba(0,0,0,0.15);
-      }
-
-      body.dark th.col-date, body.dark td.col-date {
-        border-right: 2px solid rgba(255,255,255,0.15);
+        background-color: #2a2a2a !important;
       }
     }
 
