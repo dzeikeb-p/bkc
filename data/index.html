@@ -240,7 +240,7 @@
     /* Mobile table adjustments */
     @media (max-width: 768px) {
       .table-wrapper {
-        padding: 0;
+        padding: 0 10px 10px;
       }
 
       table {
@@ -249,67 +249,49 @@
 
       th, td {
         padding: 8px 6px;
+        white-space: nowrap;
       }
 
-      /* Hide less important columns on mobile */
-      .col-age, .col-gender, .col-fullLocation, .col-mode, .col-suicide, .col-details {
-        display: none;
-      }
-
-      /* Sticky Date column */
+      /* Sticky Date column only */
       th.col-date, td.col-date {
         position: sticky;
         left: 0;
         z-index: 5;
-        min-width: 75px;
+        min-width: 70px;
       }
 
-      /* Sticky Name column */
-      th.col-name, td.col-name {
-        position: sticky;
-        left: 75px;
-        z-index: 5;
-        max-width: 90px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      /* Header backgrounds for sticky columns */
-      thead th.col-date, thead th.col-name {
+      thead th.col-date {
         background: #f0f0f0;
         z-index: 15;
       }
 
-      body.dark thead th.col-date, body.dark thead th.col-name {
+      body.dark thead th.col-date {
         background: #2a2a2a;
       }
 
-      /* Body backgrounds for sticky columns */
-      tbody td.col-date, tbody td.col-name {
+      tbody td.col-date {
         background: #fff;
       }
 
-      body.dark tbody td.col-date, body.dark tbody td.col-name {
+      body.dark tbody td.col-date {
         background: #1e1e1e;
       }
 
-      /* Row hover for sticky columns */
-      tbody tr:hover td.col-date, tbody tr:hover td.col-name {
+      tbody tr:hover td.col-date {
         background: #f9f9f9;
       }
 
-      body.dark tbody tr:hover td.col-date, body.dark tbody tr:hover td.col-name {
+      body.dark tbody tr:hover td.col-date {
         background: #2a2a2a;
       }
 
-      /* Add shadow to indicate more content */
-      th.col-name, td.col-name {
-        border-right: 3px solid rgba(0,0,0,0.1);
+      /* Shadow to indicate scrollable content */
+      th.col-date, td.col-date {
+        border-right: 2px solid rgba(0,0,0,0.15);
       }
 
-      body.dark th.col-name, body.dark td.col-name {
-        border-right: 3px solid rgba(255,255,255,0.1);
+      body.dark th.col-date, body.dark td.col-date {
+        border-right: 2px solid rgba(255,255,255,0.15);
       }
     }
 
