@@ -38,7 +38,7 @@
 
     .container {
       max-width: 900px;
-      margin: 60px auto 20px;
+      margin: 20px auto;
       padding: 16px;
       background: #ffffff;
       border-radius: 8px;
@@ -67,7 +67,7 @@
 
     @media (max-width: 640px) {
       .container {
-        margin: 50px 10px 20px;
+        margin: 10px;
         padding: 10px;
         grid-template-columns: 1fr;
         border-radius: 0;
@@ -96,27 +96,27 @@
       background-color: #222;
     }
 
-    .theme-toggle {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      cursor: pointer;
-      z-index: 1001;
-      font-size: 20px;
-      opacity: 0;
-      animation: fadeIn 0.6s ease-in forwards;
+    .header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+
+    body.dark .header {
+      background: #222;
     }
 
     .nav-links {
-      position: fixed;
-      top: 16px;
-      left: 16px;
       display: flex;
       gap: 20px;
       align-items: center;
-      z-index: 1001;
-      opacity: 0;
-      animation: fadeIn 0.6s ease-in forwards;
     }
 
     .nav-links a {
@@ -129,24 +129,23 @@
       color: #ec1111;
     }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    .theme-toggle {
+      font-size: 20px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="nav-links">
-    <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
-    <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
-    <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
-    <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
-  </div>
-
-  <!-- Theme toggle icon -->
-  <div class="theme-toggle" id="themeToggle" title="Toggle theme">
-    <i class="fa-solid fa-moon" id="themeIcon"></i>
+  <div class="header">
+    <div class="nav-links">
+      <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
+      <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
+      <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
+      <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
+    </div>
+    <div class="theme-toggle" id="themeToggle" title="Toggle theme">
+      <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </div>
   </div>
 
   <div class="container" id="charts"></div>
