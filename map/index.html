@@ -517,6 +517,15 @@
 
     // Filter records
     function filterRecords() {
+      // If specific record filter is set, only show that record
+      if (specificRecordFilter) {
+        return allRecords.filter(r =>
+          r.date === specificRecordFilter.date &&
+          Math.abs(r.lat - specificRecordFilter.lat) < 0.0001 &&
+          Math.abs(r.lon - specificRecordFilter.lon) < 0.0001
+        );
+      }
+
       const filters = getFilters();
       return allRecords.filter(r => {
         if (filters.year && r.year !== filters.year) return false;
@@ -574,12 +583,20 @@
 
       // Fit bounds if we have markers
       if (markers.length > 0) {
-        const group = L.featureGroup(markers);
-        map.fitBounds(group.getBounds().pad(0.1));
+        if (specificRecordFilter && markers.length === 1) {
+          // Zoom in close for specific record and open popup
+          map.setView([filtered[0].lat, filtered[0].lon], 15);
+          markers[0].openPopup();
+        } else {
+          const group = L.featureGroup(markers);
+          map.fitBounds(group.getBounds().pad(0.1));
+        }
       }
 
-      // Update URL
-      updateUrl();
+      // Update URL (but not if viewing specific record)
+      if (!specificRecordFilter) {
+        updateUrl();
+      }
     }
 
     function escapeHtml(text) {
@@ -588,9 +605,21 @@
       return div.innerHTML;
     }
 
+    // Specific record filter (from Data page link)
+    let specificRecordFilter = null;
+
     // URL parameter handling
     function applyUrlParams() {
       const params = new URLSearchParams(window.location.search);
+
+      // Check for specific record filter (lat, lon, date from Data page)
+      if (params.has('lat') && params.has('lon') && params.has('date')) {
+        specificRecordFilter = {
+          lat: parseFloat(params.get('lat')),
+          lon: parseFloat(params.get('lon')),
+          date: params.get('date')
+        };
+      }
 
       if (params.has('year')) document.getElementById('filter-year').value = params.get('year');
       if (params.has('city')) document.getElementById('filter-city').value = params.get('city');
@@ -614,11 +643,18 @@
     }
 
     function clearFilters() {
+      // Clear specific record filter
+      specificRecordFilter = null;
+
       document.getElementById('filter-year').value = '';
       document.getElementById('filter-city').value = '';
       document.getElementById('filter-mode').value = '';
       document.getElementById('filter-gender').value = '';
       document.getElementById('filter-suicide').value = '';
+
+      // Clear URL params
+      window.history.replaceState({}, '', window.location.pathname);
+
       renderMarkers();
     }
 
@@ -655,7 +691,14 @@
     });
 
     document.querySelectorAll('.filter-group select').forEach(select => {
-      select.addEventListener('change', renderMarkers);
+      select.addEventListener('change', () => {
+        // Clear specific record filter when user changes filters
+        if (specificRecordFilter) {
+          specificRecordFilter = null;
+          window.history.replaceState({}, '', window.location.pathname);
+        }
+        renderMarkers();
+      });
     });
 
     // Initialize

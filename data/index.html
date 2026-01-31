@@ -770,7 +770,7 @@
             <td>${escapeHtml(r.suicide)}</td>
             <td class="details-cell" title="${escapeHtml(r.details)}">${escapeHtml(r.details)}</td>
             <td>${r.source ? formatSources(r.source, index) : ''}</td>
-            <td>${r.lat && r.lon ? `<a href="/map?lat=${r.lat}&lon=${r.lon}" class="map-link" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}</td>
+            <td>${r.lat && r.lon ? `<a href="/map?lat=${r.lat}&lon=${r.lon}&date=${encodeURIComponent(r.date)}" class="map-link" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}</td>
           </tr>
         `).join('');
       }
