@@ -567,7 +567,7 @@
         if (record.details) popupHtml += `<p><span class="label">Details:</span> ${escapeHtml(record.details)}</p>`;
         if (record.suicide) popupHtml += `<p><span class="label">Suicide:</span> ${escapeHtml(record.suicide)}</p>`;
         if (record.source) {
-          const sources = record.source.split(',').map(s => s.trim()).filter(Boolean);
+          const sources = extractUrls(record.source);
           if (sources.length > 0) {
             popupHtml += `<p><span class="label">Source:</span> <a href="${escapeHtml(sources[0])}" target="_blank">View Article</a></p>`;
           }
@@ -603,6 +603,22 @@
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
+    }
+
+    function extractUrls(sourceStr) {
+      // First try splitting by common delimiters
+      const delimiters = /[,\n\r]+/;
+      const parts = sourceStr.split(delimiters).map(s => s.trim()).filter(Boolean);
+
+      // If that gives us valid URLs, use them
+      if (parts.length > 0 && parts.every(p => p.startsWith('http'))) {
+        return parts;
+      }
+
+      // Otherwise, extract all URLs using regex (handles concatenated URLs)
+      const urlRegex = /https?:\/\/[^\s,\n\r]+/g;
+      const matches = sourceStr.match(urlRegex);
+      return matches || [];
     }
 
     // Specific record filter (from Data page link)
