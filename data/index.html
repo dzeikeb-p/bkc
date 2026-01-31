@@ -822,7 +822,23 @@
     }
 
     function formatSources(sourceStr, rowIndex) {
-      const sources = sourceStr.split(',').map(s => s.trim()).filter(Boolean);
+      // Split by multiple delimiters: comma, newline, or find all URLs starting with http
+      let sources = [];
+
+      // First try splitting by common delimiters
+      const delimiters = /[,\n\r]+/;
+      const parts = sourceStr.split(delimiters).map(s => s.trim()).filter(Boolean);
+
+      // If that gives us valid URLs, use them
+      if (parts.length > 0 && parts.every(p => p.startsWith('http'))) {
+        sources = parts;
+      } else {
+        // Otherwise, extract all URLs using regex (handles concatenated URLs)
+        const urlRegex = /https?:\/\/[^\s,\n\r]+/g;
+        const matches = sourceStr.match(urlRegex);
+        sources = matches || [];
+      }
+
       if (sources.length === 0) return '';
 
       if (sources.length === 1) {
