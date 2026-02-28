@@ -47,27 +47,19 @@ class ArticleParser:
             ParsedArticle object or None if extraction fails
         """
         # Try trafilatura first (better precision)
-        result = self._try_trafilatura(url)
-        if result and len(result.text) >= self.min_text_length:
-            return result
+        traf_result = self._try_trafilatura(url)
+        if traf_result and len(traf_result.text) >= self.min_text_length:
+            return traf_result
 
         # Fall back to newspaper4k
-        result = self._try_newspaper(url)
-        if result and len(result.text) >= self.min_text_length:
-            return result
-
-        # If both methods got some text, return the longer one
-        traf_result = self._try_trafilatura(url)
         news_result = self._try_newspaper(url)
-
-        if traf_result and news_result:
-            return traf_result if len(traf_result.text) >= len(news_result.text) else news_result
-        elif traf_result:
-            return traf_result
-        elif news_result:
+        if news_result and len(news_result.text) >= self.min_text_length:
             return news_result
 
-        return None
+        # Both got some text but neither hit min length — return the longer one
+        if traf_result and news_result:
+            return traf_result if len(traf_result.text) >= len(news_result.text) else news_result
+        return traf_result or news_result
 
     def _try_trafilatura(self, url: str) -> Optional[ParsedArticle]:
         """
@@ -80,7 +72,7 @@ class ArticleParser:
             ParsedArticle or None if extraction fails
         """
         try:
-            downloaded = trafilatura.fetch_url(url)
+            downloaded = trafilatura.fetch_url(url, timeout=10)
             if not downloaded:
                 return None
 
@@ -126,7 +118,7 @@ class ArticleParser:
             ParsedArticle or None if extraction fails
         """
         try:
-            article = Article(url)
+            article = Article(url, request_timeout=10)
             article.download()
             article.parse()
 
