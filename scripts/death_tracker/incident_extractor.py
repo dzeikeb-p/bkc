@@ -76,7 +76,7 @@ class IncidentExtractor:
     (not the article publish date) from news articles.
     """
 
-    def __init__(self, api_key: str, model: str = "claude-sonnet-4-20250514"):
+    def __init__(self, api_key: str, model: str = "claude-sonnet-4-6"):
         """
         Initialize the incident extractor.
 
@@ -151,6 +151,8 @@ class IncidentExtractor:
                         incident_date = None
                     elif (today - incident_date).days > 30:
                         # More than 30 days old - likely a retrospective
+                        days_old = (today - incident_date).days
+                        print(f"  Skipped: incident date {incident_date} is {days_old} days old (>30 day cutoff)")
                         return None
                 except ValueError:
                     incident_date = None
@@ -171,13 +173,13 @@ class IncidentExtractor:
             )
 
         except json.JSONDecodeError as e:
-            print(f"JSON parsing error: {e}")
+            print(f"  JSON parsing error: {e}")
             return None
         except anthropic.APIError as e:
-            print(f"Claude API error: {e}")
+            print(f"  Claude API error (model={self.model}, type={type(e).__name__}): {e}")
             return None
         except Exception as e:
-            print(f"Extraction error: {e}")
+            print(f"  Extraction error: {type(e).__name__}: {e}")
             return None
 
     def extract_batch(
