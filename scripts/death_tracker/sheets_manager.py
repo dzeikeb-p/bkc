@@ -1,11 +1,14 @@
 """Google Sheets integration for reading and writing incident data."""
 
 import json
-from typing import Dict, List, Optional
+import time
+from typing import Callable, Dict, List, Optional, TypeVar
 from datetime import date
 
 import gspread
 from google.oauth2.service_account import Credentials
+
+T = TypeVar("T")
 
 from config import (
     COLUMNS,
@@ -37,6 +40,27 @@ class SheetsManager:
         self.spreadsheet = self.client.open_by_key(spreadsheet_id)
         self.worksheet = self.spreadsheet.worksheet(WORKSHEET_NAME)
 
+    def _with_retry(self, fn: Callable[[], T], max_retries: int = 3) -> T:
+        """
+        Call fn(), retrying on transient Google API errors with exponential backoff.
+
+        Args:
+            fn: Callable to execute
+            max_retries: Maximum number of attempts
+
+        Returns:
+            Result of fn()
+        """
+        for attempt in range(max_retries):
+            try:
+                return fn()
+            except gspread.exceptions.APIError as e:
+                if attempt == max_retries - 1:
+                    raise
+                wait = 2 ** attempt  # 1s, 2s, 4s
+                print(f"  Google Sheets API error (attempt {attempt + 1}/{max_retries}), retrying in {wait}s: {e}")
+                time.sleep(wait)
+
     def get_all_records(self) -> List[Dict]:
         """
         Get all records from the Media sheet.
@@ -44,7 +68,7 @@ class SheetsManager:
         Returns:
             List of dictionaries, each representing a row with column headers as keys
         """
-        all_values = self.worksheet.get_all_values()
+        all_values = self._with_retry(self.worksheet.get_all_values)
         if not all_values:
             return []
 
@@ -71,7 +95,7 @@ class SheetsManager:
         row_data = self._incident_to_row(incident, status="Draft")
 
         # Insert at row 2 (after header) to maintain newest-first order
-        self.worksheet.insert_row(row_data, index=2)
+        self._with_retry(lambda: self.worksheet.insert_row(row_data, index=2))
         return 2
 
     def update_sources(self, row_number: int, new_sources: List[str]) -> None:
@@ -85,7 +109,7 @@ class SheetsManager:
             new_sources: List of source URLs to add
         """
         source_col = COLUMNS["Source"] + 1  # gspread uses 1-indexed columns
-        current = self.worksheet.cell(row_number, source_col).value
+        current = self._with_retry(lambda: self.worksheet.cell(row_number, source_col).value)
         current_sources = [s.strip() for s in current.split(",")] if current else []
 
         # Merge and deduplicate sources
@@ -96,7 +120,7 @@ class SheetsManager:
             gspread.Cell(row=row_number, col=source_col, value=", ".join(all_sources)),
             gspread.Cell(row=row_number, col=COLUMNS["News Source?"] + 1, value="Yes"),
         ]
-        self.worksheet.update_cells(cells_to_update)
+        self._with_retry(lambda: self.worksheet.update_cells(cells_to_update))
 
     def update_dot_info(
         self, row_number: int, dot_incident_num: str, lat: float, lon: float
@@ -126,7 +150,7 @@ class SheetsManager:
                 gspread.Cell(row=row_number, col=COLUMNS["Google Map"] + 1, value=maps_url)
             )
 
-        self.worksheet.update_cells(cells_to_update)
+        self._with_retry(lambda: self.worksheet.update_cells(cells_to_update))
 
     def mark_existing_approved(self) -> int:
         """
@@ -138,7 +162,7 @@ class SheetsManager:
             Number of records updated
         """
         status_col = COLUMNS["Status"] + 1
-        all_values = self.worksheet.get_all_values()
+        all_values = self._with_retry(self.worksheet.get_all_values)
 
         # Collect all cells that need updating
         cells_to_update = []
@@ -151,7 +175,7 @@ class SheetsManager:
 
         # Batch update all cells at once
         if cells_to_update:
-            self.worksheet.update_cells(cells_to_update)
+            self._with_retry(lambda: self.worksheet.update_cells(cells_to_update))
 
         return len(cells_to_update)
 
@@ -162,7 +186,7 @@ class SheetsManager:
         Returns:
             True if column was added, False if it already existed
         """
-        headers = self.worksheet.row_values(1)
+        headers = self._with_retry(lambda: self.worksheet.row_values(1))
 
         if "Status" not in headers:
             # Add Status header
