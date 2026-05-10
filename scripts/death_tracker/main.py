@@ -271,7 +271,10 @@ def _write_status_json(existing_records: List[Dict], new_drafts: List[Dict]) -> 
     status_path = repo_root / "status.json"
 
     now_ms = int(time.time() * 1000)
-    approved_count = sum(1 for r in existing_records if r.get("Status") == "Approved")
+    approved_count = sum(
+        1 for r in existing_records
+        if r.get("Date") and r.get("Status") not in ("Draft", "Rejected")
+    )
 
     # Load previous status to detect count changes
     last_updated_ms = now_ms  # default: treat first run as an update

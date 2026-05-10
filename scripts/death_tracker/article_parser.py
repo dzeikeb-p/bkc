@@ -72,7 +72,7 @@ class ArticleParser:
             ParsedArticle or None if extraction fails
         """
         try:
-            downloaded = trafilatura.fetch_url(url, timeout=10)
+            downloaded = trafilatura.fetch_url(url)
             if not downloaded:
                 return None
 

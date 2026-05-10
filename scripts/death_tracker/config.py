@@ -23,8 +23,6 @@ FL_LOCAL_RSS_FEEDS = [
     "https://www.orlandosentinel.com/feed/",
     # Palm Beach Post
     "https://www.palmbeachpost.com/rss/",
-    # Miami Herald
-    "https://www.miamiherald.com/news/local/?outputType=rss",
     # TCPalm (Treasure Coast)
     "https://www.tcpalm.com/rss/",
     # WPTV (West Palm Beach TV)
