@@ -135,6 +135,10 @@ def process_news_articles(
             print("  No valid incident extracted (low confidence or retrospective)")
             continue
 
+        if incident.incident_date is None:
+            print("  Skipped: could not extract incident date")
+            continue
+
         print(f"  Extracted: date={incident.incident_date}, location={incident.location_city}, confidence={incident.confidence:.2f}")
 
         # Create IncidentRecord for deduplication
