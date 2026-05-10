@@ -1,11 +1,13 @@
-"""News search functionality using Google News RSS and Florida local news feeds."""
+"""News search functionality using DataForSEO Google News API and Florida local RSS feeds."""
 
+import os
 import urllib.parse
 from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Optional, Set
 
 import feedparser
+import requests
 from dateutil import parser as date_parser
 
 from config import SEARCH_TERMS, FL_LOCAL_RSS_FEEDS
@@ -34,10 +36,10 @@ class NewsSearcher:
     """
     Searches for Brightline-related news articles.
 
-    Uses Google News RSS feeds and Florida local news RSS feeds.
+    Uses DataForSEO Google News API and Florida local news RSS feeds.
     """
 
-    GOOGLE_NEWS_BASE_URL = "https://news.google.com/rss/search"
+    DATAFORSEO_URL = "https://api.dataforseo.com/v3/serp/google/news/live/advanced"
     BRIGHTLINE_KEYWORDS = ["brightline", "train death", "train fatality", "train struck"]
 
     def __init__(
@@ -54,20 +56,6 @@ class NewsSearcher:
         """
         self.search_terms = search_terms or SEARCH_TERMS
         self.local_feeds = local_feeds or FL_LOCAL_RSS_FEEDS
-
-    def _build_google_news_url(self, query: str, days_back: int = 7) -> str:
-        """
-        Build a Google News RSS search URL.
-
-        Args:
-            query: Search query string
-            days_back: Number of days to search back
-
-        Returns:
-            Formatted RSS URL
-        """
-        encoded_query = urllib.parse.quote(f"{query} when:{days_back}d")
-        return f"{self.GOOGLE_NEWS_BASE_URL}?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
 
     def _parse_date(self, date_str: Optional[str]) -> Optional[datetime]:
         """
@@ -129,43 +117,70 @@ class NewsSearcher:
 
     def search_google_news(self, days_back: int = 7) -> List[NewsArticle]:
         """
-        Search Google News RSS for Brightline incidents.
+        Search Google News via DataForSEO API for Brightline incidents.
 
         Args:
-            days_back: Number of days to search back
+            days_back: Number of days to search back (informational; DataForSEO
+                       returns recent results by default)
 
         Returns:
             List of NewsArticle objects
         """
+        login = os.environ.get("DATAFORSEO_LOGIN")
+        password = os.environ.get("DATAFORSEO_PASSWORD")
+
+        if not login or not password:
+            print("Warning: DATAFORSEO_LOGIN/DATAFORSEO_PASSWORD not set, skipping Google News search")
+            return []
+
         articles = []
 
         for term in self.search_terms:
-            url = self._build_google_news_url(term, days_back)
-
             try:
-                feed = feedparser.parse(url)
+                payload = [{
+                    "keyword": term,
+                    "location_code": 2840,  # United States
+                    "language_code": "en",
+                    "depth": 20,
+                }]
 
-                for entry in feed.entries:
-                    # Extract source from title (Google News format: "Title - Source")
-                    title = entry.get("title", "")
-                    source = "Google News"
-                    if " - " in title:
-                        parts = title.rsplit(" - ", 1)
-                        if len(parts) == 2:
-                            title = parts[0]
-                            source = parts[1]
+                resp = requests.post(
+                    self.DATAFORSEO_URL,
+                    auth=(login, password),
+                    json=payload,
+                    timeout=30,
+                )
+                data = resp.json()
+
+                if data.get("status_code") != 20000:
+                    print(f"DataForSEO error for '{term}': {data.get('status_message')}")
+                    continue
+
+                tasks = data.get("tasks", [])
+                if not tasks or tasks[0].get("status_code") != 20000:
+                    msg = tasks[0].get("status_message") if tasks else "no tasks returned"
+                    print(f"DataForSEO task error for '{term}': {msg}")
+                    continue
+
+                result = tasks[0].get("result", [])
+                items = result[0].get("items", []) if result else []
+
+                for item in items:
+                    if item.get("type") != "news_search":
+                        continue
 
                     articles.append(
                         NewsArticle(
-                            title=title,
-                            url=entry.get("link", ""),
-                            published_date=self._parse_date(entry.get("published")),
-                            source=source,
-                            summary=entry.get("summary", ""),
+                            title=item.get("title", ""),
+                            url=item.get("url", ""),
+                            published_date=self._parse_date(item.get("timestamp")),
+                            source=item.get("domain", ""),
+                            summary=item.get("snippet", ""),
                         )
                     )
+
             except Exception as e:
-                print(f"Error fetching Google News for '{term}': {e}")
+                print(f"DataForSEO error for '{term}': {e}")
 
         return articles
 

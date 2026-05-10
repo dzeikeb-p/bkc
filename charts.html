@@ -152,6 +152,7 @@
 
   <div class="footer">
     &copy; 2026 BKC. All rights reserved.
+    <br><span id="tracker-status" style="font-size:12px;opacity:0.6;"></span>
   </div>
 
   <script>
@@ -201,10 +202,27 @@
       setTheme(newTheme);
     });
 
+    async function fetchTrackerStatus() {
+      try {
+        const resp = await fetch('/status.json');
+        if (!resp.ok) return;
+        const s = await resp.json();
+        const el = document.getElementById('tracker-status');
+        if (!el) return;
+        const fmt = ms => new Date(ms).toUTCString().replace(' GMT', ' UTC');
+        if (s.last_updated_ms && s.last_updated_ms === s.last_checked_ms) {
+          el.textContent = 'Last updated: ' + fmt(s.last_updated_ms);
+        } else if (s.last_checked_ms) {
+          el.textContent = 'Last checked: ' + fmt(s.last_checked_ms);
+        }
+      } catch (e) { /* status.json not yet present */ }
+    }
+
     // Init on load
     document.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('theme') || 'light';
       setTheme(savedTheme);
+      fetchTrackerStatus();
     });
   </script>
 </body>

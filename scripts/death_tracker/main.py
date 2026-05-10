@@ -12,9 +12,11 @@ Runs on a schedule via GitHub Actions to:
 7. Weekly: Check FRA database for official records
 """
 
+import json
 import os
 import sys
-from datetime import date
+import time
+from datetime import date, timezone
 from pathlib import Path
 from typing import List, Dict, Optional
 
@@ -258,6 +260,40 @@ def process_fra_data(
     return new_drafts
 
 
+def _write_status_json(existing_records: List[Dict], new_drafts: List[Dict]) -> None:
+    """
+    Write status.json to the repo root after each tracker run.
+
+    Tracks last_checked_ms, last_updated_ms (when approved count changed),
+    and approved_count. Used by the website footer and as a keepalive commit.
+    """
+    repo_root = Path(__file__).parent.parent.parent
+    status_path = repo_root / "status.json"
+
+    now_ms = int(time.time() * 1000)
+    approved_count = sum(1 for r in existing_records if r.get("Status") == "Approved")
+
+    # Load previous status to detect count changes
+    last_updated_ms = now_ms  # default: treat first run as an update
+    if status_path.exists():
+        try:
+            prev = json.loads(status_path.read_text())
+            last_updated_ms = prev.get("last_updated_ms", now_ms)
+            if prev.get("approved_count") != approved_count:
+                last_updated_ms = now_ms
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    status = {
+        "last_checked_ms": now_ms,
+        "last_updated_ms": last_updated_ms,
+        "approved_count": approved_count,
+    }
+
+    status_path.write_text(json.dumps(status))
+    print(f"status.json written (approved={approved_count}, last_updated={'changed' if last_updated_ms == now_ms else 'unchanged'})")
+
+
 def main():
     """Main entry point for the death tracker."""
     print("=" * 60)
@@ -358,6 +394,9 @@ def main():
             print("Email notification skipped (GMAIL_USER/GMAIL_APP_PASSWORD not set)")
     else:
         print("No new drafts created, no notification needed")
+
+    # Write status.json to repo root for website footer + keepalive commit
+    _write_status_json(existing_records, all_new_drafts)
 
     # Summary
     print("\n" + "=" * 60)
