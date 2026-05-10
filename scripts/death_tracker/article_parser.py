@@ -134,7 +134,7 @@ class ArticleParser:
             return None
 
     def parse_with_fallback_summary(
-        self, url: str, rss_summary: Optional[str] = None
+        self, url: str, rss_summary: Optional[str] = None, title: Optional[str] = None
     ) -> Optional[ParsedArticle]:
         """
         Parse article content, falling back to RSS summary if extraction fails.
@@ -144,6 +144,7 @@ class ArticleParser:
         Args:
             url: URL of the article
             rss_summary: Summary text from RSS feed
+            title: Article title from RSS/API (included in fallback text for date extraction)
 
         Returns:
             ParsedArticle or None if all methods fail
@@ -153,12 +154,14 @@ class ArticleParser:
         if result:
             return result
 
-        # If we couldn't extract the article but have an RSS summary, use that
+        # If we couldn't extract the article but have an RSS summary, use that.
+        # Prepend the title so Claude has the best possible context for date extraction.
         if rss_summary and len(rss_summary) >= 50:
+            text = f"{title}\n\n{rss_summary}" if title else rss_summary
             return ParsedArticle(
                 url=url,
-                title="",
-                text=rss_summary,
+                title=title or "",
+                text=text,
                 publish_date=None,
                 authors=[],
             )

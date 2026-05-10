@@ -107,6 +107,7 @@ def process_news_articles(
         parsed = article_parser.parse_with_fallback_summary(
             url=article.url,
             rss_summary=article.summary,
+            title=article.title,
         )
 
         if not parsed or len(parsed.text) < 100:
