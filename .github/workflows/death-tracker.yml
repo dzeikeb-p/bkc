@@ -10,6 +10,10 @@ on:
         description: 'Force FRA database check (normally runs weekly on Mondays)'
         type: boolean
         default: false
+      days_back_cutoff:
+        description: 'Max incident age in days (default 60; use 90+ for backfill runs)'
+        type: number
+        default: 60
 
 permissions:
   contents: write
@@ -48,6 +52,7 @@ jobs:
           DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
           FORCE_FRA_CHECK: ${{ github.event.inputs.force_fra_check || 'false' }}
+          DAYS_BACK_CUTOFF: ${{ github.event.inputs.days_back_cutoff || '60' }}
         run: |
           cd scripts/death_tracker
           python main.py

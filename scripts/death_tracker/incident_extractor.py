@@ -1,6 +1,7 @@
 """LLM-based structured data extraction from news articles."""
 
 import json
+import os
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from typing import Optional
@@ -144,15 +145,15 @@ class IncidentExtractor:
                 try:
                     incident_date = date.fromisoformat(data["incident_date"])
 
-                    # Validate date is reasonable (within last 30 days)
+                    # Validate date is reasonable
                     today = date.today()
+                    cutoff_days = int(os.environ.get("DAYS_BACK_CUTOFF", "60"))
                     if incident_date > today:
                         # Future date is invalid
                         incident_date = None
-                    elif (today - incident_date).days > 30:
-                        # More than 30 days old - likely a retrospective
+                    elif (today - incident_date).days > cutoff_days:
                         days_old = (today - incident_date).days
-                        print(f"  Skipped: incident date {incident_date} is {days_old} days old (>30 day cutoff)")
+                        print(f"  Skipped: incident date {incident_date} is {days_old} days old (>{cutoff_days} day cutoff)")
                         return None
                 except ValueError:
                     incident_date = None
