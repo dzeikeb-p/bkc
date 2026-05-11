@@ -123,6 +123,10 @@ class IncidentExtractor:
             # Parse JSON response
             json_text = response.content[0].text.strip()
 
+            if not json_text:
+                print("  Empty response from Claude, skipping")
+                return None
+
             # Handle potential markdown code blocks
             if json_text.startswith("```"):
                 lines = json_text.split("\n")

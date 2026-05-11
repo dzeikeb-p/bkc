@@ -125,8 +125,9 @@ def process_news_articles(
             print("  Full text failed keyword filter, skipping")
             continue
 
-        # Extract incident data using LLM
+        # Extract incident data using LLM (small delay to avoid rate limiting)
         print("  Extracting incident data...")
+        time.sleep(1)
         incident = incident_extractor.extract(
             article_text=parsed.text,
             publish_date=parsed.publish_date or article.published_date,

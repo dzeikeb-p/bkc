@@ -37,15 +37,9 @@ class FRAChecker:
 
     BASE_URL = "https://data.transportation.gov/resource/rash-pd2d.json"
 
-    # Possible railroad names for Brightline in the FRA database
-    # The exact name may vary - this list covers common variations
+    # Exact railroad name as it appears in the FRA database
     BRIGHTLINE_NAMES = [
-        "Brightline",
-        "BRIGHTLINE",
-        "Brightline Trains",
-        "Virgin Trains USA",
-        "Florida East Coast Railway",
-        "FEC",
+        "Brightline Train",
     ]
 
     def __init__(self, app_token: Optional[str] = None):
@@ -62,7 +56,7 @@ class FRAChecker:
 
     def _build_railroad_filter(self) -> str:
         """Build SODA query filter for Brightline railroad names."""
-        conditions = [f"railroad_name='{name}'" for name in self.BRIGHTLINE_NAMES]
+        conditions = [f"railroadname='{name}'" for name in self.BRIGHTLINE_NAMES]
         return " OR ".join(conditions)
 
     def get_recent_fatalities(self, days_back: int = DAYS_BACK_FRA) -> List[FRAIncident]:
@@ -78,9 +72,9 @@ class FRAChecker:
         cutoff_date = (date.today() - timedelta(days=days_back)).isoformat()
 
         # Build query - looking for fatal injuries on Brightline
-        # Note: Field names in SODA API use underscores
+        # Note: FRA SODA API uses camelCase field names
         params = {
-            "$where": f"({self._build_railroad_filter()}) AND date >= '{cutoff_date}'",
+            "$where": f"({self._build_railroad_filter()}) AND statename='FLORIDA' AND date >= '{cutoff_date}'",
             "$order": "date DESC",
             "$limit": 100,
         }
@@ -98,7 +92,7 @@ class FRAChecker:
             incidents = []
             for record in data:
                 # Only include fatalities
-                injury = record.get("injury_illness", "").lower()
+                injury = record.get("injuryillness", record.get("injury_illness", "")).lower()
                 if "fatal" not in injury and "death" not in injury:
                     continue
 
@@ -126,25 +120,25 @@ class FRAChecker:
                 # Parse age
                 age = None
                 try:
-                    if record.get("age_of_person"):
-                        age = int(record["age_of_person"])
+                    if record.get("ageofperson"):
+                        age = int(record["ageofperson"])
                 except (ValueError, TypeError):
                     pass
 
                 incidents.append(
                     FRAIncident(
-                        incident_number=record.get("incident_number", ""),
+                        incident_number=record.get("incidentnumber", ""),
                         incident_date=incident_date,
                         time=record.get("time", ""),
-                        county_name=record.get("county_name", ""),
-                        state_name=record.get("state_name", "Florida"),
+                        county_name=record.get("countyname", ""),
+                        state_name=record.get("statename", "FLORIDA"),
                         latitude=latitude,
                         longitude=longitude,
                         age_of_person=age,
-                        injury_illness=record.get("injury_illness", ""),
-                        type_of_person=record.get("type_of_person", ""),
+                        injury_illness=record.get("injuryillness", record.get("injury_illness", "")),
+                        type_of_person=record.get("typeofperson", ""),
                         narrative=record.get("narrative", ""),
-                        railroad_name=record.get("railroad_name", ""),
+                        railroad_name=record.get("railroadname", ""),
                     )
                 )
 
@@ -174,9 +168,9 @@ class FRAChecker:
         """
         # Query for any Florida railroad fatalities in recent years
         params = {
-            "$where": "state_name='Florida' AND date >= '2018-01-01'",
-            "$select": "railroad_name",
-            "$group": "railroad_name",
+            "$where": "statename='FLORIDA' AND date >= '2018-01-01'",
+            "$select": "railroadname",
+            "$group": "railroadname",
             "$limit": 100,
         }
 
@@ -192,14 +186,14 @@ class FRAChecker:
 
             # Look for Brightline-related names
             for record in data:
-                name = record.get("railroad_name", "").lower()
+                name = record.get("railroadname", "").lower()
                 if "brightline" in name or "virgin" in name:
-                    return record["railroad_name"]
+                    return record["railroadname"]
 
             # Print all railroad names for debugging
             print("Florida railroad names found:")
             for record in data:
-                print(f"  - {record.get('railroad_name', 'Unknown')}")
+                print(f"  - {record.get('railroadname', 'Unknown')}")
 
             return None
 
