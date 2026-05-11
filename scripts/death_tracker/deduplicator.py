@@ -98,12 +98,17 @@ class Deduplicator:
         self.name_threshold = name_threshold
         self.location_threshold = location_threshold
 
-    def find_match(self, new_incident: IncidentRecord) -> MatchResult:
+    def find_match(
+        self, new_incident: IncidentRecord, min_score: int = 40
+    ) -> MatchResult:
         """
         Find a matching existing record for a new incident.
 
         Args:
             new_incident: The new incident to check for duplicates
+            min_score: Minimum score to consider a candidate (default 40).
+                Use 25 for FRA records, which have no victim name and use
+                county names instead of city names.
 
         Returns:
             MatchResult with match details
@@ -177,8 +182,8 @@ class Deduplicator:
                     score += 20
                     match_factors.append(f"location({full_loc_sim}%)")
 
-            # Only consider if we have at least date + one other factor
-            if score >= 40:
+            # Only consider if score meets threshold
+            if score >= min_score:
                 candidates.append((existing, score, match_factors))
 
         if not candidates:

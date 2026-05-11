@@ -227,8 +227,9 @@ def process_fra_data(
             source_urls=[],
         )
 
-        # Check for duplicates
-        match_result = deduplicator.find_match(new_record)
+        # Check for duplicates - FRA has no victim name and uses county names,
+        # so use a lower threshold (date-only match is sufficient)
+        match_result = deduplicator.find_match(new_record, min_score=25)
 
         if match_result.is_match and match_result.matched_record:
             print(f"    Matched existing record, updating DOT info...")
