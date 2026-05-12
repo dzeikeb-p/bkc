@@ -257,14 +257,18 @@
         const text = await response.text();
         const rows = parseCSV(text);
 
-        // Count data rows (excluding header, only rows with valid dates)
-        const dataRows = rows.slice(1).filter(row => row[0] && isValidDate(row[0]));
+        // Count data rows (excluding header, Draft, and Rejected)
+        const dataRows = rows.slice(1).filter(row => {
+          if (!row[0] || !isValidDate(row[0])) return false;
+          const status = row[1]; // Status is column 1
+          return status !== 'Draft' && status !== 'Rejected';
+        });
         const count = dataRows.length;
 
         // Get first data row (most recent, since sorted newest-first)
         const latestRow = dataRows[0];
         const latestDate = latestRow[0]; // Date is column 0
-        const latestSource = latestRow[14]; // Source is column 14
+        const latestSource = latestRow[15]; // Source is column 15
 
         // Update the page
         document.getElementById('death-count').textContent = count;

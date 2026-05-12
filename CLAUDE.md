@@ -21,7 +21,8 @@ Data is compiled from:
 
 **CSV Structure** (sorted newest-first):
 - Column 0: Date
-- Column 14: Source (news URL)
+- Column 1: Status (Draft/Approved/Rejected)
+- Column 15: Source (news URL)
 
 ## Architecture
 
