@@ -1,0 +1,72 @@
+name: Sheet Watcher
+
+on:
+  schedule:
+    # Every 30 minutes, offset to avoid overlap with death-tracker (:15 past even hours)
+    - cron: '0,30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check sheet and update status.json
+        run: |
+          python3 - <<'EOF'
+          import csv, io, json, time, urllib.request
+          from pathlib import Path
+
+          CSV_URL = (
+              "https://docs.google.com/spreadsheets/d/e/"
+              "2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy"
+              "/pub?gid=0&single=true&output=csv"
+          )
+
+          response = urllib.request.urlopen(CSV_URL)
+          text = response.read().decode("utf-8")
+          reader = csv.reader(io.StringIO(text))
+          next(reader)  # skip header
+          approved_count = sum(
+              1 for row in reader
+              if len(row) > 1 and row[0] and "/" in row[0] and row[1] not in ("Draft", "Rejected")
+          )
+
+          now_ms = int(time.time() * 1000)
+          status_path = Path("status.json")
+
+          prev = {}
+          if status_path.exists():
+              try:
+                  prev = json.loads(status_path.read_text())
+              except Exception:
+                  pass
+
+          last_updated_ms = prev.get("last_updated_ms", now_ms)
+          if prev.get("approved_count") != approved_count:
+              last_updated_ms = now_ms
+              print(f"Sheet changed: {prev.get('approved_count')} -> {approved_count} approved")
+          else:
+              print(f"No change: {approved_count} approved")
+
+          status_path.write_text(json.dumps({
+              "last_checked_ms": now_ms,
+              "last_updated_ms": last_updated_ms,
+              "approved_count": approved_count,
+          }))
+          EOF
+
+      - name: Commit status.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add status.json
+          git diff --staged --quiet || git commit -m "chore: update tracker status [skip ci]"
+          git pull --rebase origin main
+          git push || echo "Push skipped (concurrent write, will retry next run)"
