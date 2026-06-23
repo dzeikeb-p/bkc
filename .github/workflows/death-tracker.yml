@@ -61,7 +61,18 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add status.json
-          git diff --staged --quiet || git commit -m "chore: update tracker status [skip ci]"
-          git pull --rebase origin main
-          git push
+          cp status.json /tmp/computed_status.json
+          for attempt in 1 2 3; do
+            git pull origin main
+            cp /tmp/computed_status.json status.json
+            git add status.json
+            if ! git diff --staged --quiet; then
+              git commit -m "chore: update tracker status [skip ci]"
+              COMMITTED=true
+            else
+              COMMITTED=false
+            fi
+            git push && break
+            $COMMITTED && git reset --soft HEAD~1
+            echo "Push attempt $attempt failed, retrying..."
+          done

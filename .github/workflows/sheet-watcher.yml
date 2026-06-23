@@ -69,7 +69,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          cp status.json /tmp/computed_status.json
+          git pull origin main
+          cp /tmp/computed_status.json status.json
           git add status.json
           git diff --staged --quiet || git commit -m "chore: update tracker status [skip ci]"
-          git pull --rebase origin main
           git push || echo "Push skipped (concurrent write, will retry next run)"
