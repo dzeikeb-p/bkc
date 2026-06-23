@@ -29,7 +29,7 @@ class ExtractedIncident:
     is_retrospective: bool  # True if article is about past incident (memorial, anniversary)
 
 
-EXTRACTION_PROMPT = '''You are analyzing a news article about a potential Brightline train incident in Florida.
+SYSTEM_PROMPT = '''You are analyzing news articles about potential Brightline train incidents in Florida.
 
 CRITICAL INSTRUCTIONS:
 1. Extract the INCIDENT DATE - the date when the incident actually occurred - NOT the article publish date.
@@ -38,15 +38,8 @@ CRITICAL INSTRUCTIONS:
 4. Only extract data if this is about an actual Brightline train death/fatality.
 5. If the article mentions multiple incidents, extract only the PRIMARY/MOST RECENT one.
 
-Article text:
-{article_text}
-
-Article publish date (for calculating relative dates): {publish_date}
-
-Extract the following information. If something is not mentioned or unclear, use null.
-
 Respond with ONLY valid JSON (no markdown, no explanation) matching this exact schema:
-{{
+{
     "incident_date": "YYYY-MM-DD or null",
     "incident_time": "HH:MM (24hr format) or null",
     "location_full": "full crossing/intersection/location description or null",
@@ -59,7 +52,7 @@ Respond with ONLY valid JSON (no markdown, no explanation) matching this exact s
     "is_suicide": "Confirmed" or "Suspected" or "Unknown",
     "is_retrospective": true or false,
     "confidence": 0.0 to 1.0
-}}
+}
 
 Confidence scoring guide:
 - 1.0: Explicit Brightline death with clear date, location, and details
@@ -67,6 +60,11 @@ Confidence scoring guide:
 - 0.6-0.7: Likely Brightline death but some ambiguity
 - 0.3-0.5: Possibly about Brightline but unclear
 - 0.0-0.2: Not about a Brightline death, or about injuries not deaths'''
+
+USER_PROMPT_TEMPLATE = '''Article publish date (for calculating relative dates): {publish_date}
+
+Article text:
+{article_text}'''
 
 
 class IncidentExtractor:
@@ -77,7 +75,7 @@ class IncidentExtractor:
     (not the article publish date) from news articles.
     """
 
-    def __init__(self, api_key: str, model: str = "claude-sonnet-4-6"):
+    def __init__(self, api_key: str, model: str = "claude-haiku-4-5-20251001"):
         """
         Initialize the incident extractor.
 
@@ -105,19 +103,25 @@ class IncidentExtractor:
             # Truncate article text to avoid token limits
             truncated_text = article_text[:MAX_ARTICLE_TOKENS * 4]  # ~4 chars per token
 
-            # Format the prompt
-            prompt = EXTRACTION_PROMPT.format(
+            user_content = USER_PROMPT_TEMPLATE.format(
                 article_text=truncated_text,
                 publish_date=(
                     publish_date.strftime("%Y-%m-%d") if publish_date else "Unknown"
                 ),
             )
 
-            # Call Claude API
+            # Call Claude API with cached system prompt to avoid resending instructions each call
             response = self.client.messages.create(
                 model=self.model,
-                max_tokens=1024,
-                messages=[{"role": "user", "content": prompt}],
+                max_tokens=512,
+                system=[
+                    {
+                        "type": "text",
+                        "text": SYSTEM_PROMPT,
+                        "cache_control": {"type": "ephemeral"},
+                    }
+                ],
+                messages=[{"role": "user", "content": user_content}],
             )
 
             # Parse JSON response
