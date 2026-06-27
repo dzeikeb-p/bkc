@@ -268,7 +268,7 @@
         // Get first data row (most recent, since sorted newest-first)
         const latestRow = dataRows[0];
         const latestDate = latestRow[0]; // Date is column 0
-        const latestSource = latestRow[15]; // Source is column 15
+        const latestSource = (latestRow[15] || '').split(/[,\n]/)[0].trim(); // Source is column 15; may be comma- or newline-separated, use first URL
 
         // Update the page
         document.getElementById('death-count').textContent = count;
