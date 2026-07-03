@@ -26,13 +26,18 @@ jobs:
           import csv, io, json, time, urllib.request
           from pathlib import Path
 
-          CSV_URL = (
+          MEDIA_CSV_URL = (
               "https://docs.google.com/spreadsheets/d/e/"
               "2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy"
               "/pub?gid=0&single=true&output=csv"
           )
+          SUMMARY_CSV_URL = (
+              "https://docs.google.com/spreadsheets/d/e/"
+              "2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy"
+              "/pub?gid=2127819370&single=true&output=csv"
+          )
 
-          response = urllib.request.urlopen(CSV_URL)
+          response = urllib.request.urlopen(MEDIA_CSV_URL)
           text = response.read().decode("utf-8")
           reader = csv.reader(io.StringIO(text))
           next(reader)  # skip header
@@ -40,6 +45,21 @@ jobs:
               1 for row in reader
               if len(row) > 1 and row[0] and "/" in row[0] and row[1] not in ("Draft", "Rejected")
           )
+
+          # Fetch H2 from the Summary sheet as the primary "last updated" timestamp
+          sheet_last_updated = None
+          try:
+              summary_response = urllib.request.urlopen(SUMMARY_CSV_URL)
+              summary_text = summary_response.read().decode("utf-8")
+              summary_rows = list(csv.reader(io.StringIO(summary_text)))
+              # H2 = row index 1, column index 7
+              if len(summary_rows) > 1 and len(summary_rows[1]) > 7:
+                  val = summary_rows[1][7].strip()
+                  if val:
+                      sheet_last_updated = val
+                      print(f"Summary H2: {sheet_last_updated}")
+          except Exception as e:
+              print(f"Could not fetch Summary sheet: {e}")
 
           now_ms = int(time.time() * 1000)
           status_path = Path("status.json")
@@ -58,11 +78,15 @@ jobs:
           else:
               print(f"No change: {approved_count} approved")
 
-          status_path.write_text(json.dumps({
+          payload = {
               "last_checked_ms": now_ms,
               "last_updated_ms": last_updated_ms,
               "approved_count": approved_count,
-          }))
+          }
+          if sheet_last_updated:
+              payload["sheet_last_updated"] = sheet_last_updated
+
+          status_path.write_text(json.dumps(payload))
           EOF
 
       - name: Commit status.json

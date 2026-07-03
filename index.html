@@ -289,7 +289,9 @@
         const el = document.getElementById('tracker-status');
         if (!el) return;
         const fmt = ms => new Date(ms).toUTCString().replace(' GMT', ' UTC');
-        if (s.last_updated_ms) {
+        if (s.sheet_last_updated) {
+          el.textContent = 'Last updated: ' + s.sheet_last_updated;
+        } else if (s.last_updated_ms) {
           el.textContent = 'Last updated: ' + fmt(s.last_updated_ms);
         }
       } catch (e) { /* status.json not yet present */ }
