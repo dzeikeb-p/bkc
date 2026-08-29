@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -90,6 +91,7 @@ jobs:
           EOF
 
       - name: Commit status.json
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -98,5 +100,23 @@ jobs:
           git pull origin main
           cp /tmp/computed_status.json status.json
           git add status.json
-          git diff --staged --quiet || git commit -m "chore: update tracker status [skip ci]"
-          git push || echo "Push skipped (concurrent write, will retry next run)"
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore: update tracker status [skip ci]"
+            if git push; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "Push skipped (concurrent write, will retry next run)"
+              echo "pushed=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - name: Trigger Pages deploy
+        # static.yml's push trigger ignores [skip ci] commits, so status.json
+        # updates never reach the live site unless we dispatch it explicitly.
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run static.yml --ref main
