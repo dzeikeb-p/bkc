@@ -27,6 +27,18 @@ jobs:
           import csv, io, json, time, urllib.request
           from pathlib import Path
 
+          # Google's publish-to-web CSV endpoint can serve a long-lived cached
+          # response to plain urllib requests. A changing query param plus
+          # explicit no-cache headers force a fresh fetch every run.
+          def fetch_csv(base_url):
+              url = base_url + f"&_cb={int(time.time() * 1000)}"
+              req = urllib.request.Request(url, headers={
+                  "User-Agent": "Mozilla/5.0 (compatible; BKC-SheetWatcher/1.0)",
+                  "Cache-Control": "no-cache, no-store",
+                  "Pragma": "no-cache",
+              })
+              return urllib.request.urlopen(req).read().decode("utf-8")
+
           MEDIA_CSV_URL = (
               "https://docs.google.com/spreadsheets/d/e/"
               "2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy"
@@ -38,8 +50,7 @@ jobs:
               "/pub?gid=2127819370&single=true&output=csv"
           )
 
-          response = urllib.request.urlopen(MEDIA_CSV_URL)
-          text = response.read().decode("utf-8")
+          text = fetch_csv(MEDIA_CSV_URL)
           reader = csv.reader(io.StringIO(text))
           next(reader)  # skip header
           approved_count = sum(
@@ -50,8 +61,7 @@ jobs:
           # Fetch H2 from the Summary sheet as the primary "last updated" timestamp
           sheet_last_updated = None
           try:
-              summary_response = urllib.request.urlopen(SUMMARY_CSV_URL)
-              summary_text = summary_response.read().decode("utf-8")
+              summary_text = fetch_csv(SUMMARY_CSV_URL)
               summary_rows = list(csv.reader(io.StringIO(summary_text)))
               # H2 = row index 1, column index 7
               if len(summary_rows) > 1 and len(summary_rows[1]) > 7:
