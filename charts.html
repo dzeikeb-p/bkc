@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BKC Charts</title>
+  <link rel="icon" type="image/x-icon" href="/images/favi.ico" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.1/chart.umd.min.js"></script>
 
    <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQMK6ZV0Y"></script>
@@ -16,139 +18,298 @@
   </script>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;
-      color: #000;
-      text-align: center;
-      transition: background-color 0.3s, color 0.3s;
-      overflow-x: hidden;
+    :root {
+      --page-bg: #f7f7f8;
+      --card-bg: #ffffff;
+      --card-border: rgba(0,0,0,0.08);
+      --text-primary: #17181a;
+      --text-muted: #6b6f76;
+      --accent: #ec1111;
+      --accent-pill-bg: rgba(236,17,17,0.09);
+      --hover-bg: rgba(0,0,0,0.045);
+      --header-bg: #ffffff;
+      --bar-gray: #e3e4e6;
+      --bar-gray-strong: #aeb1b6;
+      --grid-line: rgba(0,0,0,0.08);
     }
 
     body.dark {
-      background-color: #111;
-      color: #fff;
+      --page-bg: #0f0f10;
+      --card-bg: #18191b;
+      --card-border: rgba(255,255,255,0.09);
+      --text-primary: #f2f2f3;
+      --text-muted: #9aa0a6;
+      --accent-pill-bg: rgba(236,17,17,0.16);
+      --hover-bg: rgba(255,255,255,0.06);
+      --header-bg: #18191b;
+      --bar-gray: #3a3b3e;
+      --bar-gray-strong: #5c5e62;
+      --grid-line: rgba(255,255,255,0.08);
     }
 
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 16px;
-      background: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      transition: background 0.3s;
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--page-bg);
+      color: var(--text-primary);
+      transition: background-color 0.2s, color 0.2s;
+      overflow-x: hidden;
     }
 
-    body.dark .container {
-      background: #222;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    .chart-container {
-      width: 100%;
-      padding: 10px;
-      overflow: hidden;
-    }
-
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-    }
-
-    @media (max-width: 640px) {
-      .container {
-        margin: 10px;
-        padding: 10px;
-        grid-template-columns: 1fr;
-        border-radius: 0;
-      }
-
-      .chart-container {
-        padding: 5px;
-      }
-
-      iframe {
-        height: 250px;
-      }
-    }
-
-    .footer {
-      margin-top: 20px;
-      padding: 16px;
-      background-color: #ffffff;
-      text-align: center;
-      font-size: 14px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
-    }
-
-    body.dark .footer {
-      background-color: #222;
-    }
-
+    /* Header */
     .header {
       position: sticky;
       top: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      background: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: background 0.3s;
       z-index: 1000;
-    }
-
-    body.dark .header {
-      background: #222;
-    }
-
-    .nav-links {
       display: flex;
-      gap: 20px;
       align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 28px;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
+      transition: background-color 0.2s, border-color 0.2s;
     }
 
-    .nav-links a {
-      color: inherit;
-      text-decoration: none;
-      font-size: 18px;
-    }
+    .brand-group { display: flex; align-items: center; gap: 22px; }
+    .brand-link { display: flex; align-items: center; gap: 8px; }
+    .brand-icon { width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; }
+    .brand-icon path { fill: currentColor; }
+    .brand-text { font-size: 14px; font-weight: 800; letter-spacing: .4px; white-space: nowrap; }
+    .nav-divider { width: 1px; height: 22px; background: var(--card-border); }
 
-    .nav-links a:hover {
-      color: #ec1111;
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1px;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
     }
+    .nav-item i { font-size: 15px; width: 16px; text-align: center; }
+    .nav-item:hover { background: var(--hover-bg); }
+    .nav-item.active { color: var(--accent); background: var(--accent-pill-bg); }
 
     .theme-toggle {
-      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: var(--text-muted);
       cursor: pointer;
+      font-size: 16px;
+      transition: background 0.15s ease;
+    }
+    .theme-toggle:hover { background: var(--hover-bg); }
+
+    @media (max-width: 640px) {
+      .header { padding: 0 16px; height: 56px; }
+      .brand-text, .nav-divider, .nav-item span { display: none; }
+      .brand-group { gap: 14px; }
+      .nav-item { padding: 10px; border-radius: 50%; }
+    }
+
+    /* Page intro */
+    .intro {
+      padding: 44px 48px 30px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .intro h1 {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
+
+    /* Chart grid */
+    .charts-grid {
+      padding: 0 48px 56px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .chart-card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chart-card-header i { font-size: 14px; color: var(--text-muted); width: 16px; text-align: center; }
+    .chart-card-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .chart-card-subtitle { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+
+    .chart-card-body {
+      width: 100%;
+      height: 280px;
+      padding: 16px 18px;
+      position: relative;
+    }
+
+    @media (max-width: 640px) {
+      .intro { padding: 24px 20px 16px; }
+      .intro h1 { font-size: 24px; }
+      .charts-grid { padding: 0 20px 32px; grid-template-columns: 1fr; gap: 16px; }
+      .chart-card-body { height: 240px; }
+    }
+
+    .footer {
+      padding: 18px 48px 28px;
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      transition: border-color 0.2s;
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="nav-links">
-      <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
-      <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
-      <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
-      <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
+    <div class="brand-group">
+      <a href="/" class="brand-link" title="Brightline Kill Count">
+        <svg class="brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path fill="currentColor" d="M2.162 61H62V41.532L2.162 56.198zm0-8.386L62 40.863v-.721L2.162 48.54zM42.308 5.1c-1.233-.634-3.839-1.509-5.165-1.75c-.76-.138-1.727-.235-2.827-.292a52 52 0 0 0-3.783-.042c-5.58.121-10.861.577-14.027 2.357c-1.498.842-2.485 1.859-3.398 2.795c-2.697 2.765-4.761 6.118-6.273 9.542C3.595 25.046-.48 34.29 3.94 38.29q.081.085.169.169c.014.011.023.025.038.037h.005a4.3 4.3 0 0 0 1.954 1.059l-.028.001s.469.314.831.809l-4.747.292v2.64l4.318-.313c-.72.933.613 2.457 4.339 2.101C23.625 43.856 62 39.907 62 39.907v-3.501l-58.167-.945a5.6 5.6 0 0 1-.218-.853h12.623c3.56 0 10.496-2.438 13.923-3.598c3.767-1.274 10.903-5.515 14.771-6.223c.72-.132 2.187.06 2.905.194c.938.176 2.301.539 3.834.99V18.72c-1.467-.671-2.778-1.194-3.713-1.418c-.653-.157-2.024-.228-2.663 0c-4.417 1.569-11.64 9.063-15.861 11.278c-3.25 1.706-10.055 4.86-13.601 4.86H3.501c-.047-1.856.442-4.072 1.194-6.39c-.013.055-.031.115-.044.17c.261.56.619.913 1 .89c.689-.039 1.177-1.25 1.094-2.703c-.051-.901-.315-1.664-.669-2.117c.363-.901.74-1.796 1.117-2.668c.05.492.371 1.055.772 1.055h9.241c1.292 0 3.908-1.808 5.025-2.589c3.064-2.144 8.847-7.774 11.845-10.051c.062-.047.136-.102.212-.155c1.959 1.584 3.943 4.093 3.943 4.093s3.65-2.433 5.006-2.674c1.035-.183 3.215.077 4.156.633c1.794 1.06 11.76 7.628 14.607 9.508v-1.341S47.564 7.805 42.308 5.1"/>
+          <path fill="currentColor" d="M54.857 26.953v-6.676a94 94 0 0 0-2.18-1.085v7.082c.712.216 1.446.446 2.18.679m2.725.887v-6.123q-.831-.451-1.695-.904v6.472q.864.279 1.695.555m3.057 1.028c.511.175.97.332 1.361.469v-5.151c-.392-.226-.852-.488-1.361-.776zm-.696-.236v-5.614c-.494-.277-1.022-.57-1.574-.873v5.956q.829.278 1.574.531m-39.199-4.566c-1.621 1.637-2.129 3.775-1.137 4.778c.995 1.004 3.111.489 4.73-1.146c1.62-1.637 2.128-3.775 1.135-4.778s-3.11-.489-4.728 1.146"/>
+        </svg>
+        <span class="brand-text">BKC</span>
+      </a>
+      <div class="nav-divider"></div>
+      <nav class="nav-links">
+        <a href="/" class="nav-item" title="Home"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="/charts.html" class="nav-item active" title="Charts"><i class="fa-solid fa-chart-bar"></i><span>Charts</span></a>
+        <a href="/map" class="nav-item" title="Map"><i class="fa-solid fa-map-location-dot"></i><span>Map</span></a>
+        <a href="/data" class="nav-item" title="Data Table"><i class="fa-solid fa-table"></i><span>Data</span></a>
+      </nav>
     </div>
     <div class="theme-toggle" id="themeToggle" title="Toggle theme">
       <i class="fa-solid fa-moon" id="themeIcon"></i>
     </div>
   </div>
 
-  <div class="container" id="charts"></div>
+  <div class="intro">
+    <div class="eyebrow">Data &amp; Trends</div>
+    <h1>Incident Charts</h1>
+  </div>
+
+  <div class="charts-grid" id="charts">
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <i class="fa-solid fa-chart-column"></i>
+        <div>
+          <div class="chart-card-title">Incidents by Year</div>
+          <div class="chart-card-subtitle" id="year-subtitle"></div>
+        </div>
+      </div>
+      <div class="chart-card-body"><canvas id="chart-year"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <i class="fa-solid fa-arrow-trend-up"></i>
+        <div>
+          <div class="chart-card-title">Cumulative Total</div>
+          <div class="chart-card-subtitle">Running total, all years</div>
+        </div>
+      </div>
+      <div class="chart-card-body"><canvas id="chart-cumulative"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <i class="fa-solid fa-chart-line"></i>
+        <div>
+          <div class="chart-card-title">Incidents by Month</div>
+          <div class="chart-card-subtitle">Seasonal pattern, all years</div>
+        </div>
+      </div>
+      <div class="chart-card-body"><canvas id="chart-month"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <i class="fa-solid fa-chart-column"></i>
+        <div>
+          <div class="chart-card-title">Age Distribution</div>
+          <div class="chart-card-subtitle">Victims by age bracket</div>
+        </div>
+      </div>
+      <div class="chart-card-body"><canvas id="chart-age"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <i class="fa-solid fa-chart-pie"></i>
+        <div>
+          <div class="chart-card-title">Incident Mode</div>
+          <div class="chart-card-subtitle">Pedestrian &middot; vehicle &middot; bicycle</div>
+        </div>
+      </div>
+      <div class="chart-card-body"><canvas id="chart-mode"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <i class="fa-solid fa-user-group"></i>
+        <div>
+          <div class="chart-card-title">Gender Breakdown</div>
+          <div class="chart-card-subtitle">Male &middot; female &middot; unknown</div>
+        </div>
+      </div>
+      <div class="chart-card-body"><canvas id="chart-gender"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <i class="fa-solid fa-bars-progress"></i>
+        <div>
+          <div class="chart-card-title">Suicide vs. Accidental</div>
+          <div class="chart-card-subtitle">Per FRA &amp; news classification</div>
+        </div>
+      </div>
+      <div class="chart-card-body"><canvas id="chart-suicide"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <i class="fa-solid fa-map-pin"></i>
+        <div>
+          <div class="chart-card-title">Incidents by City</div>
+          <div class="chart-card-subtitle">Top cities, all-time</div>
+        </div>
+      </div>
+      <div class="chart-card-body"><canvas id="chart-city"></canvas></div>
+    </div>
+  </div>
 
   <div class="footer">
     &copy; 2026 BKC. All rights reserved.
@@ -156,36 +317,299 @@
   </div>
 
   <script>
-    const chartEmbedCodes = {
-      light: [
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=96860062&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=920265073&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1914041223&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1240403970&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=631697332&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1890203864&format=interactive'
-      ],
-      dark: [
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=929679461&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=433919609&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1927526790&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=99710291&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=513967484&format=interactive',
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pubchart?oid=1302133564&format=interactive'
-      ]
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pub?gid=0&single=true&output=csv';
+
+    const COLUMNS = {
+      Date: 0, Status: 1, DOT: 2, FullLocation: 3, Location: 4, Name: 5, Year: 6,
+      Time: 7, Age: 8, Gender: 9, Mode: 10, Details: 11, Suicide: 12, DOTMatch: 13,
+      NewsSource: 14, Source: 15, Lat: 16, Lon: 17, GoogleMap: 18
     };
 
-    function renderCharts(theme) {
-      const container = document.getElementById('charts');
-      container.innerHTML = '';
-      chartEmbedCodes[theme].forEach(src => {
-        const chartContainer = document.createElement('div');
-        chartContainer.classList.add('chart-container');
-        const iframe = document.createElement('iframe');
-        iframe.src = src;
-        chartContainer.appendChild(iframe);
-        container.appendChild(chartContainer);
+    let allRecords = [];
+    let charts = {};
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let field = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && nextChar === '"') { field += '"'; i++; }
+          else { inQuotes = !inQuotes; }
+        } else if (char === ',' && !inQuotes) {
+          row.push(field.trim()); field = '';
+        } else if ((char === '\n' || (char === '\r' && nextChar === '\n')) && !inQuotes) {
+          if (char === '\r') i++;
+          row.push(field.trim());
+          if (row.length > 1 || row[0] !== '') rows.push(row);
+          row = []; field = '';
+        } else if (char !== '\r') { field += char; }
+      }
+      if (field || row.length > 0) { row.push(field.trim()); rows.push(row); }
+      return rows;
+    }
+
+    function isValidDate(str) {
+      return /^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(str);
+    }
+
+    async function fetchData() {
+      try {
+        const response = await fetch(CSV_URL);
+        const text = await response.text();
+        const rows = parseCSV(text);
+
+        allRecords = rows.slice(1)
+          .filter(row => row[COLUMNS.Status] !== 'Draft' && row[COLUMNS.Status] !== 'Rejected' && isValidDate(row[COLUMNS.Date]))
+          .map(row => {
+            while (row.length <= COLUMNS.GoogleMap) row.push('');
+            return {
+              date: row[COLUMNS.Date] || '',
+              location: row[COLUMNS.Location] || '',
+              year: row[COLUMNS.Year] || '',
+              age: parseInt(row[COLUMNS.Age], 10),
+              mode: row[COLUMNS.Mode] || 'Unknown',
+              suicide: row[COLUMNS.Suicide] || 'Unknown',
+              gender: row[COLUMNS.Gender] || 'Unknown',
+            };
+          });
+
+        renderAllCharts();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    // --- Aggregation helpers ---
+
+    function countBy(records, keyFn) {
+      const counts = new Map();
+      records.forEach(r => {
+        const key = keyFn(r);
+        counts.set(key, (counts.get(key) || 0) + 1);
       });
+      return counts;
+    }
+
+    function ageBracket(age) {
+      if (isNaN(age)) return 'Unknown';
+      if (age <= 17) return '0-17';
+      if (age <= 29) return '18-29';
+      if (age <= 44) return '30-44';
+      if (age <= 59) return '45-59';
+      if (age <= 74) return '60-74';
+      return '75+';
+    }
+
+    // --- Theme-aware colors ---
+
+    function cssVar(name) {
+      return getComputedStyle(document.body).getPropertyValue(name).trim();
+    }
+
+    function palette() {
+      return {
+        accent: cssVar('--accent'),
+        accentFill: cssVar('--accent-pill-bg'),
+        gray: cssVar('--bar-gray'),
+        grayStrong: cssVar('--bar-gray-strong'),
+        text: cssVar('--text-muted'),
+        grid: cssVar('--grid-line'),
+      };
+    }
+
+    function baseOptions(p, extra) {
+      return Object.assign({
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', axis: 'x', intersect: false },
+        plugins: { legend: { display: false }, tooltip: { enabled: true } },
+        scales: {
+          x: { ticks: { color: p.text, font: { size: 11 } }, grid: { color: 'transparent' } },
+          y: { ticks: { color: p.text, font: { size: 11 } }, grid: { color: p.grid }, beginAtZero: true },
+        },
+      }, extra || {});
+    }
+
+    function destroyChart(id) {
+      if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+    }
+
+    // --- Chart builders ---
+
+    function buildYearChart(p) {
+      const counts = countBy(allRecords, r => r.year || 'Unknown');
+      const years = [...counts.keys()].filter(y => y !== 'Unknown').sort();
+      const values = years.map(y => counts.get(y));
+      document.getElementById('year-subtitle').textContent = years.length
+        ? `${years[0]}–present` : '';
+
+      const colors = years.map((y, i) => i === years.length - 1 ? p.accent : p.gray);
+
+      destroyChart('year');
+      charts.year = new Chart(document.getElementById('chart-year'), {
+        type: 'bar',
+        data: { labels: years, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4, maxBarThickness: 40 }] },
+        options: baseOptions(p),
+      });
+    }
+
+    function buildCumulativeChart(p) {
+      const counts = countBy(allRecords, r => r.year || 'Unknown');
+      const years = [...counts.keys()].filter(y => y !== 'Unknown').sort();
+      let running = 0;
+      const values = years.map(y => (running += counts.get(y)));
+
+      destroyChart('cumulative');
+      charts.cumulative = new Chart(document.getElementById('chart-cumulative'), {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            data: values,
+            borderColor: p.accent,
+            backgroundColor: p.accentFill,
+            fill: true,
+            tension: 0.25,
+            pointRadius: 3,
+            pointBackgroundColor: p.accent,
+          }],
+        },
+        options: baseOptions(p),
+      });
+    }
+
+    function buildMonthChart(p) {
+      const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const monthCounts = new Array(12).fill(0);
+      allRecords.forEach(r => {
+        const parts = r.date.split('/');
+        if (parts.length === 3) {
+          const m = parseInt(parts[0], 10) - 1;
+          if (m >= 0 && m < 12) monthCounts[m]++;
+        }
+      });
+
+      const peak = Math.max(...monthCounts);
+
+      destroyChart('month');
+      charts.month = new Chart(document.getElementById('chart-month'), {
+        type: 'line',
+        data: {
+          labels: monthLabels,
+          datasets: [{
+            data: monthCounts,
+            borderColor: p.grayStrong,
+            backgroundColor: p.gray,
+            fill: true,
+            tension: 0.35,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointBackgroundColor: monthCounts.map(v => v === peak ? p.accent : p.grayStrong),
+          }],
+        },
+        options: baseOptions(p),
+      });
+    }
+
+    function buildAgeChart(p) {
+      const order = ['0-17','18-29','30-44','45-59','60-74','75+','Unknown'];
+      const counts = countBy(allRecords, r => ageBracket(r.age));
+      const labels = order.filter(b => counts.has(b));
+      const values = labels.map(b => counts.get(b));
+      const maxIdx = values.indexOf(Math.max(...values));
+      const colors = values.map((v, i) => i === maxIdx ? p.grayStrong : p.gray);
+
+      destroyChart('age');
+      charts.age = new Chart(document.getElementById('chart-age'), {
+        type: 'bar',
+        data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4, maxBarThickness: 40 }] },
+        options: baseOptions(p),
+      });
+    }
+
+    function buildModeChart(p) {
+      const counts = countBy(allRecords, r => r.mode || 'Unknown');
+      const labels = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a));
+      const values = labels.map(l => counts.get(l));
+      const shades = [p.accent, p.grayStrong, p.gray, 'rgba(128,128,128,0.35)', 'rgba(128,128,128,0.2)'];
+      const colors = labels.map((_, i) => shades[i % shades.length]);
+
+      destroyChart('mode');
+      charts.mode = new Chart(document.getElementById('chart-mode'), {
+        type: 'doughnut',
+        data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 0 }] },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { color: p.text, font: { size: 11 }, boxWidth: 10, padding: 12 } } },
+        },
+      });
+    }
+
+    function buildGenderChart(p) {
+      const counts = countBy(allRecords, r => r.gender || 'Unknown');
+      const labels = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a));
+      const values = labels.map(l => counts.get(l));
+      const shades = [p.accent, p.grayStrong, p.gray, 'rgba(128,128,128,0.35)'];
+      const colors = labels.map((_, i) => shades[i % shades.length]);
+
+      destroyChart('gender');
+      charts.gender = new Chart(document.getElementById('chart-gender'), {
+        type: 'doughnut',
+        data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 0 }] },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { color: p.text, font: { size: 11 }, boxWidth: 10, padding: 12 } } },
+        },
+      });
+    }
+
+    function buildSuicideChart(p) {
+      const counts = countBy(allRecords, r => r.suicide || 'Unknown');
+      const labels = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a));
+      const values = labels.map(l => counts.get(l));
+      const colors = labels.map(l => l === 'Confirmed' ? p.accent : p.gray);
+
+      destroyChart('suicide');
+      charts.suicide = new Chart(document.getElementById('chart-suicide'), {
+        type: 'bar',
+        data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4, maxBarThickness: 34 }] },
+        options: baseOptions(p, { indexAxis: 'y' }),
+      });
+    }
+
+    function buildCityChart(p) {
+      const counts = countBy(allRecords.filter(r => r.location), r => r.location);
+      const labels = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a)).slice(0, 8);
+      const values = labels.map(l => counts.get(l));
+      const colors = labels.map((_, i) => i === 0 ? p.accent : p.gray);
+
+      destroyChart('city');
+      charts.city = new Chart(document.getElementById('chart-city'), {
+        type: 'bar',
+        data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4, maxBarThickness: 26 }] },
+        options: baseOptions(p, { indexAxis: 'y' }),
+      });
+    }
+
+    function renderAllCharts() {
+      if (!allRecords.length) return;
+      const p = palette();
+      buildYearChart(p);
+      buildCumulativeChart(p);
+      buildMonthChart(p);
+      buildAgeChart(p);
+      buildModeChart(p);
+      buildGenderChart(p);
+      buildSuicideChart(p);
+      buildCityChart(p);
     }
 
     function setTheme(theme) {
@@ -193,13 +617,12 @@
       localStorage.setItem('theme', theme);
       document.getElementById('themeIcon').className =
         theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-      renderCharts(theme);
+      renderAllCharts();
     }
 
     document.getElementById('themeToggle').addEventListener('click', () => {
       const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      setTheme(newTheme);
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
 
     async function fetchTrackerStatus() {
@@ -218,10 +641,13 @@
       } catch (e) { /* status.json not yet present */ }
     }
 
-    // Init on load
     document.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('theme') || 'light';
-      setTheme(savedTheme);
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+      }
+      fetchData();
       fetchTrackerStatus();
     });
   </script>

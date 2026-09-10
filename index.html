@@ -31,155 +31,239 @@
       font-style: italic;
     }
 
-    * {
-      box-sizing: border-box;
+    :root {
+      --page-bg: #f7f7f8;
+      --card-bg: #ffffff;
+      --card-border: rgba(0,0,0,0.08);
+      --text-primary: #17181a;
+      --text-muted: #6b6f76;
+      --accent: #ec1111;
+      --accent-pill-bg: rgba(236,17,17,0.09);
+      --hover-bg: rgba(0,0,0,0.045);
+      --header-bg: #ffffff;
+    }
+
+    body.dark {
+      --page-bg: #0f0f10;
+      --card-bg: #18191b;
+      --card-border: rgba(255,255,255,0.09);
+      --text-primary: #f2f2f3;
+      --text-muted: #9aa0a6;
+      --accent-pill-bg: rgba(236,17,17,0.16);
+      --hover-bg: rgba(255,255,255,0.06);
+      --header-bg: #18191b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #ffffff;
-      color: #000000;
-      transition: background-color 0.3s, color 0.3s;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--page-bg);
+      color: var(--text-primary);
+      transition: background-color 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
     }
 
-    body.dark-mode {
-      background-color: #121212;
-      color: #ffffff;
-    }
+    a { color: inherit; text-decoration: none; }
 
+    /* Header */
     .header {
       position: sticky;
       top: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      background: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: background 0.3s;
       z-index: 1000;
-    }
-
-    body.dark-mode .header {
-      background: #1e1e1e;
-    }
-
-    .nav-links {
       display: flex;
-      gap: 20px;
       align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 28px;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
+      flex-shrink: 0;
+      transition: background-color 0.2s, border-color 0.2s;
     }
 
-    .nav-links a {
-      color: inherit;
-      text-decoration: none;
-      font-size: 18px;
-    }
+    .brand-group { display: flex; align-items: center; gap: 22px; }
+    .brand-link { display: flex; align-items: center; gap: 8px; }
+    .brand-icon { width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; }
+    .brand-icon path { fill: currentColor; }
+    .brand-text { font-size: 14px; font-weight: 800; letter-spacing: .4px; white-space: nowrap; }
+    .nav-divider { width: 1px; height: 22px; background: var(--card-border); }
 
-    .nav-links a:hover {
-      color: #ec1111;
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1px;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
     }
+    .nav-item i { font-size: 15px; width: 16px; text-align: center; }
+    .nav-item:hover { background: var(--hover-bg); }
+    .nav-item.active { color: var(--accent); background: var(--accent-pill-bg); }
 
     .theme-toggle {
-      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: var(--text-muted);
       cursor: pointer;
+      font-size: 16px;
+      transition: background 0.15s ease;
+    }
+    .theme-toggle:hover { background: var(--hover-bg); }
+
+    @media (max-width: 640px) {
+      .header { padding: 0 16px; height: 56px; }
+      .brand-text, .nav-divider, .nav-item span { display: none; }
+      .brand-group { gap: 14px; }
+      .nav-item { padding: 10px; border-radius: 50%; }
     }
 
-    .container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 16px;
-      background: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
+    /* Hero */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px 20px;
     }
 
-    body.dark-mode .container {
-      background: #1e1e1e;
-    }
-
-    .responsive {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
+    .hero-tagline {
+      font-size: 38px;
+      font-weight: 800;
+      font-style: italic;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
     }
 
     .death-count {
       font-family: 'LCDMono2', monospace;
       font-size: 200px;
-      color: #ec1111;
+      color: var(--accent);
       line-height: 1;
-      margin: 20px 0;
-      text-decoration: none;
+      margin: 6px 0;
       display: block;
+      transition: opacity 0.15s;
     }
+    .death-count:hover { opacity: 0.85; }
 
-    .death-count:hover {
-      opacity: 0.8;
+    .hero-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 56px;
+    }
+    .hero-hint i { font-size: 11px; }
+
+    .latest-label {
+      font-family: 'CiutadellaMediumItalic', 'Segoe UI', sans-serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 22px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
     }
 
     .latest-death {
       font-family: 'LCDMono2', monospace;
       font-size: 48px;
-      color: #ec1111;
-      text-decoration: none;
+      line-height: 1.1;
+      color: var(--accent);
       display: block;
-      margin: 20px 0;
+      transition: opacity 0.15s;
+    }
+    .latest-death:hover { opacity: 0.85; }
+
+    .latest-source {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-size: 12.5px;
     }
 
-    .latest-death:hover {
-      opacity: 0.8;
-    }
-
-    .latest-label {
-      font-family: 'CiutadellaMediumItalic', sans-serif;
-      font-size: 32px;
-      font-style: italic;
-      color: inherit;
-      margin-bottom: 10px;
+    @media (max-width: 640px) {
+      .hero-tagline { font-size: 22px; }
+      .death-count { font-size: 110px; }
+      .hero-hint { font-size: 12px; margin-bottom: 36px; }
+      .latest-label { font-size: 17px; }
+      .latest-death { font-size: 32px; }
+      .latest-source { font-size: 11.5px; }
     }
 
     .footer {
-      margin-top: 20px;
-      padding: 16px;
-      background-color: #ffffff;
+      flex-shrink: 0;
+      padding: 16px 20px;
+      border-top: 1px solid var(--card-border);
       text-align: center;
-      font-size: 14px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
-    }
-
-    body.dark-mode .footer {
-      background-color: #1e1e1e;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      transition: border-color 0.2s;
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="nav-links">
-      <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
-      <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
-      <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
-      <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
+    <div class="brand-group">
+      <a href="/" class="brand-link" title="Brightline Kill Count">
+        <svg class="brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path fill="currentColor" d="M2.162 61H62V41.532L2.162 56.198zm0-8.386L62 40.863v-.721L2.162 48.54zM42.308 5.1c-1.233-.634-3.839-1.509-5.165-1.75c-.76-.138-1.727-.235-2.827-.292a52 52 0 0 0-3.783-.042c-5.58.121-10.861.577-14.027 2.357c-1.498.842-2.485 1.859-3.398 2.795c-2.697 2.765-4.761 6.118-6.273 9.542C3.595 25.046-.48 34.29 3.94 38.29q.081.085.169.169c.014.011.023.025.038.037h.005a4.3 4.3 0 0 0 1.954 1.059l-.028.001s.469.314.831.809l-4.747.292v2.64l4.318-.313c-.72.933.613 2.457 4.339 2.101C23.625 43.856 62 39.907 62 39.907v-3.501l-58.167-.945a5.6 5.6 0 0 1-.218-.853h12.623c3.56 0 10.496-2.438 13.923-3.598c3.767-1.274 10.903-5.515 14.771-6.223c.72-.132 2.187.06 2.905.194c.938.176 2.301.539 3.834.99V18.72c-1.467-.671-2.778-1.194-3.713-1.418c-.653-.157-2.024-.228-2.663 0c-4.417 1.569-11.64 9.063-15.861 11.278c-3.25 1.706-10.055 4.86-13.601 4.86H3.501c-.047-1.856.442-4.072 1.194-6.39c-.013.055-.031.115-.044.17c.261.56.619.913 1 .89c.689-.039 1.177-1.25 1.094-2.703c-.051-.901-.315-1.664-.669-2.117c.363-.901.74-1.796 1.117-2.668c.05.492.371 1.055.772 1.055h9.241c1.292 0 3.908-1.808 5.025-2.589c3.064-2.144 8.847-7.774 11.845-10.051c.062-.047.136-.102.212-.155c1.959 1.584 3.943 4.093 3.943 4.093s3.65-2.433 5.006-2.674c1.035-.183 3.215.077 4.156.633c1.794 1.06 11.76 7.628 14.607 9.508v-1.341S47.564 7.805 42.308 5.1"/>
+          <path fill="currentColor" d="M54.857 26.953v-6.676a94 94 0 0 0-2.18-1.085v7.082c.712.216 1.446.446 2.18.679m2.725.887v-6.123q-.831-.451-1.695-.904v6.472q.864.279 1.695.555m3.057 1.028c.511.175.97.332 1.361.469v-5.151c-.392-.226-.852-.488-1.361-.776zm-.696-.236v-5.614c-.494-.277-1.022-.57-1.574-.873v5.956q.829.278 1.574.531m-39.199-4.566c-1.621 1.637-2.129 3.775-1.137 4.778c.995 1.004 3.111.489 4.73-1.146c1.62-1.637 2.128-3.775 1.135-4.778s-3.11-.489-4.728 1.146"/>
+        </svg>
+        <span class="brand-text">BKC</span>
+      </a>
+      <div class="nav-divider"></div>
+      <nav class="nav-links">
+        <a href="/" class="nav-item active" title="Home"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="/charts.html" class="nav-item" title="Charts"><i class="fa-solid fa-chart-bar"></i><span>Charts</span></a>
+        <a href="/map" class="nav-item" title="Map"><i class="fa-solid fa-map-location-dot"></i><span>Map</span></a>
+        <a href="/data" class="nav-item" title="Data Table"><i class="fa-solid fa-table"></i><span>Data</span></a>
+      </nav>
     </div>
-    <div class="theme-toggle" onclick="toggleTheme()" id="theme-icon">
+    <div class="theme-toggle" onclick="toggleTheme()" id="theme-icon" title="Toggle theme">
       <i class="fas fa-moon"></i>
     </div>
   </div>
 
-  <div class="container">
-    <img src="images/Untitled(1).png" alt="The train hath slain" class="responsive" />
-    <a href="/charts.html" class="death-count" id="death-count">--</a>
-  </div>
+  <div class="hero">
+    <div class="hero-tagline">The train hath slain</div>
 
-  <div class="container">
-    <img src="images/latest_death.png" alt="Latest death" class="responsive" />
-    <a href="#" target="_blank" class="latest-death" id="latest-death">Loading...</a>
+    <a href="/charts.html" class="death-count" id="death-count">&ndash;&ndash;</a>
+
+    <div class="hero-hint">
+      <span>View trends and charts</span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </div>
+
+    <div class="latest-label">Latest death</div>
+    <a href="#" target="_blank" class="latest-death" id="latest-death">Loading&hellip;</a>
+    <div class="latest-source" id="latest-source" style="display:none;">
+      <i class="fa-solid fa-newspaper"></i>
+      <span id="latest-source-name"></span>
+    </div>
   </div>
 
   <div class="footer">
@@ -191,8 +275,8 @@
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pub?gid=0&single=true&output=csv';
 
     function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
       document.getElementById('theme-icon').innerHTML = `<i class="fas fa-${isDark ? 'sun' : 'moon'}"></i>`;
     }
@@ -251,6 +335,29 @@
       return dateStr;
     }
 
+    function getSourceName(url) {
+      try {
+        const hostname = new URL(url).hostname.replace('www.', '');
+        const parts = hostname.split('.');
+        if (parts.length >= 2) {
+          const name = parts[parts.length - 2];
+          const nameMap = {
+            'sun-sentinel': 'Sun Sentinel', 'miamiherald': 'Miami Herald',
+            'palmbeachpost': 'Palm Beach Post', 'orlandosentinel': 'Orlando Sentinel',
+            'local10': 'Local 10', 'wptv': 'WPTV', 'tcpalm': 'TC Palm', 'wsvn': 'WSVN',
+            'nbcmiami': 'NBC Miami', 'cbsnews': 'CBS News', 'nytimes': 'NY Times',
+            'washingtonpost': 'Washington Post', 'cnn': 'CNN', 'foxnews': 'Fox News',
+            'abcnews': 'ABC News', 'wesh': 'WESH', 'clickorlando': 'Click Orlando',
+            'news-journalonline': 'News Journal', 'floridatoday': 'Florida Today',
+          };
+          return nameMap[name.toLowerCase()] || name.charAt(0).toUpperCase() + name.slice(1);
+        }
+        return hostname;
+      } catch {
+        return null;
+      }
+    }
+
     async function fetchData() {
       try {
         const response = await fetch(CSV_URL);
@@ -274,6 +381,12 @@
         document.getElementById('death-count').textContent = count;
         document.getElementById('latest-death').textContent = formatDate(latestDate);
         document.getElementById('latest-death').href = latestSource;
+
+        const sourceName = latestSource ? getSourceName(latestSource) : null;
+        if (sourceName) {
+          document.getElementById('latest-source-name').textContent = 'Source: ' + sourceName;
+          document.getElementById('latest-source').style.display = 'flex';
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
         document.getElementById('death-count').textContent = '?';
@@ -300,7 +413,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('theme') || 'light';
       if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
+        document.body.classList.add('dark');
         document.getElementById('theme-icon').innerHTML = `<i class="fas fa-sun"></i>`;
       }
 
