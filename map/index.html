@@ -26,273 +26,237 @@
       font-style: normal;
     }
 
-    @font-face {
-      font-family: 'CiutadellaMediumItalic';
-      src: url('/fonts/Ciutadella Medium Italic.ttf') format('truetype');
-      font-weight: 500;
-      font-style: italic;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;
-      color: #000;
-      transition: background-color 0.3s, color 0.3s;
+    :root {
+      --page-bg: #f7f7f8;
+      --card-bg: #ffffff;
+      --card-border: rgba(0,0,0,0.08);
+      --text-primary: #17181a;
+      --text-muted: #6b6f76;
+      --accent: #ec1111;
+      --accent-pill-bg: rgba(236,17,17,0.09);
+      --pill-bg: rgba(0,0,0,0.05);
+      --input-bg: #f5f5f6;
+      --hover-bg: rgba(0,0,0,0.045);
+      --header-bg: #ffffff;
     }
 
     body.dark {
-      background-color: #121212;
-      color: #fff;
+      --page-bg: #0f0f10;
+      --card-bg: #18191b;
+      --card-border: rgba(255,255,255,0.09);
+      --text-primary: #f2f2f3;
+      --text-muted: #9aa0a6;
+      --accent-pill-bg: rgba(236,17,17,0.16);
+      --pill-bg: rgba(255,255,255,0.07);
+      --input-bg: #202124;
+      --hover-bg: rgba(255,255,255,0.06);
+      --header-bg: #18191b;
     }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      background: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: background 0.3s;
-    }
+    * { box-sizing: border-box; }
 
-    body.dark .header {
-      background: #1e1e1e;
-    }
+    html, body { height: 100%; margin: 0; padding: 0; }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: inherit;
-      text-decoration: none;
-      font-size: 18px;
-    }
-
-    .nav-links a:hover {
-      color: #ec1111;
-    }
-
-    .header-title {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 24px;
-      color: #ec1111;
-      font-weight: bold;
-    }
-
-    .theme-toggle {
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .filters-container {
-      padding: 15px 20px;
-      background: #f5f5f5;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      align-items: center;
-      transition: background 0.3s;
-    }
-
-    body.dark .filters-container {
-      background: #1e1e1e;
-    }
-
-    .filter-group {
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--page-bg);
+      color: var(--text-primary);
+      transition: background-color 0.2s, color 0.2s;
       display: flex;
       flex-direction: column;
-      gap: 4px;
     }
 
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 28px;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
+      flex-shrink: 0;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .brand-group { display: flex; align-items: center; gap: 22px; }
+    .brand-link { display: flex; align-items: center; gap: 8px; }
+    .brand-icon { width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; }
+    .brand-icon path { fill: currentColor; }
+    .brand-text { font-size: 14px; font-weight: 800; letter-spacing: .4px; white-space: nowrap; }
+    .nav-divider { width: 1px; height: 22px; background: var(--card-border); }
+
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 20px;
+      color: var(--text-muted); font-size: 13px; font-weight: 600; letter-spacing: .1px;
+      white-space: nowrap; transition: background 0.15s ease, color 0.15s ease;
+    }
+    .nav-item i { font-size: 15px; width: 16px; text-align: center; }
+    .nav-item:hover { background: var(--hover-bg); }
+    .nav-item.active { color: var(--accent); background: var(--accent-pill-bg); }
+
+    .theme-toggle {
+      display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+      border-radius: 50%; color: var(--text-muted); cursor: pointer; font-size: 16px;
+      transition: background 0.15s ease;
+    }
+    .theme-toggle:hover { background: var(--hover-bg); }
+
+    @media (max-width: 640px) {
+      .header { padding: 0 16px; height: 56px; }
+      .brand-text, .nav-divider, .nav-item span { display: none; }
+      .brand-group { gap: 14px; }
+      .nav-item { padding: 10px; border-radius: 50%; }
+    }
+
+    .intro { flex-shrink: 0; padding: 22px 48px 4px; }
+    .intro h1 { margin: 0 0 4px; font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; }
+    .intro p { margin: 0; font-size: 13.5px; color: var(--text-muted); }
+
+    .filters-container {
+      flex-shrink: 0;
+      margin: 14px 48px 0;
+      padding: 12px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .filter-group { display: flex; flex-direction: column; }
     .filter-group label {
-      font-size: 12px;
-      font-weight: bold;
-      text-transform: uppercase;
-      opacity: 0.7;
+      font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+      opacity: 0.65; margin-bottom: 3px; margin-left: 2px;
     }
-
     .filter-group select {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-      min-width: 140px;
-      background: #fff;
-      color: #000;
-    }
-
-    body.dark .filter-group select {
-      background: #333;
-      color: #fff;
-      border-color: #555;
+      padding: 8px 10px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      font-size: 12.5px;
+      min-width: 116px;
+      background: var(--input-bg);
+      color: var(--text-primary);
     }
 
     .filter-stats {
       margin-left: auto;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 18px;
-      color: #ec1111;
-      font-weight: bold;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
     }
+    .filter-stats .lcd { font-family: 'LCDMono2', monospace; font-size: 17px; color: var(--accent); }
 
     .clear-filters {
-      padding: 8px 16px;
-      background: #ec1111;
-      color: #fff;
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 12px;
+      background: transparent;
       border: none;
-      border-radius: 4px;
+      color: var(--text-muted);
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
-      align-self: flex-end;
+      font-size: 12.5px;
     }
+    .clear-filters:hover { background: var(--hover-bg); }
 
-    .clear-filters:hover {
-      background: #c00;
-    }
-
-    #map {
-      height: calc(100vh - 160px);
-      width: 100%;
-    }
+    #map { flex: 1; width: 100%; margin: 14px 48px 20px; border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); }
 
     .filter-toggle {
       display: none;
-      padding: 8px 16px;
-      background: #ec1111;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-primary);
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
-      margin: 10px 20px;
-    }
-
-    .filter-toggle i {
-      margin-right: 6px;
+      font-size: 13px;
+      margin: 12px 20px 0;
     }
 
     @media (max-width: 768px) {
-      .filter-toggle {
-        display: block;
-      }
+      .intro { padding: 16px 18px 0; }
+      .intro h1 { font-size: 19px; }
+      .filter-toggle { display: flex; }
 
       .filters-container {
         display: none;
+        margin: 8px 18px 0;
         flex-direction: column;
         align-items: stretch;
-        padding: 10px 20px;
       }
+      .filters-container.expanded { display: flex; }
+      .filter-group { width: 100%; }
+      .filter-group select { width: 100%; }
+      .filter-stats { margin-left: 0; justify-content: center; }
+      .clear-filters { justify-content: center; background: var(--pill-bg); }
 
-      .filters-container.expanded {
-        display: flex;
-      }
-
-      .filter-group {
-        width: 100%;
-      }
-
-      .filter-group select {
-        width: 100%;
-      }
-
-      .filter-stats {
-        margin-left: 0;
-        margin-top: 10px;
-        text-align: center;
-      }
-
-      .clear-filters {
-        width: 100%;
-        margin-top: 5px;
-      }
-
-      #map {
-        height: calc(100vh - 110px);
-      }
-
-      .filters-container.expanded + #map {
-        height: calc(100vh - 360px);
-      }
+      #map { margin: 8px 18px 16px; }
     }
 
     .leaflet-popup-content-wrapper {
-      border-radius: 8px;
+      border-radius: 10px;
+      background: var(--card-bg);
+      color: var(--text-primary);
     }
+    .leaflet-popup-tip { background: var(--card-bg); }
 
-    .popup-content {
-      font-family: Arial, sans-serif;
-      line-height: 1.5;
-    }
-
-    .popup-content h3 {
-      margin: 0 0 8px 0;
-      color: #ec1111;
-      font-size: 16px;
-    }
-
-    .popup-content p {
-      margin: 4px 0;
-      font-size: 13px;
-    }
-
-    .popup-content .label {
-      font-weight: bold;
-    }
-
-    .popup-content a {
-      color: #ec1111;
-    }
+    .popup-content { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; min-width: 190px; }
+    .popup-date { font-family: 'LCDMono2', monospace; font-size: 14px; color: var(--accent); margin-bottom: 2px; }
+    .popup-name { font-weight: 600; font-size: 13.5px; margin-bottom: 6px; }
+    .popup-name.unknown { font-style: italic; font-weight: 600; color: var(--text-muted); }
+    .popup-loc { font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; }
+    .popup-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+    .popup-pill { padding: 3px 8px; border-radius: 20px; background: var(--pill-bg); font-size: 10.5px; color: var(--text-primary); }
+    .popup-details { font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.4; }
+    .popup-link { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--accent); font-weight: 600; }
 
     .footer {
-      padding: 12px;
-      background-color: #ffffff;
+      flex-shrink: 0;
+      padding: 10px;
       text-align: center;
-      font-size: 14px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
-    }
-
-    body.dark .footer {
-      background-color: #1e1e1e;
-    }
-
-    @media (max-width: 768px) {
-      .filters-container {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .filter-stats {
-        margin-left: 0;
-        text-align: center;
-      }
-
-      #map {
-        height: calc(100vh - 280px);
-      }
+      font-size: 12.5px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="nav-links">
-      <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
-      <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
-      <a href="/data" title="Data Table"><i class="fa-solid fa-table"></i></a>
+    <div class="brand-group">
+      <a href="/" class="brand-link" title="Brightline Kill Count">
+        <svg class="brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path fill="currentColor" d="M2.162 61H62V41.532L2.162 56.198zm0-8.386L62 40.863v-.721L2.162 48.54zM42.308 5.1c-1.233-.634-3.839-1.509-5.165-1.75c-.76-.138-1.727-.235-2.827-.292a52 52 0 0 0-3.783-.042c-5.58.121-10.861.577-14.027 2.357c-1.498.842-2.485 1.859-3.398 2.795c-2.697 2.765-4.761 6.118-6.273 9.542C3.595 25.046-.48 34.29 3.94 38.29q.081.085.169.169c.014.011.023.025.038.037h.005a4.3 4.3 0 0 0 1.954 1.059l-.028.001s.469.314.831.809l-4.747.292v2.64l4.318-.313c-.72.933.613 2.457 4.339 2.101C23.625 43.856 62 39.907 62 39.907v-3.501l-58.167-.945a5.6 5.6 0 0 1-.218-.853h12.623c3.56 0 10.496-2.438 13.923-3.598c3.767-1.274 10.903-5.515 14.771-6.223c.72-.132 2.187.06 2.905.194c.938.176 2.301.539 3.834.99V18.72c-1.467-.671-2.778-1.194-3.713-1.418c-.653-.157-2.024-.228-2.663 0c-4.417 1.569-11.64 9.063-15.861 11.278c-3.25 1.706-10.055 4.86-13.601 4.86H3.501c-.047-1.856.442-4.072 1.194-6.39c-.013.055-.031.115-.044.17c.261.56.619.913 1 .89c.689-.039 1.177-1.25 1.094-2.703c-.051-.901-.315-1.664-.669-2.117c.363-.901.74-1.796 1.117-2.668c.05.492.371 1.055.772 1.055h9.241c1.292 0 3.908-1.808 5.025-2.589c3.064-2.144 8.847-7.774 11.845-10.051c.062-.047.136-.102.212-.155c1.959 1.584 3.943 4.093 3.943 4.093s3.65-2.433 5.006-2.674c1.035-.183 3.215.077 4.156.633c1.794 1.06 11.76 7.628 14.607 9.508v-1.341S47.564 7.805 42.308 5.1"/>
+          <path fill="currentColor" d="M54.857 26.953v-6.676a94 94 0 0 0-2.18-1.085v7.082c.712.216 1.446.446 2.18.679m2.725.887v-6.123q-.831-.451-1.695-.904v6.472q.864.279 1.695.555m3.057 1.028c.511.175.97.332 1.361.469v-5.151c-.392-.226-.852-.488-1.361-.776zm-.696-.236v-5.614c-.494-.277-1.022-.57-1.574-.873v5.956q.829.278 1.574.531m-39.199-4.566c-1.621 1.637-2.129 3.775-1.137 4.778c.995 1.004 3.111.489 4.73-1.146c1.62-1.637 2.128-3.775 1.135-4.778s-3.11-.489-4.728 1.146"/>
+        </svg>
+        <span class="brand-text">BKC</span>
+      </a>
+      <div class="nav-divider"></div>
+      <nav class="nav-links">
+        <a href="/" class="nav-item" title="Home"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="/charts.html" class="nav-item" title="Charts"><i class="fa-solid fa-chart-bar"></i><span>Charts</span></a>
+        <a href="/map" class="nav-item active" title="Map"><i class="fa-solid fa-map-location-dot"></i><span>Map</span></a>
+        <a href="/data" class="nav-item" title="Data Table"><i class="fa-solid fa-table"></i><span>Data</span></a>
+      </nav>
     </div>
-    <div class="header-title">INCIDENT MAP</div>
     <div class="theme-toggle" id="themeToggle" title="Toggle theme">
       <i class="fa-solid fa-moon" id="themeIcon"></i>
     </div>
+  </div>
+
+  <div class="intro">
+    <h1>Incident Map</h1>
+    <p>Every documented incident, plotted by location.</p>
   </div>
 
   <button class="filter-toggle" id="filterToggle" onclick="toggleFilters()">
@@ -302,37 +266,32 @@
   <div class="filters-container" id="filtersContainer">
     <div class="filter-group">
       <label>Year</label>
-      <select id="filter-year">
-        <option value="">All Years</option>
-      </select>
+      <select id="filter-year"><option value="">All Years</option></select>
     </div>
     <div class="filter-group">
       <label>City</label>
-      <select id="filter-city">
-        <option value="">All Cities</option>
-      </select>
+      <select id="filter-city"><option value="">All Cities</option></select>
     </div>
     <div class="filter-group">
       <label>Mode</label>
-      <select id="filter-mode">
-        <option value="">All Modes</option>
-      </select>
+      <select id="filter-mode"><option value="">All Modes</option></select>
     </div>
     <div class="filter-group">
       <label>Gender</label>
-      <select id="filter-gender">
-        <option value="">All</option>
-      </select>
+      <select id="filter-gender"><option value="">All</option></select>
     </div>
     <div class="filter-group">
       <label>Suicide?</label>
-      <select id="filter-suicide">
-        <option value="">All</option>
-      </select>
+      <select id="filter-suicide"><option value="">All</option></select>
     </div>
-    <button class="clear-filters" onclick="clearFilters()">Clear</button>
+    <button class="clear-filters" onclick="clearFilters()">
+      <i class="fa-solid fa-arrow-rotate-left"></i> Clear
+    </button>
     <div class="filter-stats">
-      Showing: <span id="visible-count">0</span> / <span id="total-count">0</span>
+      <span class="lcd" id="visible-count">0</span>
+      <span>of</span>
+      <span class="lcd" id="total-count">0</span>
+      <span>incidents shown</span>
     </div>
   </div>
 
@@ -340,49 +299,28 @@
 
   <div class="footer">
     &copy; 2026 BKC. All rights reserved.
-    <br><span id="tracker-status" style="font-size:12px;opacity:0.6;"></span>
+    <span id="tracker-status" style="font-size:11px;opacity:0.6;margin-left:6px;"></span>
   </div>
 
   <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pub?gid=0&single=true&output=csv';
 
-    // Column indices (0-indexed) based on your sheet structure
     const COLUMNS = {
-      Date: 0,
-      Status: 1,
-      DOT: 2,
-      FullLocation: 3,
-      Location: 4,
-      Name: 5,
-      Year: 6,
-      Time: 7,
-      Age: 8,
-      Gender: 9,
-      Mode: 10,
-      Details: 11,
-      Suicide: 12,
-      DOTMatch: 13,
-      NewsSource: 14,
-      Source: 15,
-      Lat: 16,
-      Lon: 17,
-      GoogleMap: 18
+      Date: 0, Status: 1, DOT: 2, FullLocation: 3, Location: 4, Name: 5, Year: 6,
+      Time: 7, Age: 8, Gender: 9, Mode: 10, Details: 11, Suicide: 12, DOTMatch: 13,
+      NewsSource: 14, Source: 15, Lat: 16, Lon: 17, GoogleMap: 18
     };
 
     let map;
     let markers = [];
     let allRecords = [];
-    let markerCluster;
 
-    // Initialize map
     function initMap() {
       map = L.map('map').setView([26.7, -80.1], 9);
 
-      // Light/dark tile layers
       const lightTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
       });
-
       const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '© OpenStreetMap contributors © CARTO'
       });
@@ -393,7 +331,6 @@
       (isDark ? darkTiles : lightTiles).addTo(map);
     }
 
-    // Parse CSV
     function parseCSV(text) {
       const rows = [];
       let row = [];
@@ -405,51 +342,34 @@
         const nextChar = text[i + 1];
 
         if (char === '"') {
-          if (inQuotes && nextChar === '"') {
-            field += '"';
-            i++;
-          } else {
-            inQuotes = !inQuotes;
-          }
+          if (inQuotes && nextChar === '"') { field += '"'; i++; }
+          else { inQuotes = !inQuotes; }
         } else if (char === ',' && !inQuotes) {
-          row.push(field.trim());
-          field = '';
+          row.push(field.trim()); field = '';
         } else if ((char === '\n' || (char === '\r' && nextChar === '\n')) && !inQuotes) {
           if (char === '\r') i++;
           row.push(field.trim());
-          if (row.length > 1 || row[0] !== '') {
-            rows.push(row);
-          }
-          row = [];
-          field = '';
-        } else if (char !== '\r') {
-          field += char;
-        }
+          if (row.length > 1 || row[0] !== '') rows.push(row);
+          row = []; field = '';
+        } else if (char !== '\r') { field += char; }
       }
-      if (field || row.length > 0) {
-        row.push(field.trim());
-        rows.push(row);
-      }
+      if (field || row.length > 0) { row.push(field.trim()); rows.push(row); }
       return rows;
     }
 
-    // Fetch and process data
     async function fetchData() {
       try {
         const response = await fetch(CSV_URL);
         const text = await response.text();
         const rows = parseCSV(text);
 
-        // Skip header, process data rows
         allRecords = rows.slice(1).map(row => {
-          // Pad row if needed
           while (row.length <= COLUMNS.GoogleMap) row.push('');
-
           return {
             date: row[COLUMNS.Date] || '',
             fullLocation: row[COLUMNS.FullLocation] || '',
             location: row[COLUMNS.Location] || '',
-            name: row[COLUMNS.Name] || 'Unknown',
+            name: row[COLUMNS.Name] || '',
             year: row[COLUMNS.Year] || '',
             age: row[COLUMNS.Age] || '',
             gender: row[COLUMNS.Gender] || '',
@@ -462,13 +382,8 @@
           };
         }).filter(r => r.lat && r.lon);
 
-        // Populate filter dropdowns
         populateFilters();
-
-        // Apply URL params if present
         applyUrlParams();
-
-        // Render markers
         renderMarkers();
 
         document.getElementById('total-count').textContent = allRecords.length;
@@ -477,7 +392,6 @@
       }
     }
 
-    // Populate filter dropdowns
     function populateFilters() {
       const years = [...new Set(allRecords.map(r => r.year).filter(Boolean))].sort().reverse();
       const cities = [...new Set(allRecords.map(r => r.location).filter(Boolean))].sort();
@@ -506,7 +420,6 @@
       select.value = currentValue;
     }
 
-    // Get current filters
     function getFilters() {
       return {
         year: document.getElementById('filter-year').value,
@@ -517,9 +430,7 @@
       };
     }
 
-    // Filter records
     function filterRecords() {
-      // If specific record filter is set, only show that record
       if (specificRecordFilter) {
         return allRecords.filter(r =>
           r.date === specificRecordFilter.date &&
@@ -539,9 +450,7 @@
       });
     }
 
-    // Render markers
     function renderMarkers() {
-      // Clear existing markers
       markers.forEach(m => map.removeLayer(m));
       markers = [];
 
@@ -554,24 +463,28 @@
           color: '#fff',
           weight: 2,
           opacity: 1,
-          fillOpacity: 0.8
+          fillOpacity: 0.9
         });
 
-        // Build popup content
         let popupHtml = `<div class="popup-content">`;
-        popupHtml += `<h3>${escapeHtml(record.name)}</h3>`;
-        popupHtml += `<p><span class="label">Date:</span> ${escapeHtml(record.date)}</p>`;
-        if (record.age) popupHtml += `<p><span class="label">Age:</span> ${escapeHtml(record.age)}</p>`;
-        if (record.gender) popupHtml += `<p><span class="label">Gender:</span> ${escapeHtml(record.gender)}</p>`;
-        if (record.mode) popupHtml += `<p><span class="label">Mode:</span> ${escapeHtml(record.mode)}</p>`;
-        if (record.location) popupHtml += `<p><span class="label">City:</span> ${escapeHtml(record.location)}</p>`;
-        if (record.fullLocation) popupHtml += `<p><span class="label">Location:</span> ${escapeHtml(record.fullLocation)}</p>`;
-        if (record.details) popupHtml += `<p><span class="label">Details:</span> ${escapeHtml(record.details)}</p>`;
-        if (record.suicide) popupHtml += `<p><span class="label">Suicide:</span> ${escapeHtml(record.suicide)}</p>`;
+        popupHtml += `<div class="popup-date">${escapeHtml(record.date)}</div>`;
+        popupHtml += record.name
+          ? `<div class="popup-name">${escapeHtml(record.name)}</div>`
+          : `<div class="popup-name unknown">Unknown</div>`;
+        const locLine = [record.location, record.fullLocation].filter(Boolean).join(' &middot; ');
+        if (locLine) popupHtml += `<div class="popup-loc">${locLine}</div>`;
+
+        popupHtml += `<div class="popup-pills">`;
+        if (record.mode) popupHtml += `<span class="popup-pill">${escapeHtml(record.mode)}</span>`;
+        if (record.age || record.gender) popupHtml += `<span class="popup-pill">${escapeHtml(record.age) || '&mdash;'} / ${escapeHtml(record.gender) || '&mdash;'}</span>`;
+        popupHtml += `</div>`;
+
+        if (record.details) popupHtml += `<div class="popup-details">${escapeHtml(record.details)}</div>`;
+
         if (record.source) {
           const sources = extractUrls(record.source);
           if (sources.length > 0) {
-            popupHtml += `<p><span class="label">Source:</span> <a href="${escapeHtml(sources[0])}" target="_blank">View Article</a></p>`;
+            popupHtml += `<a href="${escapeHtml(sources[0])}" target="_blank" class="popup-link"><i class="fa-solid fa-newspaper"></i> View article</a>`;
           }
         }
         popupHtml += `</div>`;
@@ -583,10 +496,8 @@
 
       document.getElementById('visible-count').textContent = filtered.length;
 
-      // Fit bounds if we have markers
       if (markers.length > 0) {
         if (specificRecordFilter && markers.length === 1) {
-          // Zoom in close for specific record and open popup
           map.setView([filtered[0].lat, filtered[0].lon], 15);
           markers[0].openPopup();
         } else {
@@ -595,10 +506,7 @@
         }
       }
 
-      // Update URL (but not if viewing specific record)
-      if (!specificRecordFilter) {
-        updateUrl();
-      }
+      if (!specificRecordFilter) updateUrl();
     }
 
     function escapeHtml(text) {
@@ -608,29 +516,19 @@
     }
 
     function extractUrls(sourceStr) {
-      // First try splitting by common delimiters
       const delimiters = /[,\n\r]+/;
       const parts = sourceStr.split(delimiters).map(s => s.trim()).filter(Boolean);
-
-      // If that gives us valid URLs, use them
-      if (parts.length > 0 && parts.every(p => p.startsWith('http'))) {
-        return parts;
-      }
-
-      // Otherwise, extract all URLs using regex (handles concatenated URLs)
+      if (parts.length > 0 && parts.every(p => p.startsWith('http'))) return parts;
       const urlRegex = /https?:\/\/[^\s,\n\r]+/g;
       const matches = sourceStr.match(urlRegex);
       return matches || [];
     }
 
-    // Specific record filter (from Data page link)
     let specificRecordFilter = null;
 
-    // URL parameter handling
     function applyUrlParams() {
       const params = new URLSearchParams(window.location.search);
 
-      // Check for specific record filter (lat, lon, date from Data page)
       if (params.has('lat') && params.has('lon') && params.has('date')) {
         specificRecordFilter = {
           lat: parseFloat(params.get('lat')),
@@ -649,7 +547,6 @@
     function updateUrl() {
       const filters = getFilters();
       const params = new URLSearchParams();
-
       if (filters.year) params.set('year', filters.year);
       if (filters.city) params.set('city', filters.city);
       if (filters.mode) params.set('mode', filters.mode);
@@ -661,29 +558,22 @@
     }
 
     function clearFilters() {
-      // Clear specific record filter
       specificRecordFilter = null;
-
       document.getElementById('filter-year').value = '';
       document.getElementById('filter-city').value = '';
       document.getElementById('filter-mode').value = '';
       document.getElementById('filter-gender').value = '';
       document.getElementById('filter-suicide').value = '';
-
-      // Clear URL params
       window.history.replaceState({}, '', window.location.pathname);
-
       renderMarkers();
     }
 
-    // Theme handling
     function setTheme(theme) {
       document.body.classList.toggle('dark', theme === 'dark');
       localStorage.setItem('theme', theme);
       document.getElementById('themeIcon').className =
         theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
 
-      // Switch map tiles
       if (window.tileLayers) {
         if (theme === 'dark') {
           map.removeLayer(window.tileLayers.light);
@@ -695,7 +585,6 @@
       }
     }
 
-    // Event listeners
     function toggleFilters() {
       const container = document.getElementById('filtersContainer');
       const toggleText = document.getElementById('filterToggleText');
@@ -710,7 +599,6 @@
 
     document.querySelectorAll('.filter-group select').forEach(select => {
       select.addEventListener('change', () => {
-        // Clear specific record filter when user changes filters
         if (specificRecordFilter) {
           specificRecordFilter = null;
           window.history.replaceState({}, '', window.location.pathname);
@@ -719,7 +607,6 @@
       });
     });
 
-    // Initialize
     async function fetchTrackerStatus() {
       try {
         const resp = await fetch('/status.json');

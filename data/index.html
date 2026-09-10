@@ -24,485 +24,386 @@
       font-style: normal;
     }
 
-    * {
-      box-sizing: border-box;
+    :root {
+      --page-bg: #f7f7f8;
+      --card-bg: #ffffff;
+      --card-border: rgba(0,0,0,0.08);
+      --text-primary: #17181a;
+      --text-muted: #6b6f76;
+      --accent: #ec1111;
+      --accent-pill-bg: rgba(236,17,17,0.09);
+      --pill-bg: rgba(0,0,0,0.05);
+      --input-bg: #f5f5f6;
+      --hover-bg: rgba(0,0,0,0.045);
+      --header-bg: #ffffff;
+      --head-bg: #fafafb;
+      --row-b: #fbfbfc;
+      --shadow-color: rgba(0,0,0,0.06);
     }
 
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
+    body.dark {
+      --page-bg: #0f0f10;
+      --card-bg: #18191b;
+      --card-border: rgba(255,255,255,0.09);
+      --text-primary: #f2f2f3;
+      --text-muted: #9aa0a6;
+      --accent-pill-bg: rgba(236,17,17,0.16);
+      --pill-bg: rgba(255,255,255,0.07);
+      --input-bg: #202124;
+      --hover-bg: rgba(255,255,255,0.06);
+      --header-bg: #18191b;
+      --head-bg: #202124;
+      --row-b: rgba(255,255,255,0.025);
+      --shadow-color: rgba(0,0,0,0.4);
     }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; margin: 0; padding: 0; }
 
     body {
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      color: #000;
-      transition: background-color 0.3s, color 0.3s;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--page-bg);
+      color: var(--text-primary);
+      transition: background-color 0.2s, color 0.2s;
       display: flex;
       flex-direction: column;
     }
 
-    body.dark {
-      background-color: #121212;
-      color: #fff;
-    }
+    a { color: inherit; text-decoration: none; }
 
+    /* Header */
     .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      background: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: background 0.3s;
+      height: 64px;
+      padding: 0 28px;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
       flex-shrink: 0;
+      transition: background-color 0.2s, border-color 0.2s;
     }
 
-    body.dark .header {
-      background: #1e1e1e;
-    }
+    .brand-group { display: flex; align-items: center; gap: 22px; }
+    .brand-link { display: flex; align-items: center; gap: 8px; }
+    .brand-icon { width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; }
+    .brand-icon path { fill: currentColor; }
+    .brand-text { font-size: 14px; font-weight: 800; letter-spacing: .4px; white-space: nowrap; }
+    .nav-divider { width: 1px; height: 22px; background: var(--card-border); }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      align-items: center;
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 20px;
+      color: var(--text-muted); font-size: 13px; font-weight: 600; letter-spacing: .1px;
+      white-space: nowrap; transition: background 0.15s ease, color 0.15s ease;
     }
-
-    .nav-links a {
-      color: inherit;
-      text-decoration: none;
-      font-size: 18px;
-    }
-
-    .nav-links a:hover {
-      color: #ec1111;
-    }
-
-    .header-title {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 24px;
-      color: #ec1111;
-      font-weight: bold;
-    }
+    .nav-item i { font-size: 15px; width: 16px; text-align: center; }
+    .nav-item:hover { background: var(--hover-bg); }
+    .nav-item.active { color: var(--accent); background: var(--accent-pill-bg); }
 
     .theme-toggle {
-      font-size: 20px;
-      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+      border-radius: 50%; color: var(--text-muted); cursor: pointer; font-size: 16px;
+      transition: background 0.15s ease;
+    }
+    .theme-toggle:hover { background: var(--hover-bg); }
+
+    @media (max-width: 640px) {
+      .header { padding: 0 16px; height: 56px; }
+      .brand-text, .nav-divider, .nav-item span { display: none; }
+      .brand-group { gap: 14px; }
+      .nav-item { padding: 10px; border-radius: 50%; }
     }
 
+    /* Page intro */
+    .intro { padding: 26px 48px 0; flex-shrink: 0; }
+    .intro h1 { margin: 0 0 6px; font-size: 26px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; }
+    .intro p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+    /* Controls bar */
     .controls-container {
-      padding: 15px 20px;
-      background: #f5f5f5;
+      position: sticky;
+      top: 64px;
+      z-index: 15;
+      margin: 18px 48px 0;
+      padding: 12px 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      box-shadow: 0 4px 14px var(--shadow-color);
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
       align-items: center;
-      transition: background 0.3s;
+      gap: 10px;
       flex-shrink: 0;
-    }
-
-    body.dark .controls-container {
-      background: #1e1e1e;
+      transition: background-color 0.2s, border-color 0.2s;
     }
 
     .search-box {
       flex: 1;
       min-width: 200px;
-      max-width: 400px;
-      align-self: flex-end;
+      max-width: 320px;
     }
-
     .search-box input {
       width: 100%;
       padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-      background: #fff;
-      color: #000;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      font-size: 13px;
+      background: var(--input-bg);
+      color: var(--text-primary);
     }
 
-    body.dark .search-box input {
-      background: #333;
-      color: #fff;
-      border-color: #555;
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
+    .filter-group { display: flex; flex-direction: column; }
     .filter-group label {
-      font-size: 11px;
-      font-weight: bold;
-      text-transform: uppercase;
-      opacity: 0.7;
+      font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+      opacity: 0.65; margin-bottom: 3px; margin-left: 2px;
     }
-
     .filter-group select {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-      min-width: 120px;
-      background: #fff;
-      color: #000;
-    }
-
-    body.dark .filter-group select {
-      background: #333;
-      color: #fff;
-      border-color: #555;
+      padding: 8px 10px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      font-size: 12.5px;
+      min-width: 108px;
+      background: var(--input-bg);
+      color: var(--text-primary);
     }
 
     .stats {
       margin-left: auto;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 16px;
-      color: #ec1111;
-      font-weight: bold;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
     }
+    .stats .lcd { font-family: 'LCDMono2', monospace; font-size: 17px; }
+    .stats .lcd.visible { color: var(--accent); }
+    .stats .lcd.total { color: var(--text-primary); }
 
     .clear-btn {
-      padding: 8px 16px;
-      background: #ec1111;
-      color: #fff;
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 12px;
+      background: transparent;
+      color: var(--text-muted);
       border: none;
-      border-radius: 4px;
-      align-self: flex-end;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 12.5px;
     }
-
-    .clear-btn:hover {
-      background: #c00;
-    }
+    .clear-btn:hover { background: var(--hover-bg); }
 
     .filter-toggle {
       display: none;
-      padding: 8px 16px;
-      background: #ec1111;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-primary);
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
-      margin: 10px 20px;
-      align-self: flex-start;
-    }
-
-    .filter-toggle i {
-      margin-right: 6px;
+      font-size: 13px;
+      margin: 14px 20px 0;
     }
 
     @media (max-width: 768px) {
-      .filter-toggle {
-        display: block;
-      }
+      .intro { padding: 20px 18px 0; }
+      .intro h1 { font-size: 20px; }
+      .filter-toggle { display: flex; }
 
       .controls-container {
         display: none;
+        margin: 10px 18px 0;
+        top: 56px;
         flex-direction: column;
         align-items: stretch;
-        padding: 10px 20px;
       }
-
-      .controls-container.expanded {
-        display: flex;
-      }
-
-      .search-box {
-        max-width: none;
-        width: 100%;
-      }
-
-      .filter-group {
-        width: 100%;
-      }
-
-      .filter-group select {
-        width: 100%;
-      }
-
-      .stats {
-        margin-left: 0;
-        margin-top: 10px;
-        text-align: center;
-      }
-
-      .clear-btn {
-        width: 100%;
-        margin-top: 5px;
-        align-self: stretch;
-      }
-
-      .search-box {
-        align-self: stretch;
-      }
+      .controls-container.expanded { display: flex; }
+      .search-box { max-width: none; width: 100%; }
+      .filter-group { width: 100%; }
+      .filter-group select { width: 100%; }
+      .stats { margin-left: 0; margin-top: 4px; justify-content: center; }
+      .clear-btn { width: 100%; justify-content: center; background: var(--pill-bg); }
     }
 
-    /* Mobile table adjustments */
-    @media (max-width: 768px) {
-      .table-wrapper {
-        padding: 0 10px 10px;
-        -webkit-text-size-adjust: 100%;
-      }
-
-      table {
-        font-size: 12px;
-        border-collapse: separate;
-        border-spacing: 0;
-      }
-
-      th, td {
-        padding: 8px 6px;
-        white-space: nowrap;
-        font-size: 12px;
-      }
-
-      /* Sticky Date column only */
-      th.col-date, td.col-date {
-        position: sticky;
-        left: 0;
-        z-index: 5;
-        min-width: 70px;
-        background-color: #fff !important;
-        box-shadow: 2px 0 4px rgba(0,0,0,0.1);
-      }
-
-      thead th.col-date {
-        background-color: #f0f0f0 !important;
-        z-index: 15;
-      }
-
-      body.dark th.col-date, body.dark td.col-date {
-        background-color: #1e1e1e !important;
-        box-shadow: 2px 0 4px rgba(0,0,0,0.3);
-      }
-
-      body.dark thead th.col-date {
-        background-color: #2a2a2a !important;
-      }
-
-      tbody tr:hover td.col-date {
-        background-color: #f9f9f9 !important;
-      }
-
-      body.dark tbody tr:hover td.col-date {
-        background-color: #2a2a2a !important;
-      }
-    }
-
+    /* Desktop table */
     .table-wrapper {
       flex: 1;
       overflow: auto;
-      padding: 0 20px 20px;
+      margin: 20px 48px 40px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      transition: background-color 0.2s, border-color 0.2s;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    th, td {
-      padding: 10px 12px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-
-    body.dark th,
-    body.dark td {
-      border-bottom-color: #444;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
     thead th {
-      background: #f0f0f0;
-      font-weight: bold;
+      text-align: left;
+      padding: 13px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--text-muted);
+      background: var(--head-bg);
+      white-space: nowrap;
       cursor: pointer;
       user-select: none;
-      white-space: nowrap;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 5;
     }
+    thead th.sorted { color: var(--accent); }
+    th .sort-icon { margin-left: 5px; opacity: 0.45; font-size: 10px; }
+    th.sorted .sort-icon { opacity: 1; }
 
-    body.dark thead th {
-      background: #2a2a2a;
-    }
+    td { padding: 14px 16px; border-top: 1px solid var(--card-border); vertical-align: top; }
+    tbody tr:nth-child(even) { background: var(--row-b); }
 
-    thead th:hover {
-      background: #e0e0e0;
-    }
+    .col-date { font-family: 'LCDMono2', monospace; font-size: 15px; color: var(--accent); white-space: nowrap; }
+    .name-cell { font-weight: 600; color: var(--text-primary); }
+    .name-cell.unknown { font-weight: 600; font-style: italic; color: var(--text-muted); }
+    .loc-city { color: var(--text-primary); font-weight: 500; }
+    .loc-full { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
 
-    body.dark thead th:hover {
-      background: #3a3a3a;
+    .pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--pill-bg);
+      font-size: 11.5px;
+      color: var(--text-primary);
+      white-space: nowrap;
     }
-
-    th .sort-icon {
-      margin-left: 5px;
-      opacity: 0.5;
-    }
-
-    th.sorted .sort-icon {
-      opacity: 1;
-      color: #ec1111;
-    }
-
-    tbody tr:hover {
-      background: #f9f9f9;
-    }
-
-    body.dark tbody tr:hover {
-      background: #2a2a2a;
-    }
-
-    td a {
-      color: #ec1111;
-      text-decoration: none;
-    }
-
-    td a:hover {
-      text-decoration: underline;
-    }
-
-    .name-cell {
-      font-weight: 500;
-    }
+    .pill.accent { background: var(--accent-pill-bg); color: var(--accent); font-weight: 600; }
 
     .details-cell {
-      max-width: 250px;
+      max-width: 260px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      color: var(--text-muted);
+    }
+    .details-cell:hover { white-space: normal; overflow: visible; }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      width: 26px;
+      height: 26px;
+      padding: 0 8px;
+      border-radius: 20px;
+      background: var(--pill-bg);
+      color: var(--text-muted);
+      border: none;
+      cursor: pointer;
+      font-size: 11.5px;
+    }
+    .icon-btn.with-count { width: auto; }
+    .icon-btn:hover { color: var(--accent); }
+
+    .no-results { text-align: center; padding: 40px; font-size: 15px; opacity: 0.7; }
+
+    /* Source dropdown */
+    .source-dropdown { position: relative; display: inline-block; }
+    .source-dropdown-content {
+      display: none;
+      position: absolute;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      min-width: 190px;
+      max-width: 320px;
+      box-shadow: 0 8px 20px var(--shadow-color);
+      border-radius: 10px;
+      z-index: 30;
+      right: 0;
+      bottom: 100%;
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+    .source-dropdown-content.show { display: block; }
+    .source-dropdown-content a {
+      display: block;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--text-primary);
+      border-top: 1px solid var(--card-border);
+    }
+    .source-dropdown-content a:first-child { border-top: none; }
+    .source-dropdown-content a:hover { background: var(--pill-bg); color: var(--accent); }
+
+    /* Mobile card list */
+    .card-list { display: none; flex: 1; overflow: auto; padding: 6px 18px 24px; flex-direction: column; gap: 12px; }
+
+    .record-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .record-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .record-card .col-date { font-size: 14px; margin-bottom: 2px; }
+    .record-card-loc { margin-top: 8px; font-size: 12.5px; color: var(--text-primary); font-weight: 500; }
+    .record-card-loc span { color: var(--text-muted); font-weight: 400; }
+    .record-card-badges { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .record-card-details { margin: 10px 0 0; font-size: 12.5px; line-height: 1.45; color: var(--text-muted); }
+    .record-card-footer {
+      margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: space-between;
     }
 
-    .details-cell:hover {
-      white-space: normal;
-      overflow: visible;
-    }
-
-    .no-results {
-      text-align: center;
-      padding: 40px;
-      font-size: 18px;
-      opacity: 0.7;
+    @media (max-width: 768px) {
+      .table-wrapper { display: none; }
+      .card-list { display: flex; }
     }
 
     .footer {
       padding: 12px;
-      background-color: #ffffff;
       text-align: center;
-      font-size: 14px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
       flex-shrink: 0;
-    }
-
-    body.dark .footer {
-      background-color: #1e1e1e;
-    }
-
-    .map-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* Source dropdown styles */
-    .source-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .source-dropdown-btn {
-      background: none;
-      border: none;
-      color: #ec1111;
-      cursor: pointer;
-      font-size: 14px;
-      padding: 4px 8px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .source-dropdown-btn:hover {
-      opacity: 0.8;
-    }
-
-    .source-dropdown-content {
-      display: none;
-      position: absolute;
-      background: #fff;
-      min-width: 200px;
-      max-width: 350px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      border-radius: 4px;
-      z-index: 1000;
-      right: 0;
-      bottom: 100%;
-      margin-bottom: 4px;
-    }
-
-    body.dark .source-dropdown-content {
-      background: #333;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-
-    .source-dropdown-content.show {
-      display: block;
-    }
-
-    .source-dropdown-content a {
-      display: block;
-      padding: 10px 12px;
-      text-decoration: none;
-      color: #333;
-      font-size: 12px;
-      border-bottom: 1px solid #eee;
-    }
-
-    body.dark .source-dropdown-content a {
-      color: #fff;
-      border-bottom-color: #444;
-    }
-
-    .source-dropdown-content a:last-child {
-      border-bottom: none;
-    }
-
-    .source-dropdown-content a:hover {
-      background: #f5f5f5;
-      color: #ec1111;
-    }
-
-    body.dark .source-dropdown-content a:hover {
-      background: #444;
-      color: #ec1111;
-    }
-
-    .source-single {
-      color: #ec1111;
-      font-size: 16px;
     }
 
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="nav-links">
-      <a href="/" title="Home"><i class="fa-solid fa-house"></i></a>
-      <a href="/charts.html" title="Charts"><i class="fa-solid fa-chart-bar"></i></a>
-      <a href="/map" title="Map"><i class="fa-solid fa-map-location-dot"></i></a>
+    <div class="brand-group">
+      <a href="/" class="brand-link" title="Brightline Kill Count">
+        <svg class="brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path fill="currentColor" d="M2.162 61H62V41.532L2.162 56.198zm0-8.386L62 40.863v-.721L2.162 48.54zM42.308 5.1c-1.233-.634-3.839-1.509-5.165-1.75c-.76-.138-1.727-.235-2.827-.292a52 52 0 0 0-3.783-.042c-5.58.121-10.861.577-14.027 2.357c-1.498.842-2.485 1.859-3.398 2.795c-2.697 2.765-4.761 6.118-6.273 9.542C3.595 25.046-.48 34.29 3.94 38.29q.081.085.169.169c.014.011.023.025.038.037h.005a4.3 4.3 0 0 0 1.954 1.059l-.028.001s.469.314.831.809l-4.747.292v2.64l4.318-.313c-.72.933.613 2.457 4.339 2.101C23.625 43.856 62 39.907 62 39.907v-3.501l-58.167-.945a5.6 5.6 0 0 1-.218-.853h12.623c3.56 0 10.496-2.438 13.923-3.598c3.767-1.274 10.903-5.515 14.771-6.223c.72-.132 2.187.06 2.905.194c.938.176 2.301.539 3.834.99V18.72c-1.467-.671-2.778-1.194-3.713-1.418c-.653-.157-2.024-.228-2.663 0c-4.417 1.569-11.64 9.063-15.861 11.278c-3.25 1.706-10.055 4.86-13.601 4.86H3.501c-.047-1.856.442-4.072 1.194-6.39c-.013.055-.031.115-.044.17c.261.56.619.913 1 .89c.689-.039 1.177-1.25 1.094-2.703c-.051-.901-.315-1.664-.669-2.117c.363-.901.74-1.796 1.117-2.668c.05.492.371 1.055.772 1.055h9.241c1.292 0 3.908-1.808 5.025-2.589c3.064-2.144 8.847-7.774 11.845-10.051c.062-.047.136-.102.212-.155c1.959 1.584 3.943 4.093 3.943 4.093s3.65-2.433 5.006-2.674c1.035-.183 3.215.077 4.156.633c1.794 1.06 11.76 7.628 14.607 9.508v-1.341S47.564 7.805 42.308 5.1"/>
+          <path fill="currentColor" d="M54.857 26.953v-6.676a94 94 0 0 0-2.18-1.085v7.082c.712.216 1.446.446 2.18.679m2.725.887v-6.123q-.831-.451-1.695-.904v6.472q.864.279 1.695.555m3.057 1.028c.511.175.97.332 1.361.469v-5.151c-.392-.226-.852-.488-1.361-.776zm-.696-.236v-5.614c-.494-.277-1.022-.57-1.574-.873v5.956q.829.278 1.574.531m-39.199-4.566c-1.621 1.637-2.129 3.775-1.137 4.778c.995 1.004 3.111.489 4.73-1.146c1.62-1.637 2.128-3.775 1.135-4.778s-3.11-.489-4.728 1.146"/>
+        </svg>
+        <span class="brand-text">BKC</span>
+      </a>
+      <div class="nav-divider"></div>
+      <nav class="nav-links">
+        <a href="/" class="nav-item" title="Home"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="/charts.html" class="nav-item" title="Charts"><i class="fa-solid fa-chart-bar"></i><span>Charts</span></a>
+        <a href="/map" class="nav-item" title="Map"><i class="fa-solid fa-map-location-dot"></i><span>Map</span></a>
+        <a href="/data" class="nav-item active" title="Data Table"><i class="fa-solid fa-table"></i><span>Data</span></a>
+      </nav>
     </div>
-    <div class="header-title">INCIDENT DATA</div>
     <div class="theme-toggle" id="themeToggle" title="Toggle theme">
       <i class="fa-solid fa-moon" id="themeIcon"></i>
     </div>
+  </div>
+
+  <div class="intro">
+    <h1>Incident Data</h1>
+    <p>Search, sort and filter every documented incident. Click any column to sort.</p>
   </div>
 
   <button class="filter-toggle" id="filterToggle" onclick="toggleFilters()">
@@ -515,37 +416,32 @@
     </div>
     <div class="filter-group">
       <label>Year</label>
-      <select id="filter-year">
-        <option value="">All</option>
-      </select>
+      <select id="filter-year"><option value="">All</option></select>
     </div>
     <div class="filter-group">
       <label>City</label>
-      <select id="filter-city">
-        <option value="">All</option>
-      </select>
+      <select id="filter-city"><option value="">All</option></select>
     </div>
     <div class="filter-group">
       <label>Mode</label>
-      <select id="filter-mode">
-        <option value="">All</option>
-      </select>
+      <select id="filter-mode"><option value="">All</option></select>
     </div>
     <div class="filter-group">
       <label>Gender</label>
-      <select id="filter-gender">
-        <option value="">All</option>
-      </select>
+      <select id="filter-gender"><option value="">All</option></select>
     </div>
     <div class="filter-group">
       <label>Suicide?</label>
-      <select id="filter-suicide">
-        <option value="">All</option>
-      </select>
+      <select id="filter-suicide"><option value="">All</option></select>
     </div>
-    <button class="clear-btn" onclick="clearAll()">Clear</button>
+    <button class="clear-btn" onclick="clearAll()">
+      <i class="fa-solid fa-arrow-rotate-left"></i> Clear
+    </button>
     <div class="stats">
-      <span id="visible-count">0</span> / <span id="total-count">0</span>
+      <span class="lcd visible" id="visible-count">0</span>
+      <span>of</span>
+      <span class="lcd total" id="total-count">0</span>
+      <span>records</span>
     </div>
   </div>
 
@@ -553,26 +449,23 @@
     <table id="data-table">
       <thead>
         <tr>
-          <th data-sort="date" class="col-date">Date <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="name" class="col-name">Name <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="age" class="col-age">Age <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="gender" class="col-gender">Gender <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="location" class="col-city">City <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="fullLocation" class="col-fullLocation">Location <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="mode" class="col-mode">Mode <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="suicide" class="col-suicide">Suicide? <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th data-sort="details" class="col-details">Details <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
-          <th class="col-source">Source</th>
-          <th class="col-map">Map</th>
+          <th data-sort="date" class="col-date-h">Date <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="name">Name <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="location">Location <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th>Age / Gender</th>
+          <th data-sort="mode">Mode <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="suicide">Suicide? <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th data-sort="details">Details <span class="sort-icon"><i class="fa-solid fa-sort"></i></span></th>
+          <th style="text-align:center;">Source</th>
+          <th style="text-align:center;">Map</th>
         </tr>
       </thead>
-      <tbody id="table-body">
-      </tbody>
+      <tbody id="table-body"></tbody>
     </table>
-    <div class="no-results" id="no-results" style="display: none;">
-      No records match your filters.
-    </div>
+    <div class="no-results" id="no-results" style="display: none;">No records match your filters.</div>
   </div>
+
+  <div class="card-list" id="card-list"></div>
 
   <div class="footer">
     &copy; 2026 BKC. All rights reserved.
@@ -583,32 +476,15 @@
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pub?gid=0&single=true&output=csv';
 
     const COLUMNS = {
-      Date: 0,
-      Status: 1,
-      DOT: 2,
-      FullLocation: 3,
-      Location: 4,
-      Name: 5,
-      Year: 6,
-      Time: 7,
-      Age: 8,
-      Gender: 9,
-      Mode: 10,
-      Details: 11,
-      Suicide: 12,
-      DOTMatch: 13,
-      NewsSource: 14,
-      Source: 15,
-      Lat: 16,
-      Lon: 17,
-      GoogleMap: 18
+      Date: 0, Status: 1, DOT: 2, FullLocation: 3, Location: 4, Name: 5, Year: 6,
+      Time: 7, Age: 8, Gender: 9, Mode: 10, Details: 11, Suicide: 12, DOTMatch: 13,
+      NewsSource: 14, Source: 15, Lat: 16, Lon: 17, GoogleMap: 18
     };
 
     let allRecords = [];
     let sortColumn = 'date';
     let sortDirection = 'desc';
 
-    // Parse CSV
     function parseCSV(text) {
       const rows = [];
       let row = [];
@@ -620,35 +496,21 @@
         const nextChar = text[i + 1];
 
         if (char === '"') {
-          if (inQuotes && nextChar === '"') {
-            field += '"';
-            i++;
-          } else {
-            inQuotes = !inQuotes;
-          }
+          if (inQuotes && nextChar === '"') { field += '"'; i++; }
+          else { inQuotes = !inQuotes; }
         } else if (char === ',' && !inQuotes) {
-          row.push(field.trim());
-          field = '';
+          row.push(field.trim()); field = '';
         } else if ((char === '\n' || (char === '\r' && nextChar === '\n')) && !inQuotes) {
           if (char === '\r') i++;
           row.push(field.trim());
-          if (row.length > 1 || row[0] !== '') {
-            rows.push(row);
-          }
-          row = [];
-          field = '';
-        } else if (char !== '\r') {
-          field += char;
-        }
+          if (row.length > 1 || row[0] !== '') rows.push(row);
+          row = []; field = '';
+        } else if (char !== '\r') { field += char; }
       }
-      if (field || row.length > 0) {
-        row.push(field.trim());
-        rows.push(row);
-      }
+      if (field || row.length > 0) { row.push(field.trim()); rows.push(row); }
       return rows;
     }
 
-    // Parse date for sorting
     function parseDate(dateStr) {
       if (!dateStr) return new Date(0);
       const parts = dateStr.split('/');
@@ -662,16 +524,14 @@
       return new Date(0);
     }
 
-    // Fetch data
     async function fetchData() {
       try {
         const response = await fetch(CSV_URL);
         const text = await response.text();
         const rows = parseCSV(text);
 
-        allRecords = rows.slice(1).map(row => {
+        allRecords = rows.slice(1).filter(row => row[COLUMNS.Status] !== 'Draft' && row[COLUMNS.Status] !== 'Rejected').map(row => {
           while (row.length <= COLUMNS.GoogleMap) row.push('');
-
           return {
             date: row[COLUMNS.Date] || '',
             dateObj: parseDate(row[COLUMNS.Date]),
@@ -693,14 +553,13 @@
         });
 
         populateFilters();
-        renderTable();
+        renderAll();
         document.getElementById('total-count').textContent = allRecords.length;
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
 
-    // Populate filters
     function populateFilters() {
       const years = [...new Set(allRecords.map(r => r.year).filter(Boolean))].sort().reverse();
       const cities = [...new Set(allRecords.map(r => r.location).filter(Boolean))].sort();
@@ -727,7 +586,6 @@
       });
     }
 
-    // Get filters
     function getFilters() {
       return {
         search: document.getElementById('search').value.toLowerCase(),
@@ -739,7 +597,6 @@
       };
     }
 
-    // Filter and sort records
     function getFilteredRecords() {
       const filters = getFilters();
 
@@ -754,66 +611,25 @@
           const searchFields = [r.name, r.location, r.fullLocation, r.details, r.date].join(' ').toLowerCase();
           if (!searchFields.includes(filters.search)) return false;
         }
-
         return true;
       });
 
-      // Sort
       filtered.sort((a, b) => {
         let valA, valB;
-
         switch (sortColumn) {
-          case 'date':
-            valA = a.dateObj;
-            valB = b.dateObj;
-            break;
-          case 'age':
-            valA = a.ageNum;
-            valB = b.ageNum;
-            break;
+          case 'date': valA = a.dateObj; valB = b.dateObj; break;
+          case 'age': valA = a.ageNum; valB = b.ageNum; break;
+          case 'location': valA = (a.location || '').toLowerCase(); valB = (b.location || '').toLowerCase(); break;
           default:
             valA = (a[sortColumn] || '').toLowerCase();
             valB = (b[sortColumn] || '').toLowerCase();
         }
-
         if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
         if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
         return 0;
       });
 
       return filtered;
-    }
-
-    // Render table
-    function renderTable() {
-      const filtered = getFilteredRecords();
-      const tbody = document.getElementById('table-body');
-      const noResults = document.getElementById('no-results');
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '';
-        noResults.style.display = 'block';
-      } else {
-        noResults.style.display = 'none';
-        tbody.innerHTML = filtered.map((r, index) => `
-          <tr>
-            <td class="col-date">${escapeHtml(r.date)}</td>
-            <td class="col-name name-cell">${escapeHtml(r.name) || '<em>Unknown</em>'}</td>
-            <td class="col-age">${escapeHtml(r.age)}</td>
-            <td class="col-gender">${escapeHtml(r.gender)}</td>
-            <td class="col-city">${escapeHtml(r.location)}</td>
-            <td class="col-fullLocation">${escapeHtml(r.fullLocation)}</td>
-            <td class="col-mode">${escapeHtml(r.mode)}</td>
-            <td class="col-suicide">${escapeHtml(r.suicide)}</td>
-            <td class="col-details details-cell" title="${escapeHtml(r.details)}">${escapeHtml(r.details)}</td>
-            <td class="col-source">${r.source ? formatSources(r.source, index) : ''}</td>
-            <td class="col-map">${r.lat && r.lon ? `<a href="/map?lat=${r.lat}&lon=${r.lon}&date=${encodeURIComponent(r.date)}" class="map-link" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}</td>
-          </tr>
-        `).join('');
-      }
-
-      document.getElementById('visible-count').textContent = filtered.length;
-      updateSortIcons();
     }
 
     function escapeHtml(text) {
@@ -830,59 +646,42 @@
         if (parts.length >= 2) {
           let name = parts[parts.length - 2];
           const nameMap = {
-            'sun-sentinel': 'Sun Sentinel',
-            'miamiherald': 'Miami Herald',
-            'palmbeachpost': 'Palm Beach Post',
-            'orlandosentinel': 'Orlando Sentinel',
-            'local10': 'Local 10',
-            'wptv': 'WPTV',
-            'tcpalm': 'TC Palm',
-            'wsvn': 'WSVN',
-            'nbcmiami': 'NBC Miami',
-            'cbsnews': 'CBS News',
-            'nytimes': 'NY Times',
-            'washingtonpost': 'Washington Post',
-            'cnn': 'CNN',
-            'foxnews': 'Fox News',
-            'abcnews': 'ABC News',
-            'wesh': 'WESH',
-            'clickorlando': 'Click Orlando',
-            'news-journalonline': 'News Journal',
-            'floridatoday': 'Florida Today',
+            'sun-sentinel': 'Sun Sentinel', 'miamiherald': 'Miami Herald',
+            'palmbeachpost': 'Palm Beach Post', 'orlandosentinel': 'Orlando Sentinel',
+            'local10': 'Local 10', 'wptv': 'WPTV', 'tcpalm': 'TC Palm', 'wsvn': 'WSVN',
+            'nbcmiami': 'NBC Miami', 'cbsnews': 'CBS News', 'nytimes': 'NY Times',
+            'washingtonpost': 'Washington Post', 'cnn': 'CNN', 'foxnews': 'Fox News',
+            'abcnews': 'ABC News', 'wesh': 'WESH', 'clickorlando': 'Click Orlando',
+            'news-journalonline': 'News Journal', 'floridatoday': 'Florida Today',
           };
           return nameMap[name.toLowerCase()] || name.charAt(0).toUpperCase() + name.slice(1);
         }
         return hostname;
-      } catch {
-        return 'Source';
-      }
+      } catch { return 'Source'; }
     }
 
-    function formatSources(sourceStr, rowIndex) {
-      // Split by multiple delimiters: comma, newline, or find all URLs starting with http
+    function extractSources(sourceStr) {
       let sources = [];
-
-      // First try splitting by common delimiters
       const delimiters = /[,\n\r]+/;
       const parts = sourceStr.split(delimiters).map(s => s.trim()).filter(Boolean);
-
-      // If that gives us valid URLs, use them
       if (parts.length > 0 && parts.every(p => p.startsWith('http'))) {
         sources = parts;
       } else {
-        // Otherwise, extract all URLs using regex (handles concatenated URLs)
         const urlRegex = /https?:\/\/[^\s,\n\r]+/g;
         const matches = sourceStr.match(urlRegex);
         sources = matches || [];
       }
+      return sources;
+    }
 
+    function formatSources(sourceStr, rowIndex) {
+      const sources = extractSources(sourceStr);
       if (sources.length === 0) return '';
 
       if (sources.length === 1) {
-        return `<a href="${escapeHtml(sources[0])}" target="_blank" class="source-single" title="${getSourceName(sources[0])}"><i class="fa-solid fa-newspaper"></i></a>`;
+        return `<a href="${escapeHtml(sources[0])}" target="_blank" class="icon-btn" title="${getSourceName(sources[0])}"><i class="fa-solid fa-newspaper"></i></a>`;
       }
 
-      // Multiple sources - create dropdown with click toggle
       const dropdownId = `dropdown-${rowIndex}`;
       const dropdownItems = sources.map(url => {
         const name = getSourceName(url);
@@ -891,44 +690,106 @@
 
       return `
         <div class="source-dropdown">
-          <button class="source-dropdown-btn" onclick="toggleDropdown('${dropdownId}', event)" title="${sources.length} sources">
-            <i class="fa-solid fa-newspaper"></i>
-            <span>${sources.length}</span>
-            <i class="fa-solid fa-caret-down" style="font-size: 10px;"></i>
+          <button class="icon-btn with-count" onclick="toggleDropdown('${dropdownId}', event)" title="${sources.length} sources">
+            <i class="fa-solid fa-newspaper"></i><span>${sources.length}</span>
           </button>
-          <div class="source-dropdown-content" id="${dropdownId}">
-            ${dropdownItems}
-          </div>
+          <div class="source-dropdown-content" id="${dropdownId}">${dropdownItems}</div>
         </div>
       `;
     }
 
-    // Toggle dropdown
     function toggleDropdown(dropdownId, event) {
       event.stopPropagation();
-
-      // Close all other dropdowns
       document.querySelectorAll('.source-dropdown-content.show').forEach(el => {
-        if (el.id !== dropdownId) {
-          el.classList.remove('show');
-        }
+        if (el.id !== dropdownId) el.classList.remove('show');
       });
-
-      // Toggle this dropdown
-      const dropdown = document.getElementById(dropdownId);
-      dropdown.classList.toggle('show');
+      document.getElementById(dropdownId).classList.toggle('show');
     }
 
-    // Close dropdowns when clicking outside
     document.addEventListener('click', function(event) {
       if (!event.target.closest('.source-dropdown')) {
-        document.querySelectorAll('.source-dropdown-content.show').forEach(el => {
-          el.classList.remove('show');
-        });
+        document.querySelectorAll('.source-dropdown-content.show').forEach(el => el.classList.remove('show'));
       }
     });
 
-    // Sorting
+    function mapLink(r) {
+      if (!r.lat || !r.lon) return '';
+      return `/map?lat=${r.lat}&lon=${r.lon}&date=${encodeURIComponent(r.date)}`;
+    }
+
+    function suicidePillClass(value) {
+      return value === 'Confirmed' ? 'pill accent' : 'pill';
+    }
+
+    // Render desktop table
+    function renderTable(filtered) {
+      const tbody = document.getElementById('table-body');
+      const noResults = document.getElementById('no-results');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+      }
+      noResults.style.display = 'none';
+
+      tbody.innerHTML = filtered.map((r, index) => `
+        <tr>
+          <td class="col-date">${escapeHtml(r.date)}</td>
+          <td class="${r.name ? 'name-cell' : 'name-cell unknown'}">${r.name ? escapeHtml(r.name) : 'Unknown'}</td>
+          <td>
+            <div class="loc-city">${escapeHtml(r.location)}</div>
+            <div class="loc-full">${escapeHtml(r.fullLocation)}</div>
+          </td>
+          <td>${escapeHtml(r.age) || '&mdash;'} / ${escapeHtml(r.gender) || '&mdash;'}</td>
+          <td>${r.mode ? `<span class="pill">${escapeHtml(r.mode)}</span>` : ''}</td>
+          <td>${r.suicide ? `<span class="${suicidePillClass(r.suicide)}">${escapeHtml(r.suicide)}</span>` : ''}</td>
+          <td class="details-cell" title="${escapeHtml(r.details)}">${escapeHtml(r.details)}</td>
+          <td style="text-align:center;">${r.source ? formatSources(r.source, index) : ''}</td>
+          <td style="text-align:center;">${mapLink(r) ? `<a href="${mapLink(r)}" class="icon-btn" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Render mobile card list
+    function renderCards(filtered) {
+      const container = document.getElementById('card-list');
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="no-results">No records match your filters.</div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map((r, index) => `
+        <div class="record-card">
+          <div class="record-card-top">
+            <div>
+              <div class="col-date">${escapeHtml(r.date)}</div>
+              <div class="${r.name ? 'name-cell' : 'name-cell unknown'}">${r.name ? escapeHtml(r.name) : 'Unknown'}</div>
+            </div>
+            ${r.suicide ? `<span class="${suicidePillClass(r.suicide)}">${escapeHtml(r.suicide)}</span>` : ''}
+          </div>
+          <div class="record-card-loc">${escapeHtml(r.location)} ${r.fullLocation ? `<span>&middot; ${escapeHtml(r.fullLocation)}</span>` : ''}</div>
+          <div class="record-card-badges">
+            ${r.mode ? `<span class="pill">${escapeHtml(r.mode)}</span>` : ''}
+            <span class="pill">${escapeHtml(r.age) || '&mdash;'} / ${escapeHtml(r.gender) || '&mdash;'}</span>
+          </div>
+          ${r.details ? `<p class="record-card-details">${escapeHtml(r.details)}</p>` : ''}
+          <div class="record-card-footer">
+            ${r.source ? formatSources(r.source, 'm' + index) : '<span></span>'}
+            ${mapLink(r) ? `<a href="${mapLink(r)}" class="icon-btn" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderAll() {
+      const filtered = getFilteredRecords();
+      renderTable(filtered);
+      renderCards(filtered);
+      document.getElementById('visible-count').textContent = filtered.length;
+      updateSortIcons();
+    }
+
     function updateSortIcons() {
       document.querySelectorAll('th[data-sort]').forEach(th => {
         const icon = th.querySelector('.sort-icon i');
@@ -951,11 +812,10 @@
           sortColumn = column;
           sortDirection = column === 'date' ? 'desc' : 'asc';
         }
-        renderTable();
+        renderAll();
       });
     });
 
-    // Clear all
     function clearAll() {
       document.getElementById('search').value = '';
       document.getElementById('filter-year').value = '';
@@ -963,13 +823,12 @@
       document.getElementById('filter-mode').value = '';
       document.getElementById('filter-gender').value = '';
       document.getElementById('filter-suicide').value = '';
-      renderTable();
+      renderAll();
     }
 
-    // Event listeners
-    document.getElementById('search').addEventListener('input', debounce(renderTable, 300));
+    document.getElementById('search').addEventListener('input', debounce(renderAll, 300));
     document.querySelectorAll('.filter-group select').forEach(select => {
-      select.addEventListener('change', renderTable);
+      select.addEventListener('change', renderAll);
     });
 
     function debounce(func, wait) {
@@ -980,7 +839,6 @@
       };
     }
 
-    // Filter toggle for mobile
     function toggleFilters() {
       const container = document.getElementById('filtersContainer');
       const toggleText = document.getElementById('filterToggleText');
@@ -988,7 +846,6 @@
       toggleText.textContent = container.classList.contains('expanded') ? 'Hide Filters' : 'Show Filters';
     }
 
-    // Theme
     function setTheme(theme) {
       document.body.classList.toggle('dark', theme === 'dark');
       localStorage.setItem('theme', theme);
@@ -1001,7 +858,6 @@
       setTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
 
-    // Initialize
     async function fetchTrackerStatus() {
       try {
         const resp = await fetch('/status.json');
