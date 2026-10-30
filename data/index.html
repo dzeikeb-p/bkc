@@ -755,6 +755,12 @@
       `).join('');
     }
 
+    // Cards have no column headers, so blank/"Unknown" values are hidden
+    // rather than shown as unlabeled "Unknown" text.
+    function known(value) {
+      return value && value.trim().toLowerCase() !== 'unknown';
+    }
+
     // Render mobile card list
     function renderCards(filtered) {
       const container = document.getElementById('card-list');
@@ -763,27 +769,35 @@
         return;
       }
 
-      container.innerHTML = filtered.map((r, index) => `
+      container.innerHTML = filtered.map((r, index) => {
+        const ageGender = [
+          known(r.age) ? `Age ${escapeHtml(r.age)}` : '',
+          known(r.gender) ? escapeHtml(r.gender) : '',
+        ].filter(Boolean).join(' &middot; ');
+        const badges = [
+          known(r.mode) ? `<span class="pill">${escapeHtml(r.mode)}</span>` : '',
+          ageGender ? `<span class="pill">${ageGender}</span>` : '',
+        ].join('');
+
+        return `
         <div class="record-card">
           <div class="record-card-top">
             <div>
               <div class="col-date">${escapeHtml(r.date)}</div>
-              <div class="${r.name ? 'name-cell' : 'name-cell unknown'}">${r.name ? escapeHtml(r.name) : 'Unknown'}</div>
+              ${known(r.name) ? `<div class="name-cell">${escapeHtml(r.name)}</div>` : ''}
             </div>
-            ${r.suicide ? `<span class="${suicidePillClass(r.suicide)}">${escapeHtml(r.suicide)}</span>` : ''}
+            ${known(r.suicide) ? `<span class="${suicidePillClass(r.suicide)}">Suicide: ${escapeHtml(r.suicide)}</span>` : ''}
           </div>
-          <div class="record-card-loc">${escapeHtml(r.location)} ${r.fullLocation ? `<span>&middot; ${escapeHtml(r.fullLocation)}</span>` : ''}</div>
-          <div class="record-card-badges">
-            ${r.mode ? `<span class="pill">${escapeHtml(r.mode)}</span>` : ''}
-            <span class="pill">${escapeHtml(r.age) || '&mdash;'} / ${escapeHtml(r.gender) || '&mdash;'}</span>
-          </div>
+          ${r.location || r.fullLocation ? `<div class="record-card-loc">${escapeHtml(r.location)} ${r.fullLocation ? `<span>&middot; ${escapeHtml(r.fullLocation)}</span>` : ''}</div>` : ''}
+          ${badges ? `<div class="record-card-badges">${badges}</div>` : ''}
           ${r.details ? `<p class="record-card-details">${escapeHtml(r.details)}</p>` : ''}
-          <div class="record-card-footer">
+          ${r.source || mapLink(r) ? `<div class="record-card-footer">
             ${r.source ? formatSources(r.source, 'm' + index) : '<span></span>'}
             ${mapLink(r) ? `<a href="${mapLink(r)}" class="icon-btn" title="View on map"><i class="fa-solid fa-location-dot"></i></a>` : ''}
-          </div>
+          </div>` : ''}
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function renderAll() {
