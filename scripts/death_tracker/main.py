@@ -285,6 +285,7 @@ def _write_status_json(existing_records: List[Dict], new_drafts: List[Dict]) -> 
 
     # Load previous status to detect count changes
     last_updated_ms = now_ms  # default: treat first run as an update
+    prev = {}
     if status_path.exists():
         try:
             prev = json.loads(status_path.read_text())
@@ -299,6 +300,10 @@ def _write_status_json(existing_records: List[Dict], new_drafts: List[Dict]) -> 
         "last_updated_ms": last_updated_ms,
         "approved_count": approved_count,
     }
+    # Written by sheet-watcher.yml from Summary!H2; keep it so the site's
+    # status.json fallback doesn't revert to last_updated_ms after each run.
+    if prev.get("sheet_last_updated"):
+        status["sheet_last_updated"] = prev["sheet_last_updated"]
 
     status_path.write_text(json.dumps(status))
     print(f"status.json written (approved={approved_count}, last_updated={'changed' if last_updated_ms == now_ms else 'unchanged'})")
