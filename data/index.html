@@ -862,13 +862,31 @@
       setTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
 
+    const SUMMARY_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyztmxxkSGidHgZ5tWp6b3X-Te9xhYW6crNX1b9xUkemZD7fF0JGw6PgdccqX1zBIFHV8wXo8hmAy/pub?gid=2127819370&single=true&output=csv';
+
     async function fetchTrackerStatus() {
+      const el = document.getElementById('tracker-status');
+      if (!el) return;
+
+      // Primary: read Summary!H2 straight from the published sheet so edits
+      // show up without waiting on the GitHub sheet-watcher schedule.
+      try {
+        const resp = await fetch(SUMMARY_CSV_URL + '&_cb=' + Date.now());
+        if (resp.ok) {
+          const rows = parseCSV(await resp.text());
+          const val = rows[1] && rows[1][7] ? rows[1][7].trim() : '';
+          if (val) {
+            el.textContent = 'Last updated: ' + val;
+            return;
+          }
+        }
+      } catch (e) { /* fall through to status.json */ }
+
+      // Fallback: status.json written by the GitHub workflows
       try {
         const resp = await fetch('/status.json');
         if (!resp.ok) return;
         const s = await resp.json();
-        const el = document.getElementById('tracker-status');
-        if (!el) return;
         const fmt = ms => new Date(ms).toUTCString().replace(' GMT', ' UTC');
         if (s.sheet_last_updated) {
           el.textContent = 'Last updated: ' + s.sheet_last_updated;
